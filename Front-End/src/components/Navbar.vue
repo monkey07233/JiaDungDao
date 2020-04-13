@@ -25,7 +25,7 @@
       </div>
       <div class="ml-auto">
         <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
+        <li class="nav-item">
         <a class="nav-link" href="#"><i class="fas fa-sign-in-alt"></i> Sing In</a>
         </li>
       </ul>

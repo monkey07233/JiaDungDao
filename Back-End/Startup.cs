@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Back_End.Interface;
+using Back_End.Repositories;
+using Back_End.Services;
 using JiaDungDao.Connection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,6 +37,11 @@ namespace JiaDungDao {
                         .AllowAnyMethod ();
                     });
             });
+
+            #region Restaurant
+            services.AddScoped<IRestaurantService, RestaurantService> ();
+            services.AddScoped<IRestaurantRepo, RestaurantRepo> ();
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

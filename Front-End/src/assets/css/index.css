@@ -1,0 +1,22 @@
+body{
+    background: linear-gradient(99deg, #088896 0%, #DEDEDE 80%);
+    background: -moz-linear-gradient(99deg, #088896 0%, #DEDEDE 80%);
+    background: -webkit-linear-gradient(99deg, #088896 0%, #DEDEDE 80%);
+    background: -o-linear-gradient(99deg, #088896 0%, #DEDEDE 80%);
+}
+.item{
+    margin: 10px 0px;
+}
+.card{
+    border: 0px solid rgba(0, 0, 0, 0.125);
+    border-radius:0.5rem;
+    background-color: rgba(255, 255, 255,0.6);
+    opacity: 0.9;
+}
+.card-body{
+    background-color: #FFF;
+    font-weight: 600;
+}
+.item-text{
+    margin-left: 8px;
+}

@@ -1,23 +1,25 @@
 <template>
   <div id="app">
     <narbar />
-    <router-view/>
+    <div id="content">
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script>
 import "@/assets/css/layout.css";
-import narbar from './components/Navbar.vue'
+import narbar from "./components/Navbar.vue";
 export default {
-  name: 'App',
-  components:{
+  name: "App",
+  components: {
     narbar
   }
-}
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Microsoft JhengHei",sans-serif,monospace;
 }
 </style>

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JiaDungDao.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200413084433_Restaurant")]
+    [Migration("20200413103135_Restaurant")]
     partial class Restaurant
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,8 +27,16 @@ namespace JiaDungDao.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name")
+                    b.Property<string>("r_address")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("r_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("r_tel")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
 
                     b.HasKey("RestaurantID");
 

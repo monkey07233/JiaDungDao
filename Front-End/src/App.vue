@@ -1,28 +1,25 @@
 <template>
   <div id="app">
-    <narbar />
-    <img src="./assets/logo.png">
-    <router-view/>
+    <navbar />
+    <div id="content">
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script>
-import narbar from './components/Navbar.vue'
+import "@/assets/css/layout.css";
+import navbar from "./components/Navbar.vue";
 export default {
-  name: 'App',
-  components:{
-    narbar
+  name: "App",
+  components: {
+    navbar
   }
-}
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  font-family: "Microsoft JhengHei",sans-serif,monospace;
 }
 </style>

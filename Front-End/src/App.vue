@@ -19,7 +19,7 @@ export default {
 </script>
 
 <style>
-#app {
+body {
   font-family: "Microsoft JhengHei",sans-serif,monospace;
 }
 </style>

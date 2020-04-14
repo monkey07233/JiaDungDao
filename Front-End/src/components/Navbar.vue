@@ -33,23 +33,23 @@
       </ul>
     </div>
     <b-modal id="login" ref="login" centered title="Sign In" hide-footer>
-      <b-row class="mb-2 mt-2">
-        <b-col sm="3">
-          <label>帳號:</label>
+      <b-row class="mb-2 mt-2 justify-content-center">
+        <b-col sm="2">
+          <label>帳號：</label>
         </b-col>
-        <b-col sm="9">
+        <b-col sm="6">
           <b-form-input size="sm" placeholder="輸入你的帳號"></b-form-input>
         </b-col>
       </b-row>
-      <b-row class="mb-2 mt-2">
-        <b-col sm="3">
-          <label>密碼:</label>
+      <b-row class="mb-2 mt-2 justify-content-center">
+        <b-col sm="2">
+          <label>密碼：</label>
         </b-col>
-        <b-col sm="9">
+        <b-col sm="6">
           <b-form-input size="sm" placeholder="輸入你的密碼" type="password"></b-form-input>
         </b-col>
       </b-row>
-      <b-row class="mb-2 mt-2 justify-content-center">
+      <b-row class="mb-2 mt-4 justify-content-center">
         <b-button pill size="sm">登入</b-button>
       </b-row>
       <hr />
@@ -60,19 +60,19 @@
     </b-modal>
     <b-modal id="register" ref="register" centered title="Register" hide-footer>
       <b-form @submit.prevent="addMember">
-        <b-row class="mb-2 mt-2">
+        <b-row class="mb-2 mt-2 justify-content-center">
           <b-col sm="3">
-            <label>帳號:</label>
+            <label>帳號：</label>
           </b-col>
-          <b-col sm="9">
+          <b-col sm="6">
             <b-form-input required size="sm" v-model="newMember.m_account" placeholder="輸入你的帳號"></b-form-input>
           </b-col>
         </b-row>
-        <b-row class="mb-2 mt-2">
+        <b-row class="mb-2 mt-2 justify-content-center">
           <b-col sm="3">
-            <label>密碼:</label>
+            <label>密碼：</label>
           </b-col>
-          <b-col sm="9">
+          <b-col sm="6">
             <b-form-input
               required
               size="sm"
@@ -82,11 +82,11 @@
             ></b-form-input>
           </b-col>
         </b-row>
-        <b-row class="mb-2 mt-2">
+        <b-row class="mb-2 mt-2 justify-content-center">
           <b-col sm="3">
-            <label>確認密碼:</label>
+            <label>確認密碼：</label>
           </b-col>
-          <b-col sm="9">
+          <b-col sm="6">
             <b-form-input
               required
               size="sm"
@@ -99,19 +99,19 @@
             <b-form-valid-feedback :state="validation"></b-form-valid-feedback>
           </b-col>
         </b-row>
-        <b-row class="mb-2 mt-2">
+        <b-row class="mb-2 mt-2 justify-content-center">
           <b-col sm="3">
-            <label>姓名:</label>
+            <label>姓名：</label>
           </b-col>
-          <b-col sm="9">
+          <b-col sm="6">
             <b-form-input required size="sm" v-model="newMember.m_name" placeholder="輸入你的姓名"></b-form-input>
           </b-col>
         </b-row>
-        <b-row class="mb-2 mt-2">
+        <b-row class="mb-2 mt-2 justify-content-center">
           <b-col sm="3">
-            <label>生日:</label>
+            <label>生日：</label>
           </b-col>
-          <b-col sm="9">
+          <b-col sm="6">
             <b-form-datepicker
               required
               size="sm"
@@ -120,11 +120,11 @@
             ></b-form-datepicker>
           </b-col>
         </b-row>
-        <b-row class="mb-2 mt-2">
+        <b-row class="mb-2 mt-2 justify-content-center">
           <b-col sm="3">
-            <label>信箱:</label>
+            <label>信箱：</label>
           </b-col>
-          <b-col sm="9">
+          <b-col sm="6">
             <b-form-input
               required
               type="email"
@@ -134,15 +134,15 @@
             ></b-form-input>
           </b-col>
         </b-row>
-        <b-row class="mb-2 mt-2">
+        <b-row class="mb-2 mt-2 justify-content-center">
           <b-col sm="3">
-            <label>地址:</label>
+            <label>地址：</label>
           </b-col>
-          <b-col sm="9">
+          <b-col sm="6">
             <b-form-input required size="sm" v-model="newMember.m_address" placeholder="輸入你的地址"></b-form-input>
           </b-col>
         </b-row>
-        <b-row class="mb-2 mt-2 justify-content-center">
+        <b-row class="mb-2 mt-3 justify-content-center">
           <b-button pill size="sm" type="submit">送出</b-button>
         </b-row>
       </b-form>

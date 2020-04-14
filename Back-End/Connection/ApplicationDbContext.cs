@@ -7,5 +7,6 @@ namespace JiaDungDao.Connection
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         public DbSet<Restaurant> Restaurant { get; set; }
+        public DbSet<Member> Member { get; set; }
     }
 }

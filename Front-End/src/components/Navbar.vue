@@ -26,9 +26,9 @@
     <div class="ml-auto">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <b-button v-b-modal.login>
-            <font-awesome-icon icon="sign-in-alt" />Sign In
-          </b-button>
+          <a class="nav-link" href="#" v-b-modal.login v-b-tooltip.hover title="Sign In">
+            <font-awesome-icon icon="sign-in-alt" />
+          </a>
         </li>
       </ul>
     </div>
@@ -52,8 +52,9 @@
       <b-row class="mb-2 mt-2 justify-content-center">
         <b-button pill size="sm">登入</b-button>
       </b-row>
+      <hr>
       <b-row class="mb-2 mt-2 justify-content-center">
-        <b-link @click="showRegisterModal">去註冊</b-link>
+      還不是會員嗎? | <b-link @click="showRegisterModal"> 註冊</b-link>
       </b-row>
     </b-modal>
     <b-modal id="register" ref="register" centered title="Register" hide-footer>
@@ -62,7 +63,7 @@
           <label>帳號:</label>
         </b-col>
         <b-col sm="9">
-          <b-form-input size="sm" placeholder="輸入你的帳號"></b-form-input>
+          <b-form-input size="sm" v-model="newMember.account" placeholder="輸入你的帳號"></b-form-input>
         </b-col>
       </b-row>
       <b-row class="mb-2 mt-2">
@@ -70,7 +71,7 @@
           <label>密碼:</label>
         </b-col>
         <b-col sm="9">
-          <b-form-input size="sm" placeholder="輸入你的密碼" type="password"></b-form-input>
+          <b-form-input size="sm" v-model="newMember.password" placeholder="輸入你的密碼" type="password"></b-form-input>
         </b-col>
       </b-row>
       <b-row class="mb-2 mt-2">
@@ -86,7 +87,7 @@
           <label>姓名:</label>
         </b-col>
         <b-col sm="9">
-          <b-form-input size="sm" placeholder="輸入你的姓名"></b-form-input>
+          <b-form-input size="sm" v-model="newMember.name" placeholder="輸入你的姓名"></b-form-input>
         </b-col>
       </b-row>
       <b-row class="mb-2 mt-2">
@@ -94,7 +95,7 @@
           <label>生日:</label>
         </b-col>
         <b-col sm="9">
-          <b-form-input size="sm" placeholder="輸入你的生日"></b-form-input>
+          <b-form-datepicker size="sm" v-model="newMember.birthday" placeholder="輸入你的生日"></b-form-datepicker>
         </b-col>
       </b-row>
       <b-row class="mb-2 mt-2">
@@ -102,7 +103,7 @@
           <label>信箱:</label>
         </b-col>
         <b-col sm="9">
-          <b-form-input size="sm" placeholder="輸入你的信箱"></b-form-input>
+          <b-form-input size="sm" v-model="newMember.email" placeholder="輸入你的信箱"></b-form-input>
         </b-col>
       </b-row>
       <b-row class="mb-2 mt-2">
@@ -110,11 +111,11 @@
           <label>地址:</label>
         </b-col>
         <b-col sm="9">
-          <b-form-input size="sm" placeholder="輸入你的地址"></b-form-input>
+          <b-form-input size="sm" v-model="newMember.address" placeholder="輸入你的地址"></b-form-input>
         </b-col>
       </b-row>
       <b-row class="mb-2 mt-2 justify-content-center">
-        <b-button pill size="sm">送出</b-button>
+        <b-button pill size="sm" @click="showMember">送出</b-button>
       </b-row>
       <b-row class="mb-2 mt-2 justify-content-center">
         <b-link @click="showLoginModal">去登入</b-link>
@@ -125,6 +126,18 @@
 
 <script>
 export default {
+  data(){
+    return{
+      newMember:{
+        name:'',
+        account:'',
+        password:'',
+        birthday:'',
+        email:'',
+        address:''
+      }
+    }
+  },
   methods: {
     showRegisterModal() {
       this.$refs["login"].hide();
@@ -133,6 +146,9 @@ export default {
     showLoginModal() {
       this.$refs["register"].hide();
       this.$refs["login"].show();
+    },
+    showMember(){
+      this.$store.dispatch('memberRegistrationInformation', this.newMember);
     }
   }
 };

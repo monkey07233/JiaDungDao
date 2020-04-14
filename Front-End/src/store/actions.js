@@ -11,3 +11,14 @@ export const getRestaurantList = ({ commit }) => {
       console.log(err);
     });
 };
+
+export const memberRegistrationInformation = ({commit},newMember) => {
+  axios
+  .post("", newMember)
+  .then(function(res) {
+      console.log(res);
+  })
+    .catch(function (err) {
+      console.log(err);
+    });
+};

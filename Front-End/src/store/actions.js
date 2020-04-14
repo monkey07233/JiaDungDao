@@ -12,18 +12,16 @@ export const getRestaurantList = ({ commit }) => {
     });
 };
 
-export const memberRegistrationInformation = ({commit},newMember) => {
-  axios
-  .post("https://localhost:5001/api/Member/Register", newMember)
-  .then(function(res) {
-      if(res.data == 'successed'){
-        alert(res.data);
-      }
-      if(res.data == '帳號已存在'){
-        alert(res.data);
-      }
-  })
-    .catch(function (err) {
-      console.log(err);
-    });
+export const register = ({ commit }, newMember) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post("https://localhost:5001/api/Member/Register", newMember)
+      .then(function(res) {
+        resolve(res.data);
+      })
+      .catch(function(err) {
+        console.log(err);
+        reject();
+      });
+  });
 };

@@ -14,7 +14,7 @@ export const getRestaurantList = ({ commit }) => {
 
 export const memberRegistrationInformation = ({commit},newMember) => {
   axios
-  .post("", newMember)
+  .post("https://localhost:5001/api/Member/Register", newMember)
   .then(function(res) {
       console.log(res);
   })

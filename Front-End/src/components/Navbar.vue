@@ -63,7 +63,7 @@
           <label>帳號:</label>
         </b-col>
         <b-col sm="9">
-          <b-form-input size="sm" v-model="newMember.account" placeholder="輸入你的帳號"></b-form-input>
+          <b-form-input size="sm" v-model="newMember.m_account" placeholder="輸入你的帳號"></b-form-input>
         </b-col>
       </b-row>
       <b-row class="mb-2 mt-2">
@@ -71,7 +71,7 @@
           <label>密碼:</label>
         </b-col>
         <b-col sm="9">
-          <b-form-input size="sm" v-model="newMember.password" placeholder="輸入你的密碼" type="password"></b-form-input>
+          <b-form-input size="sm" v-model="newMember.m_password" placeholder="輸入你的密碼" type="password"></b-form-input>
         </b-col>
       </b-row>
       <b-row class="mb-2 mt-2">
@@ -87,7 +87,7 @@
           <label>姓名:</label>
         </b-col>
         <b-col sm="9">
-          <b-form-input size="sm" v-model="newMember.name" placeholder="輸入你的姓名"></b-form-input>
+          <b-form-input size="sm" v-model="newMember.m_name" placeholder="輸入你的姓名"></b-form-input>
         </b-col>
       </b-row>
       <b-row class="mb-2 mt-2">
@@ -95,7 +95,7 @@
           <label>生日:</label>
         </b-col>
         <b-col sm="9">
-          <b-form-datepicker size="sm" v-model="newMember.birthday" placeholder="輸入你的生日"></b-form-datepicker>
+          <b-form-datepicker size="sm" v-model="newMember.m_birthday" placeholder="輸入你的生日"></b-form-datepicker>
         </b-col>
       </b-row>
       <b-row class="mb-2 mt-2">
@@ -103,7 +103,7 @@
           <label>信箱:</label>
         </b-col>
         <b-col sm="9">
-          <b-form-input size="sm" v-model="newMember.email" placeholder="輸入你的信箱"></b-form-input>
+          <b-form-input size="sm" v-model="newMember.m_email" placeholder="輸入你的信箱"></b-form-input>
         </b-col>
       </b-row>
       <b-row class="mb-2 mt-2">
@@ -111,7 +111,7 @@
           <label>地址:</label>
         </b-col>
         <b-col sm="9">
-          <b-form-input size="sm" v-model="newMember.address" placeholder="輸入你的地址"></b-form-input>
+          <b-form-input size="sm" v-model="newMember.m_address" placeholder="輸入你的地址"></b-form-input>
         </b-col>
       </b-row>
       <b-row class="mb-2 mt-2 justify-content-center">
@@ -129,12 +129,12 @@ export default {
   data(){
     return{
       newMember:{
-        name:'',
-        account:'',
-        password:'',
-        birthday:'',
-        email:'',
-        address:''
+        m_name:'',
+        m_account:'',
+        m_password:'',
+        m_birthday:'',
+        m_email:'',
+        m_address:''
       }
     }
   },

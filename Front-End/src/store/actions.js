@@ -16,7 +16,12 @@ export const memberRegistrationInformation = ({commit},newMember) => {
   axios
   .post("https://localhost:5001/api/Member/Register", newMember)
   .then(function(res) {
-      console.log(res);
+      if(res.data == 'successed'){
+        alert(res.data);
+      }
+      if(res.data == '帳號已存在'){
+        alert(res.data);
+      }
   })
     .catch(function (err) {
       console.log(err);

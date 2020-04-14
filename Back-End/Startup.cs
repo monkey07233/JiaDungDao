@@ -28,13 +28,13 @@ namespace JiaDungDao {
         public void ConfigureServices (IServiceCollection services) {
             services.AddDbContext<ApplicationDbContext> (options => options.UseSqlServer (Configuration.GetConnectionString ("DefaultConnection")));
             services.AddControllers ();
-            
+
             services.AddCors (options => {
                 options.AddPolicy ("CorsPolicy",
                     builder => {
                         builder.AllowAnyOrigin ()
-                        .AllowAnyHeader ()
-                        .AllowAnyMethod ();
+                            .AllowAnyHeader ()
+                            .AllowAnyMethod ();
                     });
             });
 
@@ -42,6 +42,11 @@ namespace JiaDungDao {
             services.AddScoped<IRestaurantService, RestaurantService> ();
             services.AddScoped<IRestaurantRepo, RestaurantRepo> ();
             #endregion
+            #region Member
+            services.AddScoped<IMemberService, MemberService> ();
+            services.AddScoped<IMemberRepo, MemberRepo> ();
+            #endregion
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -20,9 +20,18 @@ body{
 .item-text{
     margin-left: 8px;
 }
-.modal-header {
-    display: flex;
+#login___BV_modal_header_ {      
     justify-content: center;
+}
+#register___BV_modal_header_ {      
+    justify-content: center;
+}
+.modal-header h5{
+    font-weight: 600;
+    font-size: 26px;
+}
+.modal-content{
+    font-weight: 600;
 }
 .modal-header .close {
     display:none;

@@ -26,9 +26,33 @@
     <div class="ml-auto">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <button>
-            <font-awesome-icon icon="sign-in-alt" />Sign In 
-          </button>
+          <b-button v-b-modal.login>
+            <font-awesome-icon icon="sign-in-alt" />Sign In
+          </b-button>
+          <b-modal id="login" centered title="Sign in" hide-footer>
+            <b-row class="mb-2 mt-2">
+              <b-col sm="2">
+                <label>帳號:</label>
+              </b-col>
+              <b-col sm="10">
+                <b-form-input size="sm" placeholder="輸入你的帳號"></b-form-input>
+              </b-col>
+            </b-row>
+            <b-row class="mb-2 mt-2">
+              <b-col sm="2">
+                <label>密碼:</label>
+              </b-col>
+              <b-col sm="10">
+                <b-form-input size="sm" placeholder="輸入你的密碼" type="password"></b-form-input>
+              </b-col>
+            </b-row>
+            <b-row class="mb-2 mt-2 justify-content-center">
+              <b-button pill size="sm">登入</b-button>
+            </b-row>
+            <b-row class="mb-2 mt-2 justify-content-center">
+              <b-link href="#">去註冊</b-link>
+            </b-row>
+          </b-modal>
         </li>
       </ul>
     </div>

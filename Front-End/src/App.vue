@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <narbar />
+    <navbar />
     <div id="content">
       <router-view />
     </div>
@@ -9,11 +9,11 @@
 
 <script>
 import "@/assets/css/layout.css";
-import narbar from "./components/Navbar.vue";
+import navbar from "./components/Navbar.vue";
 export default {
   name: "App",
   components: {
-    narbar
+    navbar
   }
 };
 </script>

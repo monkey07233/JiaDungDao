@@ -22,18 +22,19 @@
           </a>
         </li>
       </ul>
-      </div>
-      <div class="ml-auto">
-        <ul class="navbar-nav ml-auto">
+    </div>
+    <div class="ml-auto">
+      <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-        <a class="nav-link" href="#"><i class="fas fa-sign-in-alt"></i> Sing In</a>
+          <button>
+            <font-awesome-icon icon="sign-in-alt" />Sign In 
+          </button>
         </li>
       </ul>
-      </div>
-    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+    </div>
   </nav>
 </template>
 
 <script>
 export default {};
-</script>>
+</script>

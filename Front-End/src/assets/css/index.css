@@ -20,3 +20,10 @@ body{
 .item-text{
     margin-left: 8px;
 }
+.modal-header {
+    display: flex;
+    justify-content: center;
+}
+.modal-header .close {
+    display:none;
+  }

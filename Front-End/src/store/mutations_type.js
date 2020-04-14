@@ -1,0 +1,1 @@
+export const GET_RESLIST = 'GET_RESLIST';

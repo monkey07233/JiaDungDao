@@ -15,7 +15,7 @@ namespace Back_End.Controllers
             this.RestaurantService = restaurantService;
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult GetAllRestaurant(){
             var result = RestaurantService.GetAllRestaurant();
             if (result != null)

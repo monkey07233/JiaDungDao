@@ -26,7 +26,7 @@
     <div class="ml-auto">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#" v-b-modal.login v-b-tooltip.hover title="Sign In">
+          <a class="nav-link" v-b-modal.login v-b-tooltip.hover title="Sign In">
             <font-awesome-icon icon="user" />
           </a>
         </li>
@@ -59,7 +59,7 @@
       </b-row>
     </b-modal>
     <b-modal id="register" ref="register" centered title="Register" hide-footer>
-      <b-form @submit="addMember">
+      <b-form @submit.prevent="addMember">
         <b-row class="mb-2 mt-2">
           <b-col sm="3">
             <label>帳號:</label>
@@ -184,13 +184,19 @@ export default {
       this.$refs["login"].show();
     },
     addMember() {
-      //this.$store.dispatch("memberRegistrationInformation", this.newMember);
-      this.$bvToast.toast(`Toast body content`, {
-          title: `Toaster`,
-          toaster: b-toaster-bottom-right,
-          solid: true,
-          appendToast: false
-        })
+      this.$store.dispatch("register", this.newMember).then(res => {
+        alert(res);
+        if (res == "successed") {
+          this.newMember.m_name = "";
+          this.newMember.m_account = "";
+          this.newMember.m_password = "";
+          this.newMember.m_birthday = "";
+          this.newMember.m_email = "";
+          this.newMember.m_address = "";
+          this.confirmPassword = "";
+          this.showLoginModal();
+        }
+      });
     }
   }
 };

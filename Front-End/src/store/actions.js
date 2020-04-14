@@ -17,10 +17,10 @@ export const memberRegistrationInformation = ({commit},newMember) => {
   .post("https://localhost:5001/api/Member/Register", newMember)
   .then(function(res) {
       if(res.data == 'successed'){
-        alert(res.data);
+        commit(types.REGISTER_MESSAGE, res.data);
       }
       if(res.data == '帳號已存在'){
-        alert(res.data);
+        commit(types.REGISTER_MESSAGE, res.data);
       }
   })
     .catch(function (err) {

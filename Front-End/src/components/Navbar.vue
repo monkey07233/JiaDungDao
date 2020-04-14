@@ -22,18 +22,118 @@
           </a>
         </li>
       </ul>
-      </div>
-      <div class="ml-auto">
-        <ul class="navbar-nav ml-auto">
+    </div>
+    <div class="ml-auto">
+      <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-        <a class="nav-link" href="#"><i class="fas fa-sign-in-alt"></i> Sing In</a>
+          <b-button v-b-modal.login>
+            <font-awesome-icon icon="sign-in-alt" />Sign In
+          </b-button>
         </li>
       </ul>
-      </div>
-    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+    </div>
+    <b-modal id="login" ref="login" centered title="Sign In" hide-footer>
+      <b-row class="mb-2 mt-2">
+        <b-col sm="3">
+          <label>帳號:</label>
+        </b-col>
+        <b-col sm="9">
+          <b-form-input size="sm" placeholder="輸入你的帳號"></b-form-input>
+        </b-col>
+      </b-row>
+      <b-row class="mb-2 mt-2">
+        <b-col sm="3">
+          <label>密碼:</label>
+        </b-col>
+        <b-col sm="9">
+          <b-form-input size="sm" placeholder="輸入你的密碼" type="password"></b-form-input>
+        </b-col>
+      </b-row>
+      <b-row class="mb-2 mt-2 justify-content-center">
+        <b-button pill size="sm">登入</b-button>
+      </b-row>
+      <b-row class="mb-2 mt-2 justify-content-center">
+        <b-link @click="showRegisterModal">去註冊</b-link>
+      </b-row>
+    </b-modal>
+    <b-modal id="register" ref="register" centered title="Register" hide-footer>
+      <b-row class="mb-2 mt-2">
+        <b-col sm="3">
+          <label>帳號:</label>
+        </b-col>
+        <b-col sm="9">
+          <b-form-input size="sm" placeholder="輸入你的帳號"></b-form-input>
+        </b-col>
+      </b-row>
+      <b-row class="mb-2 mt-2">
+        <b-col sm="3">
+          <label>密碼:</label>
+        </b-col>
+        <b-col sm="9">
+          <b-form-input size="sm" placeholder="輸入你的密碼" type="password"></b-form-input>
+        </b-col>
+      </b-row>
+      <b-row class="mb-2 mt-2">
+        <b-col sm="3">
+          <label>確認密碼:</label>
+        </b-col>
+        <b-col sm="9">
+          <b-form-input size="sm" placeholder="確認你輸入的密碼" type="password"></b-form-input>
+        </b-col>
+      </b-row>
+      <b-row class="mb-2 mt-2">
+        <b-col sm="3">
+          <label>姓名:</label>
+        </b-col>
+        <b-col sm="9">
+          <b-form-input size="sm" placeholder="輸入你的姓名"></b-form-input>
+        </b-col>
+      </b-row>
+      <b-row class="mb-2 mt-2">
+        <b-col sm="3">
+          <label>生日:</label>
+        </b-col>
+        <b-col sm="9">
+          <b-form-input size="sm" placeholder="輸入你的生日"></b-form-input>
+        </b-col>
+      </b-row>
+      <b-row class="mb-2 mt-2">
+        <b-col sm="3">
+          <label>信箱:</label>
+        </b-col>
+        <b-col sm="9">
+          <b-form-input size="sm" placeholder="輸入你的信箱"></b-form-input>
+        </b-col>
+      </b-row>
+      <b-row class="mb-2 mt-2">
+        <b-col sm="3">
+          <label>地址:</label>
+        </b-col>
+        <b-col sm="9">
+          <b-form-input size="sm" placeholder="輸入你的地址"></b-form-input>
+        </b-col>
+      </b-row>
+      <b-row class="mb-2 mt-2 justify-content-center">
+        <b-button pill size="sm">送出</b-button>
+      </b-row>
+      <b-row class="mb-2 mt-2 justify-content-center">
+        <b-link @click="showLoginModal">去登入</b-link>
+      </b-row>
+    </b-modal>
   </nav>
 </template>
 
 <script>
-export default {};
-</script>>
+export default {
+  methods: {
+    showRegisterModal() {
+      this.$refs["login"].hide();
+      this.$refs["register"].show();
+    },
+    showLoginModal() {
+      this.$refs["register"].hide();
+      this.$refs["login"].show();
+    }
+  }
+};
+</script>

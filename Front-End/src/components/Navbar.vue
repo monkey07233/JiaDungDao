@@ -184,8 +184,13 @@ export default {
       this.$refs["login"].show();
     },
     addMember() {
-      this.$store.dispatch("memberRegistrationInformation", this.newMember);
-      //this.confirmPassword = "";
+      //this.$store.dispatch("memberRegistrationInformation", this.newMember);
+      this.$bvToast.toast(`Toast body content`, {
+          title: `Toaster`,
+          toaster: b-toaster-bottom-right,
+          solid: true,
+          appendToast: false
+        })
     }
   }
 };

@@ -155,7 +155,6 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -171,9 +170,6 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({
-      registrationResult : 'getRegisterMsg'
-    }),
     validation() {
       return this.confirmPassword == this.newMember.m_password;
     }
@@ -189,7 +185,13 @@ export default {
     },
     addMember() {
       this.$store.dispatch("register", this.newMember).then(res => {
-        alert(res);
+        this.$bvToast.toast(res, {
+          title: `Registration`,
+          toaster: "b-toaster-bottom-right",
+          solid: true,
+          autoHideDelay: 1000,
+          appendToast: true
+        });
         if (res == "successed") {
           this.newMember.m_name = "";
           this.newMember.m_account = "";

@@ -17,7 +17,7 @@ namespace Back_End.Controllers {
             if (result == "successed") {
                 return Ok (result);
             } else {
-                return BadRequest ("error");
+                return BadRequest (result);
             }
         }
 

@@ -38,7 +38,8 @@ namespace Back_End.Controllers {
             return BadRequest ("找不到會員");
         }
 
-        [HttpPost]
+        [HttpGet]
+        [Authorize]
         public IActionResult GetMemberInformation (int MemberId) {
             var result = MemberService.GetMemberInformation (MemberId);
             if (result != null) {

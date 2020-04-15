@@ -58,6 +58,7 @@
         <b-link @click="showRegisterModal">註冊</b-link>
       </b-row>
     </b-modal>
+
     <b-modal id="register" ref="register" centered title="Register" hide-footer>
       <b-form @submit.prevent="addMember">
         <b-row class="mb-2 mt-2 justify-content-center">
@@ -187,10 +188,10 @@ export default {
       this.$store.dispatch("register", this.newMember).then(res => {
         this.$bvToast.toast(res, {
           title: `Registration`,
-          toaster: "b-toaster-bottom-right",
+          toaster: 'b-toaster-top-center',
           solid: true,
           autoHideDelay: 1000,
-          appendToast: true
+          appendToast: false
         });
         if (res == "successed") {
           this.newMember.m_name = "";

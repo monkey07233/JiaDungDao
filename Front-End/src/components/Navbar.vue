@@ -1,37 +1,26 @@
 <template>
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">JiaDungDao</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            Home
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div class="ml-auto">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" v-b-modal.login v-b-tooltip.hover title="Sign In">
+  <div>
+    <b-navbar toggleable="lg" type="dark" variant="dark">
+      <b-navbar-brand href="#">JiaDungDao</b-navbar-brand>
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav class="ml-auto">
+          <!-- 登入前 -->
+          <b-nav-item v-b-modal.login v-b-tooltip.hover title="Sign In">
             <font-awesome-icon icon="user" />
-          </a>
-        </li>
-      </ul>
-    </div>
+          </b-nav-item>
+          <!-- 登入後 -->
+          <b-nav-item-dropdown right>
+            <template v-slot:button-content>
+              <img class="profile-img" src="../assets/images/user.png" />
+              <span>Tiffany Lin</span>
+            </template>
+            <b-dropdown-item href="#">會員管理</b-dropdown-item>
+            <b-dropdown-item href="#">登出</b-dropdown-item>
+          </b-nav-item-dropdown>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
     <b-modal id="login" ref="login" centered title="Sign In" hide-footer>
       <b-row class="mb-2 mt-2 justify-content-center">
         <b-col sm="2">
@@ -152,7 +141,7 @@
         <b-link @click="showLoginModal">回到登入頁面</b-link>
       </b-row>
     </b-modal>
-  </nav>
+  </div>
 </template>
 
 <script>

@@ -21,6 +21,15 @@ namespace Back_End.Controllers {
             }
         }
 
-        []
+        [HttpPost]
+        public IActionResult Login ([Bind("m_account,m_password")]Member member){
+            var result = MemberService.GetMemberByLogin(member);
+            if (result != null)
+            {
+                Ok(result);
+            }else{
+                return BadRequest("找不到會員");
+            }
+        }
     }
 }

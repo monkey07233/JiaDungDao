@@ -5,5 +5,6 @@ namespace Back_End.Interface
     public interface IMemberRepo
     {
          string Register(Member member);
+         Member GetMemberByLogin(Member member);
     }
 }

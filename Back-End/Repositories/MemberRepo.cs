@@ -11,6 +11,16 @@ namespace Back_End.Repositories {
             this.db = dbContext;
         }
 
+        public Member GetMemberByLogin(Member member)
+        {
+            var result = db.Member.Where(m => m.m_account == member.m_account && m.m_password == member.m_password).FirstOrDefault();
+            if (result != null)
+            {
+                return result;
+            }
+            return null;
+        }
+
         public string Register (Member member) {
             string result = "";
             var m = db.Member.Where (m => m.m_account == member.m_account).FirstOrDefault ();

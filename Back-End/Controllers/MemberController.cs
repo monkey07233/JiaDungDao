@@ -17,7 +17,6 @@ namespace Back_End.Controllers {
         }
 
         [HttpPost]
-        [Authorize]
         public IActionResult Register (Member member) {
             var result = MemberService.Register (member);
             if (result == "successed" || result == "帳號已存在") {

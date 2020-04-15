@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Back_End.Interface;
 using Back_End.Repositories;
 using Back_End.Services;
 using JiaDungDao.Connection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -14,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Logging;
 
 namespace JiaDungDao {
@@ -38,6 +41,20 @@ namespace JiaDungDao {
                     });
             });
 
+            var tokenParams = new TokenValidationParameters () {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidIssuer = Configuration["JWT:issuer"],
+                ValidAudience = Configuration["JWT:audience"],
+                IssuerSigningKey = new SymmetricSecurityKey (Encoding.UTF8
+                .GetBytes (Configuration["JWT:key"]))
+            };
+            services.AddAuthentication (JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer (jwtconfig => {
+                    jwtconfig.TokenValidationParameters = tokenParams;
+                });
+
             #region Restaurant
             services.AddScoped<IRestaurantService, RestaurantService> ();
             services.AddScoped<IRestaurantRepo, RestaurantRepo> ();
@@ -56,11 +73,13 @@ namespace JiaDungDao {
                 app.UseDeveloperExceptionPage ();
             }
 
+            
+
             app.UseHttpsRedirection ();
 
             app.UseRouting ();
-
-            app.UseAuthorization ();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints (endpoints => {
                 endpoints.MapControllerRoute (

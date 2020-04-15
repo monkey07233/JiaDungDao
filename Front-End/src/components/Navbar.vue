@@ -15,7 +15,7 @@
               <img class="profile-img" src="../assets/images/user.png" />
               <span>Tiffany Lin</span>
             </template>
-            <b-dropdown-item href="#">會員管理</b-dropdown-item>
+            <b-dropdown-item><router-link style="text-decoration:none;" to="/Profile">會員管理</router-link></b-dropdown-item>
             <b-dropdown-item href="#">登出</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>

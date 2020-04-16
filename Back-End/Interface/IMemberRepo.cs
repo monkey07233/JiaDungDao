@@ -8,6 +8,6 @@ namespace Back_End.Interface
          string Register(Member member);
          Task<Member> GetMemberByLogin(string m_account,string hash_m_password);
          Member isAccountExist(string m_account);
-         Member GetMemberInformation(int MemberId);
+         Member GetMemberInformation(string account);
     }
 }

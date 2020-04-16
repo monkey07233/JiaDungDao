@@ -46,5 +46,20 @@ namespace Back_End.Repositories {
                 return null;
             }
         }
+
+        public string EditMemberInformation (Member originMember, Member memberAfterEdit) {
+            string result = string.Empty;
+            try {
+                originMember.m_name = memberAfterEdit.m_name;
+                originMember.m_address = memberAfterEdit.m_address;
+                originMember.m_birthday = memberAfterEdit.m_birthday;
+                originMember.m_email = memberAfterEdit.m_email;
+                db.SaveChanges();
+                result = "successed";
+            } catch (Exception e) {
+                result = e.Message.ToString ();
+            }
+            return result;
+        }
     }
 }

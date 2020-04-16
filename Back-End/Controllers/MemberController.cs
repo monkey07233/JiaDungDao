@@ -28,7 +28,7 @@ namespace Back_End.Controllers {
 
         [HttpPost]
         public async Task<IActionResult> Login (LoginMemberInfo memberInfo) {
-            var result = await MemberService.GetMemberByLogin (memberInfo.m_account,memberInfo.m_password);
+            var result = await MemberService.GetMemberByLogin (memberInfo.m_account, memberInfo.m_password);
             if (result != null) {
                 result.m_account = "秘密";
                 result.m_password = "才不告訴逆嘞";
@@ -36,6 +36,17 @@ namespace Back_End.Controllers {
                 return Ok (new { userData = result, token = token });
             }
             return BadRequest ("找不到會員");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetMemberInformation (int MemberId) {
+            var result = MemberService.GetMemberInformation (MemberId);
+            if (result != null) {
+                return Ok (result);
+            } else {
+                return BadRequest ("找不到會員");
+            }
         }
     }
 }

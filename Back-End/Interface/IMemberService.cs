@@ -11,5 +11,6 @@ namespace Back_End.Interface
 
          string HashPassword(string password);
          string GetJwtToken (IConfiguration configuration, string MemberId, string m_account);
+         Member GetMemberInformation(int MemberId);
     }
 }

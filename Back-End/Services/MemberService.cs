@@ -69,5 +69,14 @@ namespace Back_End.Services {
                 return null;
             }
         }
+
+        public string EditMemberInformation (Member memberAfterEdit) {
+            var originMember = MemberRepo.isAccountExist (memberAfterEdit.m_account);
+            if(originMember != null){
+                var result = MemberRepo.EditMemberInformation(originMember, memberAfterEdit);
+                return result;
+            }
+            return "查無此會員";
+        }
     }
 }

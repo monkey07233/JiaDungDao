@@ -48,5 +48,16 @@ namespace Back_End.Controllers {
                 return BadRequest ("找不到會員");
             }
         }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult EditMemberInformation (Member memberAfterEdit) {
+            var result = MemberService.EditMemberInformation (memberAfterEdit);
+            if (result == "successed" || result == "查無此會員") {
+                return Ok (result);
+            } else {
+                return BadRequest (result);
+            }
+        }
     }
 }

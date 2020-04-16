@@ -6,41 +6,50 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
           <!-- 登入前 -->
-          <b-nav-item v-b-modal.login v-b-tooltip.hover title="Sign In">
+          <b-nav-item v-b-modal.login v-b-tooltip.hover title="Sign In" v-if="token===''">
             <font-awesome-icon icon="user" />
           </b-nav-item>
           <!-- 登入後 -->
-          <b-nav-item-dropdown right>
+          <b-nav-item-dropdown right v-if="token!==''">
             <template v-slot:button-content>
               <img class="profile-img" src="../assets/images/user.png" />
               <span>Tiffany Lin</span>
             </template>
-            <b-dropdown-item><router-link style="text-decoration:none;" to="/Profile">會員管理</router-link></b-dropdown-item>
-            <b-dropdown-item href="#">登出</b-dropdown-item>
+            <b-dropdown-item>
+              <router-link style="text-decoration:none;" to="/Profile">會員管理</router-link>
+            </b-dropdown-item>
+            <b-dropdown-item @click.prevent="logout">登出</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
     <b-modal id="login" ref="login" centered title="Sign In" hide-footer>
-      <b-row class="mb-2 mt-2 justify-content-center">
-        <b-col sm="2">
-          <label>帳號：</label>
-        </b-col>
-        <b-col sm="6">
-          <b-form-input size="sm" placeholder="輸入你的帳號"></b-form-input>
-        </b-col>
-      </b-row>
-      <b-row class="mb-2 mt-2 justify-content-center">
-        <b-col sm="2">
-          <label>密碼：</label>
-        </b-col>
-        <b-col sm="6">
-          <b-form-input size="sm" placeholder="輸入你的密碼" type="password"></b-form-input>
-        </b-col>
-      </b-row>
-      <b-row class="mb-2 mt-4 justify-content-center">
-        <b-button pill size="sm">登入</b-button>
-      </b-row>
+      <b-form @submit.prevent="login">
+        <b-row class="mb-2 mt-2 justify-content-center">
+          <b-col sm="2">
+            <label>帳號：</label>
+          </b-col>
+          <b-col sm="6">
+            <b-form-input size="sm" placeholder="輸入你的帳號" v-model="loginInfo.m_account"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row class="mb-2 mt-2 justify-content-center">
+          <b-col sm="2">
+            <label>密碼：</label>
+          </b-col>
+          <b-col sm="6">
+            <b-form-input
+              size="sm"
+              placeholder="輸入你的密碼"
+              type="password"
+              v-model="loginInfo.m_password"
+            ></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row class="mb-2 mt-4 justify-content-center">
+          <b-button pill size="sm" type="submit">登入</b-button>
+        </b-row>
+      </b-form>
       <hr />
       <b-row class="mb-2 mt-2 justify-content-center">
         還不是會員嗎？
@@ -145,6 +154,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -156,13 +166,20 @@ export default {
         m_email: "",
         m_address: ""
       },
-      confirmPassword: ""
+      confirmPassword: "",
+      loginInfo: {
+        m_account: "",
+        m_password: ""
+      }
     };
   },
   computed: {
     validation() {
       return this.confirmPassword == this.newMember.m_password;
-    }
+    },
+    ...mapGetters({
+      token: "getToken"
+    })
   },
   methods: {
     showRegisterModal() {
@@ -177,7 +194,7 @@ export default {
       this.$store.dispatch("register", this.newMember).then(res => {
         this.$bvToast.toast(res, {
           title: `Registration`,
-          toaster: 'b-toaster-top-center',
+          toaster: "b-toaster-top-center",
           solid: true,
           autoHideDelay: 1000,
           appendToast: false
@@ -193,6 +210,46 @@ export default {
           this.showLoginModal();
         }
       });
+    },
+    login() {
+      if (this.token === "") {
+        this.$store
+          .dispatch("login", this.loginInfo)
+          .then(res => {
+            localStorage.setItem("tokenInfo",JSON.stringify(res));
+            this.$bvToast.toast("登入成功", {
+              title: `Login Success`,
+              toaster: "b-toaster-top-center",
+              solid: true,
+              autoHideDelay: 1000,
+              appendToast: false
+            });
+            this.$refs["login"].hide();
+          })
+          .catch(err => {
+            if (err.response.status == 400) {
+              this.$bvToast.toast(err.response.data, {
+                title: `Login Fail`,
+                toaster: "b-toaster-top-center",
+                solid: true,
+                autoHideDelay: 1000,
+                appendToast: false
+              });
+            }
+          });
+      }
+    },
+    logout() {
+      this.$store.dispatch("logout");
+      localStorage.removeItem("tokenInfo");
+      this.$bvToast.toast("登出成功", {
+        title: `Logout`,
+        toaster: "b-toaster-top-center",
+        solid: true,
+        autoHideDelay: 1000,
+        appendToast: false
+      });
+      this.$router.push("/");
     }
   }
 };

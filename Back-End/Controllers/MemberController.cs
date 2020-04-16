@@ -30,12 +30,10 @@ namespace Back_End.Controllers {
         public async Task<IActionResult> Login (LoginMemberInfo memberInfo) {
             var result = await MemberService.GetMemberByLogin (memberInfo.m_account, memberInfo.m_password);
             if (result != null) {
-                result.m_account = "秘密";
-                result.m_password = "才不告訴逆嘞";
                 var token = MemberService.GetJwtToken (Configuration, result.MemberId.ToString (), result.m_account);
-                return Ok (new { userData = result, token = token });
+                return Ok (new { account = result.m_account, token = token });
             }
-            return BadRequest ("找不到會員");
+            return BadRequest ("帳號或密碼錯誤");
         }
 
         [HttpPost]

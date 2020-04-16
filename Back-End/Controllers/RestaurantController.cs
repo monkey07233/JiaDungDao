@@ -17,7 +17,6 @@ namespace Back_End.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public IActionResult GetAllRestaurant(){
             var result = RestaurantService.GetAllRestaurant();
             if (result != null)

@@ -5,7 +5,7 @@
         <b-card>
           <template v-if="!isShow">
             <b-card-body>
-              <b-button @click="toggle">返回</b-button>
+              <b-button @click="toggle"><font-awesome-icon icon="undo-alt"/>&nbsp返回</b-button>
             </b-card-body>
           </template>
 
@@ -15,14 +15,20 @@
               <b-card-title>Tiffany</b-card-title>
             </b-card-body>
             <b-list-group flush>
-              <b-list-group-item>生日: 87/08/07</b-list-group-item>
+              <b-list-group-item>
+                <font-awesome-icon icon="birthday-cake" />&nbsp生日: 87/08/07
+              </b-list-group-item>
 
-              <b-list-group-item>E-mail: tiffany@example.com</b-list-group-item>
+              <b-list-group-item>
+                <font-awesome-icon icon="envelope" />&nbspE-mail: tiffany@example.com
+              </b-list-group-item>
 
-              <b-list-group-item>住址: 鬼之王冠路77弄386巷666號</b-list-group-item>
+              <b-list-group-item>
+                <font-awesome-icon icon="home" />&nbsp住址: 鬼之王冠路77弄386巷666號
+              </b-list-group-item>
             </b-list-group>
             <b-card-body>
-              <b-button @click="toggle">編輯</b-button>
+              <b-button @click="toggle"><font-awesome-icon icon="pencil-alt" /></b-button>
             </b-card-body>
           </template>
           <template v-else>
@@ -38,13 +44,18 @@
                     ></b-form-input>
                   </b-form-group>
 
-                  <b-form-group
-                    id="input-group-2"
-                    label="E-mail:"
-                    label-for="input-2"
-                  >
-                    <b-form-input
+                  <b-form-group id="input-group-2" label="生日:" label-for="input-2">
+                    <b-form-datepicker
                       id="input-2"
+                      v-model="form.name"
+                      required
+                      placeholder="Enter birthday"
+                    ></b-form-datepicker>
+                  </b-form-group>
+
+                  <b-form-group id="input-group-3" label="E-mail:" label-for="input-3">
+                    <b-form-input
+                      id="input-3"
                       v-model="form.email"
                       type="email"
                       required
@@ -52,17 +63,18 @@
                     ></b-form-input>
                   </b-form-group>
 
-                  <b-form-group id="input-group-3" label="住址:" label-for="input-3">
+                  <b-form-group id="input-group-4" label="住址:" label-for="input-4">
                     <b-form-input
-                      id="input-3"
+                      id="input-4"
                       v-model="form.address"
                       required
                       placeholder="Enter address"
                     ></b-form-input>
                   </b-form-group>
-
-                  <b-button type="submit" variant="primary">Save</b-button>
+                  <div class="row justify-content-md-center">
+                  <b-button class="mr-2" type="submit" variant="primary">Save</b-button>
                   <b-button type="reset" variant="danger">Reset</b-button>
+                  </div>
                 </b-card-body>
               </b-form>
             </div>

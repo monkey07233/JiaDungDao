@@ -61,8 +61,8 @@ namespace Back_End.Services {
             return MemberRepo.Register (member);
         }
 
-        public Member GetMemberInformation (int MemberId) {
-            var result = MemberRepo.GetMemberInformation (MemberId);
+        public Member GetMemberInformation (string account) {
+            var result = MemberRepo.GetMemberInformation (account);
             if (result != null) {
                 return result;
             } else {

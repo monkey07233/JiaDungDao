@@ -37,5 +37,14 @@ namespace Back_End.Repositories {
             }
             return result;
         }
+
+        public Member GetMemberInformation (string account) {
+            var result = db.Member.Where (m => m.m_account == account).FirstOrDefault ();
+            if (result != null) {
+                return result;
+            } else {
+                return null;
+            }
+        }
     }
 }

@@ -25,3 +25,25 @@ export const register = ({ commit }, newMember) => {
       });
   });
 };
+
+export const login = ({ commit }, loginInfo) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post("https://localhost:5001/api/Member/Login", loginInfo)
+      .then(function(res) {
+        resolve(res.data);
+        commit(types.SAVE_TOKEN, res.data);
+      })
+      .catch(function(err) {
+        reject(err);
+      });
+  });
+};
+
+export const checkToken = ({ commit }, tokenInfo) => {
+  commit(types.SAVE_TOKEN, tokenInfo);
+};
+
+export const logout = ({ commit }) => {
+  commit(types.CLEAR_TOKEN);
+};

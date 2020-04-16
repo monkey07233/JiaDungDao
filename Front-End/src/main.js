@@ -24,3 +24,19 @@ new Vue({
   components: { App },
   template: "<App/>"
 });
+
+router.beforeEach((to, from, next) => {
+  if (
+    to.matched.some(record => {
+      return record.meta.requiresAuth;
+    })
+  ) {
+    if (store.state.tokenInfo.token == "") {
+      next({ path: "/" });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});

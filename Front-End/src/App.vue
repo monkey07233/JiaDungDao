@@ -14,12 +14,18 @@ export default {
   name: "App",
   components: {
     navbar
+  },
+  created() {
+    const tokenInfo = JSON.parse(localStorage.getItem("tokenInfo"));
+    if (tokenInfo != null) {
+      this.$store.dispatch("checkToken", tokenInfo);
+    }
   }
 };
 </script>
 
 <style>
 body {
-  font-family: "Microsoft JhengHei",sans-serif,monospace;
+  font-family: "Microsoft JhengHei", sans-serif, monospace;
 }
 </style>

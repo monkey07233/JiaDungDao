@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-navbar toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand href="#">JiaDungDao</b-navbar-brand>
+      <b-navbar-brand><router-link style="color:white;text-decoration:none;" to="/">JiaDungDao</router-link></b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
@@ -15,7 +15,7 @@
               <img class="profile-img" src="../assets/images/user.png" />
               <span>Tiffany Lin</span>
             </template>
-            <b-dropdown-item><router-link style="text-decoration:none;" to="/Profile">會員管理</router-link></b-dropdown-item>
+            <b-dropdown-item><router-link style="color:black;text-decoration:none;" to="/Profile">會員專區</router-link></b-dropdown-item>
             <b-dropdown-item href="#">登出</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>

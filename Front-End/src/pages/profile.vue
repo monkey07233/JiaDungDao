@@ -16,15 +16,15 @@
             </b-card-body>
             <b-list-group flush>
               <b-list-group-item>
-                <font-awesome-icon icon="birthday-cake" />&nbsp生日: 87/08/07
+                <font-awesome-icon icon="birthday-cake"/>&nbsp生日: 87/08/07
               </b-list-group-item>
 
               <b-list-group-item>
-                <font-awesome-icon icon="envelope" />&nbspE-mail: tiffany@example.com
+                <font-awesome-icon icon="envelope"/>&nbspE-mail: tiffany@example.com
               </b-list-group-item>
 
               <b-list-group-item>
-                <font-awesome-icon icon="home" />&nbsp住址: 鬼之王冠路77弄386巷666號
+                <font-awesome-icon icon="home"/>&nbsp住址: 鬼之王冠路77弄386巷666號
               </b-list-group-item>
             </b-list-group>
             <b-card-body>

@@ -7,3 +7,7 @@ export const getResList = state => {
 export const getToken = state => {
   return state.tokenInfo.token;
 };
+
+export const getAccount = state => {
+  return state.tokenInfo.account;
+};

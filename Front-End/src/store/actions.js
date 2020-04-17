@@ -47,3 +47,17 @@ export const checkToken = ({ commit }, tokenInfo) => {
 export const logout = ({ commit }) => {
   commit(types.CLEAR_TOKEN);
 };
+
+export const updateProfile = ({ commit }, profileAfterEdit) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post("https://localhost:5001/api/Member/EditMemberInformation", profileAfterEdit)
+      .then(function(res) {
+        resolve(res.data);
+      })
+      .catch(function(err) {
+        console.log(err);
+        reject();
+      });
+  });
+};

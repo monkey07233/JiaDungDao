@@ -10,7 +10,7 @@
               </b-button>
             </b-card-body>
           </template>
-
+          <!-- 會員資料 -->
           <template v-if="isShow" v-bind="MemberInfo">
             <img class="card-img-top" src="../assets/images/restaurant.jpg" />
             <b-card-body>
@@ -18,15 +18,18 @@
             </b-card-body>
             <b-list-group flush>
               <b-list-group-item>
-                <font-awesome-icon icon="birthday-cake"/>&nbsp生日: {{MemberInfo.data.m_birthday}}
+                <font-awesome-icon icon="birthday-cake" />
+                &nbsp生日:{{MemberInfo.m_birthday}}
               </b-list-group-item>
 
               <b-list-group-item>
-                <font-awesome-icon icon="envelope"/>&nbspE-mail: {{MemberInfo.data.m_email}}
+                <font-awesome-icon icon="envelope" />
+                &nbspE-mail:{{MemberInfo.m_email}}
               </b-list-group-item>
 
               <b-list-group-item>
-                <font-awesome-icon icon="home"/>&nbsp住址: {{MemberInfo.data.m_address}}
+                <font-awesome-icon icon="home" />
+                &nbsp住址:{{MemberInfo.m_address}}
               </b-list-group-item>
             </b-list-group>
             <b-card-body>
@@ -35,19 +38,24 @@
               </b-button>
             </b-card-body>
           </template>
-          <!-- edit -->
+          <!-- 修改會員資料 -->
           <template v-else>
             <div>
-              <b-form ref="form" @submit.prevent="updateProfile">
+              <b-form ref="form" @submit.prevent="UpdateProfile">
                 <b-card-body>
                   <b-form-group id="input-group-1" label="姓名:" label-for="input-1">
-                    <b-form-input name="name" :value="form.name" required placeholder="Enter name"></b-form-input>
+                    <b-form-input
+                      name="name"
+                      :value="MemberInfo.m_name"
+                      required
+                      placeholder="Enter name"
+                    ></b-form-input>
                   </b-form-group>
 
                   <b-form-group id="input-group-2" label="生日:" label-for="input-2">
                     <b-form-datepicker
                       name="birthday"
-                      :value="form.birthday"
+                      :value="MemberInfo.m_birthday"
                       required
                       placeholder="Enter birthday"
                     ></b-form-datepicker>
@@ -56,7 +64,7 @@
                   <b-form-group id="input-group-3" label="E-mail:" label-for="input-3">
                     <b-form-input
                       name="email"
-                      :value="form.email"
+                      :value="MemberInfo.m_email"
                       type="email"
                       required
                       placeholder="Enter email"
@@ -66,7 +74,7 @@
                   <b-form-group id="input-group-4" label="住址:" label-for="input-4">
                     <b-form-input
                       name="address"
-                      :value="form.address"
+                      :value="MemberInfo.m_address"
                       required
                       placeholder="Enter address"
                     ></b-form-input>
@@ -90,59 +98,48 @@ import { mapGetters } from "vuex";
 export default {
   data: function() {
     return {
-      form: {
-        email: "tiffany@example.com",
-        name: "Tiffany",
-        address: "鬼之王冠路77弄386巷666號",
-        birthday: "1998-08-07"
-      },
-      isShow: true
+      isShow: true,
     };
   },
   computed: {
     ...mapGetters({
-      account: "getAccount"
+      account: "getAccount",
+      MemberInfo: "getMemberInfo"
     })
   },
   methods: {
     toggle: function() {
       this.isShow = !this.isShow;
     },
-    updateProfile(e) {
+    UpdateProfile(e) {
       e.preventDefault();
-      let name = this.$refs.form.name.value;
-      let birthday = this.$refs.form.birthday.value;
-      let email = this.$refs.form.email.value;
-      let address = this.$refs.form.address.value;
-      this.$store
-        .dispatch("updateProfile", {
-          m_account: account,
-          m_name: name,
-          m_birthday: birthday,
-          m_email: email,
-          m_address: address
-        })
-        .then(res => {
-          this.isShow = !this.isShow;
-          this.$bvToast.toast(res, {
-            title: `Update Personal Information`,
-            toaster: "b-toaster-top-center",
-            solid: true,
-            autoHideDelay: 1000,
-            appendToast: false
-          });
+      var updateProfile = {
+        m_account: this.account,
+        m_name: this.$refs.form.name.value,
+        m_birthday: this.$refs.form.birthday.value,
+        m_email: this.$refs.form.email.value,
+        m_address: this.$refs.form.address.value
+      };
+      this.$store.dispatch("UpdateProfile", updateProfile).then(res => {
+        this.isShow = !this.isShow;
+        this.$bvToast.toast(res, {
+          title: `Update Personal Information`,
+          toaster: "b-toaster-top-center",
+          solid: true,
+          autoHideDelay: 1000,
+          appendToast: false
         });
+        this.$store.dispatch("getMemberInfo", { m_account: this.account });
+        this.$store.dispatch("getMemberName", { m_account: this.account });
+      });
     }
   },
-  created(){
-    var account = JSON.parse(localStorage.getItem("tokenInfo")).account
+  created() {
+    var account = JSON.parse(localStorage.getItem("tokenInfo")).account;
     var memberInfo = {
-      "m_account": account
-    }
-    this.$store.dispatch("getMemberInfo",memberInfo);
-  },
-  computed:mapGetters({
-    MemberInfo: "getMemberInfo",
-  })
+      m_account: account
+    };
+    this.$store.dispatch("getMemberInfo", memberInfo);
+  }
 };
 </script>

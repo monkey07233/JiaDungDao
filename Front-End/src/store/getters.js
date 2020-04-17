@@ -12,6 +12,10 @@ export const getToken = state => {
   return state.tokenInfo.token;
 };
 
+export const getName = state => {
+  return state.memberName;
+};
+
 export const getAccount = state => {
   return state.tokenInfo.account;
 };

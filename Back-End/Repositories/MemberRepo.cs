@@ -47,7 +47,16 @@ namespace Back_End.Repositories {
             }
         }
 
-        public string EditMemberInformation (Member originMember, Member memberAfterEdit) {
+        public string GetMemberName (string account) {
+            var result = db.Member.Where (m => m.m_account == account).FirstOrDefault ();
+            if (result != null) {
+                return result.m_name;
+            } else {
+                return null;
+            }
+        }
+
+        public string EditMemberInformation (Member originMember, UpdateMemberInfo memberAfterEdit) {
             string result = string.Empty;
             try {
                 originMember.m_name = memberAfterEdit.m_name;
@@ -55,7 +64,7 @@ namespace Back_End.Repositories {
                 originMember.m_birthday = memberAfterEdit.m_birthday;
                 originMember.m_email = memberAfterEdit.m_email;
                 db.SaveChanges();
-                result = "successed";
+                result = "Update completed!";
             } catch (Exception e) {
                 result = e.Message.ToString ();
             }

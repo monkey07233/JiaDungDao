@@ -15,7 +15,7 @@
           <b-nav-item-dropdown right v-if="token!==''">
             <template v-slot:button-content>
               <img class="profile-img" src="../assets/images/user.png" />
-              <span>Tiffany Lin</span>
+              <span>{{name}}</span>
             </template>
             <b-dropdown-item>
               <router-link style="color:black;text-decoration:none;" to="/Profile">會員專區</router-link>
@@ -182,7 +182,9 @@ export default {
       return this.confirmPassword == this.newMember.m_password;
     },
     ...mapGetters({
-      token: "getToken"
+      token: "getToken",
+      name: "getName",
+      account: "getAccount"
     })
   },
   methods: {
@@ -229,6 +231,7 @@ export default {
               appendToast: false
             });
             this.$refs["login"].hide();
+            this.$store.dispatch("getMemberName", { m_account: this.account });
           })
           .catch(err => {
             if (err.response.status == 400) {
@@ -254,6 +257,11 @@ export default {
         appendToast: false
       });
       this.$router.push("/");
+    }
+  },
+  created(){
+    if(this.token != ""){
+      this.$store.dispatch("getMemberName", { m_account: this.account });
     }
   }
 };

@@ -49,9 +49,20 @@ namespace Back_End.Controllers {
 
         [HttpPost]
         [Authorize]
-        public IActionResult EditMemberInformation (Member memberAfterEdit) {
+        public IActionResult GetMemberName (LoginMemberInfo memberInfo) {
+            var result = MemberService.GetMemberName (memberInfo.m_account);
+            if (result != null) {
+                return Ok (result);
+            } else {
+                return BadRequest ("找不到會員");
+            }
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult EditMemberInformation (UpdateMemberInfo memberAfterEdit) {
             var result = MemberService.EditMemberInformation (memberAfterEdit);
-            if (result == "successed" || result == "查無此會員") {
+            if (result == "Update completed!" || result == "查無此會員") {
                 return Ok (result);
             } else {
                 return BadRequest (result);

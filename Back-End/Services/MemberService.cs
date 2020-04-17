@@ -70,7 +70,16 @@ namespace Back_End.Services {
             }
         }
 
-        public string EditMemberInformation (Member memberAfterEdit) {
+        public string GetMemberName (string account) {
+            var result = MemberRepo.GetMemberName(account);
+            if (result != null) {
+                return result;
+            } else {
+                return null;
+            }
+        }
+
+        public string EditMemberInformation (UpdateMemberInfo memberAfterEdit) {
             var originMember = MemberRepo.isAccountExist (memberAfterEdit.m_account);
             if(originMember != null){
                 var result = MemberRepo.EditMemberInformation(originMember, memberAfterEdit);

@@ -5,10 +5,12 @@
         <b-card>
           <template v-if="!isShow">
             <b-card-body>
-              <b-button @click="toggle"><font-awesome-icon icon="undo-alt"/>&nbsp返回</b-button>
+              <b-button @click="toggle">
+                <font-awesome-icon icon="undo-alt" />&nbsp返回
+              </b-button>
             </b-card-body>
           </template>
-
+          <!-- 會員資料 -->
           <template v-if="isShow" v-bind="MemberInfo">
             <img class="card-img-top" src="../assets/images/restaurant.jpg" />
             <b-card-body>
@@ -16,29 +18,35 @@
             </b-card-body>
             <b-list-group flush>
               <b-list-group-item>
-                <font-awesome-icon icon="birthday-cake"/>&nbsp生日: {{MemberInfo.data.m_birthday}}
+                <font-awesome-icon icon="birthday-cake" />
+                &nbsp生日:{{MemberInfo.m_birthday}}
               </b-list-group-item>
 
               <b-list-group-item>
-                <font-awesome-icon icon="envelope"/>&nbspE-mail: {{MemberInfo.data.m_email}}
+                <font-awesome-icon icon="envelope" />
+                &nbspE-mail:{{MemberInfo.m_email}}
               </b-list-group-item>
 
               <b-list-group-item>
-                <font-awesome-icon icon="home"/>&nbsp住址: {{MemberInfo.data.m_address}}
+                <font-awesome-icon icon="home" />
+                &nbsp住址:{{MemberInfo.m_address}}
               </b-list-group-item>
             </b-list-group>
             <b-card-body>
-              <b-button @click="toggle"><font-awesome-icon icon="pencil-alt" /></b-button>
+              <b-button @click="toggle">
+                <font-awesome-icon icon="pencil-alt" />
+              </b-button>
             </b-card-body>
           </template>
+          <!-- 修改會員資料 -->
           <template v-else>
             <div>
-              <b-form @submit="onSubmit" @reset="onReset">
+              <b-form ref="form" @submit.prevent="UpdateProfile">
                 <b-card-body>
                   <b-form-group id="input-group-1" label="姓名:" label-for="input-1">
                     <b-form-input
-                      id="input-1"
-                      v-model="form.name"
+                      name="name"
+                      :value="MemberInfo.m_name"
                       required
                       placeholder="Enter name"
                     ></b-form-input>
@@ -46,8 +54,8 @@
 
                   <b-form-group id="input-group-2" label="生日:" label-for="input-2">
                     <b-form-datepicker
-                      id="input-2"
-                      v-model="form.name"
+                      name="birthday"
+                      :value="MemberInfo.m_birthday"
                       required
                       placeholder="Enter birthday"
                     ></b-form-datepicker>
@@ -55,8 +63,8 @@
 
                   <b-form-group id="input-group-3" label="E-mail:" label-for="input-3">
                     <b-form-input
-                      id="input-3"
-                      v-model="form.email"
+                      name="email"
+                      :value="MemberInfo.m_email"
                       type="email"
                       required
                       placeholder="Enter email"
@@ -65,15 +73,14 @@
 
                   <b-form-group id="input-group-4" label="住址:" label-for="input-4">
                     <b-form-input
-                      id="input-4"
-                      v-model="form.address"
+                      name="address"
+                      :value="MemberInfo.m_address"
                       required
                       placeholder="Enter address"
                     ></b-form-input>
                   </b-form-group>
                   <div class="row justify-content-md-center">
-                  <b-button class="mr-2" type="submit" variant="primary">Save</b-button>
-                  <b-button type="reset" variant="danger">Reset</b-button>
+                    <b-button class="mr-2" type="submit" variant="primary">Save</b-button>
                   </div>
                 </b-card-body>
               </b-form>
@@ -91,40 +98,48 @@ import { mapGetters } from "vuex";
 export default {
   data: function() {
     return {
-      form: {
-        email: "",
-        name: "",
-        address: ""
-      },
-      isShow: true
+      isShow: true,
     };
+  },
+  computed: {
+    ...mapGetters({
+      account: "getAccount",
+      MemberInfo: "getMemberInfo"
+    })
   },
   methods: {
     toggle: function() {
       this.isShow = !this.isShow;
     },
-    onSubmit(evt) {
-      evt.preventDefault();
-      alert(JSON.stringify(this.form));
-    },
-    onReset(evt) {
-      evt.preventDefault();
-      // Reset our form values
-      this.form.email = "";
-      this.form.name = "";
-      this.form.address = "";
-      // Trick to reset/clear native browser form validation state
+    UpdateProfile(e) {
+      e.preventDefault();
+      var updateProfile = {
+        m_account: this.account,
+        m_name: this.$refs.form.name.value,
+        m_birthday: this.$refs.form.birthday.value,
+        m_email: this.$refs.form.email.value,
+        m_address: this.$refs.form.address.value
+      };
+      this.$store.dispatch("UpdateProfile", updateProfile).then(res => {
+        this.isShow = !this.isShow;
+        this.$bvToast.toast(res, {
+          title: `Update Personal Information`,
+          toaster: "b-toaster-top-center",
+          solid: true,
+          autoHideDelay: 1000,
+          appendToast: false
+        });
+        this.$store.dispatch("getMemberInfo", { m_account: this.account });
+        this.$store.dispatch("getMemberName", { m_account: this.account });
+      });
     }
   },
-  created(){
-    var account = JSON.parse(localStorage.getItem("tokenInfo")).account
+  created() {
+    var account = JSON.parse(localStorage.getItem("tokenInfo")).account;
     var memberInfo = {
-      "m_account": account
-    }
-    this.$store.dispatch("getMemberInfo",memberInfo);
-  },
-  computed:mapGetters({
-    MemberInfo: "getMemberInfo",
-  })
+      m_account: account
+    };
+    this.$store.dispatch("getMemberInfo", memberInfo);
+  }
 };
 </script>

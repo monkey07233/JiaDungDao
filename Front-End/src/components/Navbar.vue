@@ -1,7 +1,9 @@
 <template>
   <div>
     <b-navbar toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand><router-link style="color:white;text-decoration:none;" to="/">JiaDungDao</router-link></b-navbar-brand>
+      <b-navbar-brand>
+        <router-link style="color:white;text-decoration:none;" to="/">JiaDungDao</router-link>
+      </b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
@@ -13,14 +15,17 @@
           <b-nav-item-dropdown right v-if="token!==''">
             <template v-slot:button-content>
               <img class="profile-img" src="../assets/images/user.png" />
-              <span>Tiffany Lin</span>
+              <span>{{name}}</span>
             </template>
-            <b-dropdown-item><router-link style="color:black;text-decoration:none;" to="/Profile">會員專區</router-link></b-dropdown-item>
+            <b-dropdown-item>
+              <router-link style="color:black;text-decoration:none;" to="/Profile">會員專區</router-link>
+            </b-dropdown-item>
             <b-dropdown-item @click.prevent="logout">登出</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
+    <!-- login -->
     <b-modal id="login" ref="login" centered title="Sign In" hide-footer>
       <b-form @submit.prevent="login">
         <b-row class="mb-2 mt-2 justify-content-center">
@@ -28,7 +33,7 @@
             <label>帳號：</label>
           </b-col>
           <b-col sm="6">
-            <b-form-input size="sm" placeholder="輸入你的帳號" v-model="loginInfo.m_account"></b-form-input>
+            <b-form-input required size="sm" placeholder="輸入你的帳號" v-model="loginInfo.m_account"></b-form-input>
           </b-col>
         </b-row>
         <b-row class="mb-2 mt-2 justify-content-center">
@@ -37,6 +42,7 @@
           </b-col>
           <b-col sm="6">
             <b-form-input
+              required
               size="sm"
               placeholder="輸入你的密碼"
               type="password"
@@ -54,7 +60,7 @@
         <b-link @click="showRegisterModal">註冊</b-link>
       </b-row>
     </b-modal>
-
+    <!-- register -->
     <b-modal id="register" ref="register" centered title="Register" hide-footer>
       <b-form @submit.prevent="addMember">
         <b-row class="mb-2 mt-2 justify-content-center">
@@ -176,7 +182,9 @@ export default {
       return this.confirmPassword == this.newMember.m_password;
     },
     ...mapGetters({
-      token: "getToken"
+      token: "getToken",
+      name: "getName",
+      account: "getAccount"
     })
   },
   methods: {
@@ -214,7 +222,7 @@ export default {
         this.$store
           .dispatch("login", this.loginInfo)
           .then(res => {
-            localStorage.setItem("tokenInfo",JSON.stringify(res));
+            localStorage.setItem("tokenInfo", JSON.stringify(res));
             this.$bvToast.toast("登入成功", {
               title: `Login Success`,
               toaster: "b-toaster-top-center",
@@ -223,6 +231,7 @@ export default {
               appendToast: false
             });
             this.$refs["login"].hide();
+            this.$store.dispatch("getMemberName", { m_account: this.account });
           })
           .catch(err => {
             if (err.response.status == 400) {
@@ -248,6 +257,11 @@ export default {
         appendToast: false
       });
       this.$router.push("/");
+    }
+  },
+  created(){
+    if(this.token != ""){
+      this.$store.dispatch("getMemberName", { m_account: this.account });
     }
   }
 };

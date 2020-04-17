@@ -35,9 +35,10 @@ namespace JiaDungDao {
             services.AddCors (options => {
                 options.AddPolicy ("CorsPolicy",
                     builder => {
-                        builder.AllowAnyOrigin ()
+                        builder.WithOrigins("http://localhost:8080")
                             .AllowAnyHeader ()
-                            .AllowAnyMethod ();
+                            .AllowAnyMethod ()
+                            .AllowCredentials();
                     });
             });
 

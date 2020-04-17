@@ -9,22 +9,22 @@
             </b-card-body>
           </template>
 
-          <template v-if="isShow">
+          <template v-if="isShow" v-bind="MemberInfo">
             <img class="card-img-top" src="../assets/images/restaurant.jpg" />
             <b-card-body>
-              <b-card-title>Tiffany</b-card-title>
+              <b-card-title>{{MemberInfo.m_name}}</b-card-title>
             </b-card-body>
             <b-list-group flush>
               <b-list-group-item>
-                <font-awesome-icon icon="birthday-cake"/>&nbsp生日: 87/08/07
+                <font-awesome-icon icon="birthday-cake"/>&nbsp生日: {{MemberInfo.data.m_birthday}}
               </b-list-group-item>
 
               <b-list-group-item>
-                <font-awesome-icon icon="envelope"/>&nbspE-mail: tiffany@example.com
+                <font-awesome-icon icon="envelope"/>&nbspE-mail: {{MemberInfo.data.m_email}}
               </b-list-group-item>
 
               <b-list-group-item>
-                <font-awesome-icon icon="home"/>&nbsp住址: 鬼之王冠路77弄386巷666號
+                <font-awesome-icon icon="home"/>&nbsp住址: {{MemberInfo.data.m_address}}
               </b-list-group-item>
             </b-list-group>
             <b-card-body>
@@ -87,7 +87,7 @@
 
 <script>
 import "@/assets/css/index.css";
-
+import { mapGetters } from "vuex";
 export default {
   data: function() {
     return {
@@ -115,6 +115,16 @@ export default {
       this.form.address = "";
       // Trick to reset/clear native browser form validation state
     }
-  }
+  },
+  created(){
+    var account = JSON.parse(localStorage.getItem("tokenInfo")).account
+    var memberInfo = {
+      "m_account": account
+    }
+    this.$store.dispatch("getMemberInfo",memberInfo);
+  },
+  computed:mapGetters({
+    MemberInfo: "getMemberInfo",
+  })
 };
 </script>

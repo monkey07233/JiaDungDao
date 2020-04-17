@@ -38,8 +38,8 @@ namespace Back_End.Controllers {
 
         [HttpPost]
         [Authorize]
-        public IActionResult GetMemberInformation (string account) {
-            var result = MemberService.GetMemberInformation (account);
+        public IActionResult GetMemberInformation (LoginMemberInfo memberInfo) {
+            var result = MemberService.GetMemberInformation (memberInfo.m_account);
             if (result != null) {
                 return Ok (result);
             } else {

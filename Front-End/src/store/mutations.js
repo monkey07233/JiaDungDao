@@ -5,6 +5,12 @@ export const state = {
   tokenInfo: {
     account: "",
     token: ""
+  },
+  memberInfo:{
+    m_name: "",
+    m_birthday: "",
+    m_email: "",
+    m_address: ""
   }
 };
 
@@ -17,5 +23,8 @@ export const mutations = {
   },
   [types.CLEAR_TOKEN](state) {
     state.tokenInfo.token = "";
+  },
+  [types.GET_MEMBERINFO](state,data){
+    state.memberInfo = data;
   }
 };

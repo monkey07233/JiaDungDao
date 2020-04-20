@@ -14,16 +14,11 @@ namespace Back_End.Repositories {
         }
 
         public async Task<Member> GetMemberByLogin (string m_account, string hash_m_password) {
-            var result = await db.Member.Where (m => m.m_account == m_account && m.m_password == hash_m_password).FirstOrDefaultAsync ();
-            if (result != null) {
-                return result;
-            }
-            return null;
+            return await db.Member.Where (m => m.m_account == m_account && m.m_password == hash_m_password).FirstOrDefaultAsync ();
         }
 
-        public Member isAccountExist (string m_account) {
-            var m = db.Member.Where (m => m.m_account == m_account).FirstOrDefault ();
-            return m;
+        public Member GetMemberByAcc (string m_account) {
+            return db.Member.Where (m => m.m_account == m_account).FirstOrDefault ();
         }
 
         public string Register (Member member) {
@@ -36,24 +31,6 @@ namespace Back_End.Repositories {
                 result = e.Message.ToString ();
             }
             return result;
-        }
-
-        public Member GetMemberInformation (string account) {
-            var result = db.Member.Where (m => m.m_account == account).FirstOrDefault ();
-            if (result != null) {
-                return result;
-            } else {
-                return null;
-            }
-        }
-
-        public string GetMemberName (string account) {
-            var result = db.Member.Where (m => m.m_account == account).FirstOrDefault ();
-            if (result != null) {
-                return result.m_name;
-            } else {
-                return null;
-            }
         }
 
         public string EditMemberInformation (Member originMember, UpdateMemberInfo memberAfterEdit) {

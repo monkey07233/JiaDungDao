@@ -98,12 +98,12 @@ import { mapGetters } from "vuex";
 export default {
   data: function() {
     return {
-      isShow: true,
+      isShow: true
     };
   },
   computed: {
     ...mapGetters({
-      account: "getAccount",
+      tokenInfo: "getTokenInfo",
       MemberInfo: "getMemberInfo"
     })
   },
@@ -114,7 +114,7 @@ export default {
     UpdateProfile(e) {
       e.preventDefault();
       var updateProfile = {
-        m_account: this.account,
+        m_account: this.tokenInfo.account,
         m_name: this.$refs.form.name.value,
         m_birthday: this.$refs.form.birthday.value,
         m_email: this.$refs.form.email.value,
@@ -129,17 +129,16 @@ export default {
           autoHideDelay: 1000,
           appendToast: false
         });
-        this.$store.dispatch("getMemberInfo", { m_account: this.account });
-        this.$store.dispatch("getMemberName", { m_account: this.account });
+        this.$store.dispatch("getMemberInfo", {
+          m_account: this.tokenInfo.account
+        });
       });
     }
   },
   created() {
-    var account = JSON.parse(localStorage.getItem("tokenInfo")).account;
-    var memberInfo = {
-      m_account: account
-    };
-    this.$store.dispatch("getMemberInfo", memberInfo);
+    this.$store.dispatch("getMemberInfo", {
+      m_account: this.tokenInfo.account
+    });
   }
 };
 </script>

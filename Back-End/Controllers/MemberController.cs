@@ -39,18 +39,7 @@ namespace Back_End.Controllers {
         [HttpPost]
         [Authorize]
         public IActionResult GetMemberInformation (LoginMemberInfo memberInfo) {
-            var result = MemberService.GetMemberInformation (memberInfo.m_account);
-            if (result != null) {
-                return Ok (result);
-            } else {
-                return BadRequest ("找不到會員");
-            }
-        }
-
-        [HttpPost]
-        [Authorize]
-        public IActionResult GetMemberName (LoginMemberInfo memberInfo) {
-            var result = MemberService.GetMemberName (memberInfo.m_account);
+            var result = MemberService.GetMemberByAcc (memberInfo.m_account);
             if (result != null) {
                 return Ok (result);
             } else {

@@ -8,14 +8,14 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
           <!-- 登入前 -->
-          <b-nav-item v-b-modal.login v-b-tooltip.hover title="Sign In" v-if="token===''">
+          <b-nav-item v-b-modal.login v-b-tooltip.hover title="Sign In" v-if="tokenInfo.token===''">
             <font-awesome-icon icon="user" />
           </b-nav-item>
           <!-- 登入後 -->
-          <b-nav-item-dropdown right v-if="token!==''">
+          <b-nav-item-dropdown right v-if="tokenInfo.token!==''">
             <template v-slot:button-content>
               <img class="profile-img" src="../assets/images/user.png" />
-              <span>{{name}}</span>
+              <span>{{memberInfo.m_name}}</span>
             </template>
             <b-dropdown-item>
               <router-link style="color:black;text-decoration:none;" to="/Profile">會員專區</router-link>
@@ -182,9 +182,8 @@ export default {
       return this.confirmPassword == this.newMember.m_password;
     },
     ...mapGetters({
-      token: "getToken",
-      name: "getName",
-      account: "getAccount"
+      tokenInfo: "getTokenInfo",
+      memberInfo:"getMemberInfo"
     })
   },
   methods: {
@@ -218,7 +217,7 @@ export default {
       });
     },
     login() {
-      if (this.token === "") {
+      if (this.tokenInfo.token === "") {
         this.$store
           .dispatch("login", this.loginInfo)
           .then(res => {
@@ -231,7 +230,7 @@ export default {
               appendToast: false
             });
             this.$refs["login"].hide();
-            this.$store.dispatch("getMemberName", { m_account: this.account });
+            this.$store.dispatch("getMemberInfo", { m_account: this.tokenInfo.account });
           })
           .catch(err => {
             if (err.response.status == 400) {
@@ -260,8 +259,8 @@ export default {
     }
   },
   created(){
-    if(this.token != ""){
-      this.$store.dispatch("getMemberName", { m_account: this.account });
+    if(this.tokenInfo.token != ""){
+      this.$store.dispatch("getMemberInfo", { m_account: this.tokenInfo.account });
     }
   }
 };

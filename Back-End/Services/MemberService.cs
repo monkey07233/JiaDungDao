@@ -53,36 +53,22 @@ namespace Back_End.Services {
         }
 
         public string Register (Member member) {
-            var isAccountExist = MemberRepo.isAccountExist (member.m_account);
-            if (isAccountExist != null) {
+            var getMember = MemberRepo.GetMemberByAcc (member.m_account);
+            if (getMember != null) {
                 return "帳號已存在";
             }
             member.m_password = HashPassword (member.m_password);
             return MemberRepo.Register (member);
         }
 
-        public Member GetMemberInformation (string account) {
-            var result = MemberRepo.GetMemberInformation (account);
-            if (result != null) {
-                return result;
-            } else {
-                return null;
-            }
-        }
-
-        public string GetMemberName (string account) {
-            var result = MemberRepo.GetMemberName(account);
-            if (result != null) {
-                return result;
-            } else {
-                return null;
-            }
+        public Member GetMemberByAcc (string account) {
+            return MemberRepo.GetMemberByAcc (account);
         }
 
         public string EditMemberInformation (UpdateMemberInfo memberAfterEdit) {
-            var originMember = MemberRepo.isAccountExist (memberAfterEdit.m_account);
-            if(originMember != null){
-                var result = MemberRepo.EditMemberInformation(originMember, memberAfterEdit);
+            var originMember = MemberRepo.GetMemberByAcc (memberAfterEdit.m_account);
+            if (originMember != null) {
+                var result = MemberRepo.EditMemberInformation (originMember, memberAfterEdit);
                 return result;
             }
             return "查無此會員";

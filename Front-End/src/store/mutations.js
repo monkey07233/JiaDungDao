@@ -2,12 +2,11 @@ import * as types from "./mutations_type.js";
 
 export const state = {
   restaurantList: [],
-  memberName:"",
   tokenInfo: {
     account: "",
     token: ""
   },
-  memberInfo:{
+  memberInfo: {
     m_name: "",
     m_birthday: "",
     m_email: "",
@@ -24,13 +23,11 @@ export const mutations = {
   },
   [types.CLEAR_TOKEN](state) {
     state.tokenInfo.token = "";
+    state.tokenInfo.account = "";
   },
-  [types.GET_MEMBERINFO](state,data){
+  [types.GET_MEMBERINFO](state, data) {
     state.memberInfo = data;
-    var birthday = data.m_birthday.split('T');
+    var birthday = data.m_birthday.split("T");
     state.memberInfo.m_birthday = birthday[0];
-  },
-  [types.GET_NAME](state,name){
-    state.memberName = name;
   }
 };

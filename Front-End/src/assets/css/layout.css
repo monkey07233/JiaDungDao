@@ -12,3 +12,6 @@ body {
 li.b-nav-dropdown .dropdown-menu{
     left:-130px;
 }
+#totalAmount{
+    margin-left:6px;
+}

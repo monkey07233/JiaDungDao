@@ -7,11 +7,17 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
+          <!--購物車-->
           <b-nav-item-dropdown no-caret>
             <template v-slot:button-content>
               <font-awesome-icon icon="shopping-cart" />
             </template>
-           <b-dropdown-item>總金額</b-dropdown-item>            
+           <b-dropdown-item>餐點1</b-dropdown-item>  
+           <b-dropdown-item>餐點2</b-dropdown-item>            
+           <b-dropdown-item>
+            <span>總金額 :</span>       
+            <span id="totalAmount">50</span>
+            </b-dropdown-item>            
           </b-nav-item-dropdown>        
           <!-- 登入前 -->
           <b-nav-item v-b-modal.login v-b-tooltip.hover title="Sign In" v-if="tokenInfo.token===''">

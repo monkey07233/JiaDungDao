@@ -6,13 +6,17 @@
         <img class="card-img-top" src="../assets/images/restaurant.jpg" />
         <div class="card-body">
           <p class="card-text">
-            <font-awesome-icon icon="utensils" /><span class="item-text">{{res.r_name}}</span>
+            <font-awesome-icon icon="utensils" />
+            <span class="item-text">{{res.r_name}}</span>
             <br />
-            <font-awesome-icon icon="map-marker-alt" /><span class="item-text">{{res.r_address}}</span>
+            <font-awesome-icon icon="map-marker-alt" />
+            <span class="item-text">{{res.r_address}}</span>
             <br />
-            <font-awesome-icon icon="phone-alt" /><span class="item-text">{{res.r_tel}}</span>
+            <font-awesome-icon icon="phone-alt" />
+            <span class="item-text">{{res.r_tel}}</span>
             <br />
           </p>
+          <router-link class="stretched-link" to="/RestaurantInfo"></router-link>
         </div>
       </div>
     </div>
@@ -23,16 +27,14 @@
 import "@/assets/css/index.css";
 import { mapGetters } from "vuex";
 export default {
-  data(){
-    return{
-      
-    }
+  data() {
+    return {};
   },
-  computed:mapGetters({
-    restaurantList: "getResList",
+  computed: mapGetters({
+    restaurantList: "getResList"
   }),
-  created(){
-    this.$store.dispatch("getRestaurantList")
+  created() {
+    this.$store.dispatch("getRestaurantList");
   }
 };
 </script>

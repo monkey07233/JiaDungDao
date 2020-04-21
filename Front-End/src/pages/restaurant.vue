@@ -1,4 +1,3 @@
-
 <template>
   <div class="container rounded bg-white mb-4">
     <div class="row">

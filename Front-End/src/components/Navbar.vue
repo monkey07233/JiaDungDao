@@ -12,6 +12,7 @@
             <font-awesome-icon icon="user" />
           </b-nav-item>
           <!-- 登入後 -->
+          <router-link  v-if="tokenInfo.token!==''" style="color:white;text-decoration:none;" to="/Cart">CART</router-link>
           <b-nav-item-dropdown right v-if="tokenInfo.token!==''">
             <template v-slot:button-content>
               <img class="profile-img" src="../assets/images/user.png" />

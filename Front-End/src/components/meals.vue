@@ -13,8 +13,8 @@
                 ></b-card-img>
               </b-col>
               <b-col md="7">
-                <b-card-body title-tag="h5" :title="item.title">
-                  <b-card-text text-tag="h6">${{item.price}}</b-card-text>
+                <b-card-body title-tag="h5" :title="item.m_item">
+                  <b-card-text text-tag="h6">${{item.m_price}}</b-card-text>
                 </b-card-body>
               </b-col>
             </b-row>

@@ -4,6 +4,10 @@ export const getResList = state => {
   return state.restaurantList;
 };
 
+export const getResInfo = state => {
+  return state.restaurantInfo;
+};
+
 export const getMemberInfo = state => {
   return state.memberInfo;
 };

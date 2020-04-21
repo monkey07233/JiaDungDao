@@ -12,6 +12,17 @@ export const getRestaurantList = ({ commit }) => {
     });
 };
 
+export const getRestaurantInfo = ({ commit }, id) => {
+  axios
+    .get("https://localhost:5001/api/Restaurant/GetRestaurantInfoById?id=" + id)
+    .then(function(res) {
+      commit(types.GET_RESINFO, res.data);
+    })
+    .catch(function(err) {
+      console.log(err);
+    });
+};
+
 export const getMemberInfo = ({ commit, state }, memberInfo) => {
   const config = {
     withCredentials: true,
@@ -31,7 +42,7 @@ export const getMemberInfo = ({ commit, state }, memberInfo) => {
       })
       .catch(function(err) {
         console.log(err);
-        if(err.response.status==401){
+        if (err.response.status == 401) {
           localStorage.removeItem("tokenInfo");
           commit(types.CLEAR_TOKEN);
         }
@@ -76,7 +87,7 @@ export const logout = ({ commit }) => {
   commit(types.CLEAR_TOKEN);
 };
 
-export const UpdateProfile = ({ commit,state }, profileAfterEdit) => {
+export const UpdateProfile = ({ commit, state }, profileAfterEdit) => {
   const config = {
     withCredentials: true,
     headers: {

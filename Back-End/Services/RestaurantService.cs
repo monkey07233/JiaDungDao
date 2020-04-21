@@ -47,12 +47,7 @@ namespace Back_End.Services
                 typeAndMenus.Add(typeAndMenu);
             }
             result.typeAndMenu = typeAndMenus;
-            if (result != null)
-            {
-                return result;
-            }else{
-                return null;
-            }
+            return result;
         }
     }
 }

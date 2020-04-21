@@ -17,23 +17,13 @@ namespace Back_End.Repositories
         public List<Menu> GetAllMenuById(int Id)
         {
             var allMenu = db.Menu.Where(m => m.RestaurantID == Id).OrderBy(m => m.m_type).ToList();
-            if (allMenu != null)
-            {
-                return allMenu;
-            }else{
-                return null;
-            }
+            return allMenu;
         }
 
         public List<string> GetAllMenuTypeById(int Id)
         {
             var allMenuType = db.Menu.Where(m => m.RestaurantID == Id).OrderBy(m => m.m_type).Select(m => m.m_type).Distinct().ToList();
-            if (allMenuType != null)
-            {
-                return allMenuType;
-            }else{
-                return null;
-            }
+            return allMenuType;
         }
 
         public List<Restaurant> GetAllRestaurant()

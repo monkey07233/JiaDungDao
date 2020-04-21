@@ -25,6 +25,16 @@ namespace Back_End.Controllers
             }else{
                 return BadRequest("目前沒有餐廳登錄");
             }
+        
+        }
+        [HttpGet]
+        public IActionResult GetRestaurantInfoById(int Id){
+            var result = RestaurantService.GetRestaurantInfoById(Id);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return BadRequest("查無此餐廳");
         }
     }
 }

@@ -8,3 +8,10 @@ body {
 .profile-img{
     width: 23px;
 }
+/* shopping cart */
+li.b-nav-dropdown .dropdown-menu{
+    left:-130px;
+}
+#totalAmount{
+    margin-left:6px;
+}

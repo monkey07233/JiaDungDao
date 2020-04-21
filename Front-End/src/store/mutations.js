@@ -12,7 +12,15 @@ export const state = {
     m_email: "",
     m_address: ""
   },
-  restaurantInfo: {}
+  restaurantInfo: {
+    restaurant: {
+      restaurantID: "",
+      r_name: "",
+      r_address: "",
+      r_tel: ""
+    },
+    typeAndMenu: []
+  }
 };
 
 export const mutations = {

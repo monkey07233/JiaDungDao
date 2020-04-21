@@ -15,6 +15,7 @@
               <b-col md="7">
                 <b-card-body title-tag="h5" :title="item.title">
                   <b-card-text text-tag="h6">${{item.price}}</b-card-text>
+                  <b-button variant="outline-primary">加入購物車</b-button>
                 </b-card-body>
               </b-col>
             </b-row>

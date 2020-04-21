@@ -7,9 +7,12 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
-          <b-nav-item>
-              <font-awesome-icon icon="shopping-cart" />          
-          </b-nav-item>
+          <b-nav-item-dropdown no-caret>
+            <template v-slot:button-content>
+              <font-awesome-icon icon="shopping-cart" />
+            </template>
+           <b-dropdown-item>總金額</b-dropdown-item>            
+          </b-nav-item-dropdown>        
           <!-- 登入前 -->
           <b-nav-item v-b-modal.login v-b-tooltip.hover title="Sign In" v-if="tokenInfo.token===''">
             <font-awesome-icon icon="user" />

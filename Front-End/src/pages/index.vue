@@ -16,7 +16,13 @@
             <span class="item-text">{{res.r_tel}}</span>
             <br />
           </p>
-          <router-link class="stretched-link" to="/RestaurantInfo"></router-link>
+          <router-link
+            class="stretched-link"
+            :to="{
+              name:'Restaurant',
+              params:{id:res.restaurantID}
+              }"
+          ></router-link>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Index from "@/pages/Index";
 import Profile from "@/pages/profile";
-import RestaurantInfo from "@/pages/restaurant"
+import Restaurant from "@/pages/restaurant"
 
 Vue.use(Router);
 
@@ -25,9 +25,9 @@ export default new Router({
       meta: { requiresAuth: true }
     },
     {
-      path: "/RestaurantInfo",
-      name: "RestaurantInfo",
-      component: RestaurantInfo,
+      path: "/Restaurant/:id",
+      name: "Restaurant",
+      component: Restaurant,
     }
   ]
 });

@@ -16,7 +16,7 @@
                 <b-card-body title-tag="h5" :title="item.m_item">
                   <b-card-text text-tag="h6">${{item.m_price}}</b-card-text>
                   <b-button
-                    @click="addToShoppingCart(item.m_item,item.m_price)"
+                    @click="addToShoppingCart(item.m_item, item.m_price)"
                     variant="outline-primary"
                   >加入購物車</b-button>
                 </b-card-body>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   computed: {
     ...mapGetters({
@@ -45,13 +45,10 @@ export default {
     list: Array
   },
   methods: {
-    ...mapMutations({
-      addToShoppingCart: "SAVE_SHOPPINGCART"
-    }),
-    addToShoppingCart: function(a, b) {
-      let item = [a, b];
-      this.$store.state.shoppingCart.push(item);
-    }    
+    addToShoppingCart: function(m_item, m_price) {
+      let item = [m_item, m_price];
+      this.$store.dispatch("addToShoppingCart", item);
+    }
   }
 };
 </script>

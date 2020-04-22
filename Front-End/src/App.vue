@@ -2,7 +2,7 @@
   <div id="app">
     <navbar />
     <div id="content">
-      <router-view/>
+      <router-view />
     </div>
   </div>
 </template>
@@ -13,8 +13,7 @@ import navbar from "./components/Navbar.vue";
 export default {
   name: "App",
   data() {
-    return {
-    };
+    return {};
   },
   components: {
     navbar

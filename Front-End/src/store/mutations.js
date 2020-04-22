@@ -1,6 +1,7 @@
 import * as types from "./mutations_type.js";
 
 export const state = {
+    shoppingCartTotalPrice: 0,
     shoppingCartItems: [],
     restaurantList: [],
     tokenInfo: {
@@ -58,7 +59,8 @@ export const mutations = {
         var birthday = data.m_birthday.split("T");
         state.memberInfo.m_birthday = birthday[0];
     },
-    [types.SAVE_SHOPPINGCART](state, newItem) {
-        state.shoppingCartItems.push(newItem)
+    [types.SAVE_SHOPPINGCART](state, item) {
+        state.shoppingCartTotalPrice += item[1];
+        state.shoppingCartItems.push(item);
     }
 };

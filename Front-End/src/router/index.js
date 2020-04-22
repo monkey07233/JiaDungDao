@@ -2,9 +2,10 @@ import Vue from "vue";
 import Router from "vue-router";
 import Index from "@/pages/Index";
 import Profile from "@/pages/profile";
-import Cart from "@/pages/Cart"
-import Restaurant from "@/pages/restaurant"
-import RestaurantManagement from "@/pages/RestaurantManagement"
+import Cart from "@/pages/Cart";
+import Restaurant from "@/pages/restaurant";
+import RestaurantManagement from "@/pages/RestaurantManagement";
+import store from "../store";
 
 Vue.use(Router);
 
@@ -29,7 +30,7 @@ export default new Router({
     {
       path: "/Restaurant/:id",
       name: "Restaurant",
-      component: Restaurant,
+      component: Restaurant
     },
     {
       path: "/Cart",
@@ -41,7 +42,13 @@ export default new Router({
       path: "/RestaurantManagement",
       name: "RestaurantManagement",
       component: RestaurantManagement,
-      meta: { requiresAuth: true }
-    },
+      meta: { requiresAuth: true },
+      beforeEnter(to, from, next) {
+        const role=JSON.parse(JSON.stringify(store.state.tokenInfo)).role;
+        if(role==1){
+          next();
+        }
+      }
+    }
   ]
 });

@@ -19,10 +19,6 @@
                     @click="addToShoppingCart(item.m_item,item.m_price)"
                     variant="outline-primary"
                   >加入購物車</b-button>
-                  <span v-for="item in items">
-                    <span v-html="item[0]"></span> -
-                    <span v-html="item[1]"></span>
-                  </span>
                 </b-card-body>
               </b-col>
             </b-row>
@@ -34,22 +30,28 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
 export default {
+  computed: {
+    ...mapGetters({
+      shoppingCart: "getShoppingCart"
+    })
+  },
   data() {
-    return {
-      items: [],
-      item: ["", ""]
-    };
+    return {};
   },
   props: {
     tabTitle: String,
     list: Array
   },
   methods: {
-    addToShoppingCart(a, b) {
-      this.item = [a, b];
-      this.items.push(this.item);
-    }
+    ...mapMutations({
+      addToShoppingCart: "SAVE_SHOPPINGCART"
+    }),
+    addToShoppingCart: function(a, b) {
+      let item = [a, b];
+      this.$store.state.shoppingCart.push(item);
+    }    
   }
 };
 </script>

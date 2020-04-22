@@ -2,7 +2,7 @@
   <div id="app">
     <navbar />
     <div id="content">
-      <router-view :asd="items"/>
+      <router-view/>
     </div>
   </div>
 </template>
@@ -14,7 +14,6 @@ export default {
   name: "App",
   data() {
     return {
-      items: ['123','465']
     };
   },
   components: {

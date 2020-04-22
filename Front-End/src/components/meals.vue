@@ -34,7 +34,7 @@ import { mapGetters } from "vuex";
 export default {
   computed: {
     ...mapGetters({
-      shoppingCart: "getShoppingCart"
+      shoppingCart: "getShoppingCartInfo"
     })
   },
   data() {
@@ -46,7 +46,11 @@ export default {
   },
   methods: {
     addToShoppingCart: function(m_item, m_price) {
-      let item = [m_item, m_price];
+      let item = {
+        name:m_item,
+        price:m_price,
+        number:1
+      };
       this.$store.dispatch("addToShoppingCart", item);
     }
   }

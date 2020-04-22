@@ -4,6 +4,7 @@ import Index from "@/pages/Index";
 import Profile from "@/pages/profile";
 import Cart from "@/pages/Cart"
 import Restaurant from "@/pages/restaurant"
+import RestaurantManagement from "@/pages/RestaurantManagement"
 
 Vue.use(Router);
 
@@ -34,6 +35,12 @@ export default new Router({
       path: "/Cart",
       name: "Cart",
       component: Cart,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: "/RestaurantManagement",
+      name: "RestaurantManagement",
+      component: RestaurantManagement,
       meta: { requiresAuth: true }
     },
   ]

@@ -6,6 +6,9 @@
       </b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav>
+        <b-nav-item href="/RestaurantManagement">餐廳管理</b-nav-item>
+      </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
           <!-- 登入前 -->
           <b-nav-item v-b-modal.login v-b-tooltip.hover title="Sign In" v-if="tokenInfo.token===''">

@@ -23,5 +23,7 @@ namespace Back_End.Models
         public DateTime m_birthday{get;set;}
         [Required]
         public string m_address{get;set;}
+        [Required]
+        public int m_role{get;set;}
     }
 }

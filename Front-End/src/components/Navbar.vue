@@ -8,6 +8,7 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
+<<<<<<< HEAD
           <!--購物車-->
           <b-nav-item-dropdown no-caret>
             <template v-slot:button-content>
@@ -24,11 +25,31 @@
               <span id="totalAmount">50</span>
             </b-dropdown-item>
           </b-nav-item-dropdown>
+=======
+>>>>>>> f01536d35e69038a807e6e09e8bdcb5de99fcde7
           <!-- 登入前 -->
           <b-nav-item v-b-modal.login v-b-tooltip.hover title="Sign In" v-if="tokenInfo.token===''">
             <font-awesome-icon icon="user" />
           </b-nav-item>
           <!-- 登入後 -->
+          <!--購物車-->
+          <b-nav-item-dropdown no-caret v-if="tokenInfo.token!==''">
+            <template v-slot:button-content>
+              <font-awesome-icon icon="shopping-cart" />
+            </template>
+            <b-dropdown-item>餐點1</b-dropdown-item>
+            <b-dropdown-item>餐點2</b-dropdown-item>
+            <b-dropdown-item>
+              <span>總金額 :</span>
+              <span id="totalAmount">50</span>
+            </b-dropdown-item>
+            <router-link
+              class="btn btn-info btn-block"
+              style="color:white;text-decoration:none;"
+              to="/Cart">
+              <font-awesome-icon icon="credit-card" />&nbsp結帳
+            </router-link>
+          </b-nav-item-dropdown>
           <b-nav-item-dropdown right v-if="tokenInfo.token!==''">
             <template v-slot:button-content>
               <img class="profile-img" src="../assets/images/user.png" />

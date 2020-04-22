@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Index from "@/pages/Index";
 import Profile from "@/pages/profile";
+import Cart from "@/pages/Cart"
 import Restaurant from "@/pages/restaurant"
 
 Vue.use(Router);
@@ -28,6 +29,12 @@ export default new Router({
       path: "/Restaurant/:id",
       name: "Restaurant",
       component: Restaurant,
-    }
+    },
+    {
+      path: "/Cart",
+      name: "Cart",
+      component: Cart,
+      meta: { requiresAuth: true }
+    },
   ]
 });

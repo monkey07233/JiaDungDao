@@ -11,5 +11,8 @@ namespace Back_End.Models
         public string r_address { get; set; }
         [MaxLength(10)]
         public string r_tel { get; set; }
+        [Required]
+        [MaxLength(50)]
+        public string m_account{get;set;}
     }
 }

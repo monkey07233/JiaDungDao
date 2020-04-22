@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="row pr-3">
+    <div class="row">
       <div class="col-11"></div>
       <div class="col-1">
-        <b-button pill variant="outline-danger">
-          <font-awesome-icon icon="plus" />
+        <b-button pill variant="light">
+          <font-awesome-icon style="color:#A9A9A9" icon="plus" />
         </b-button>
       </div>
     </div>
@@ -43,13 +43,17 @@ import "@/assets/css/index.css";
 import { mapGetters } from "vuex";
 export default {
   data() {
-    return {};
+    return {
+      restaurantList: [
+          {
+          r_name: "陳大帥美式餐廳",
+        r_address: "國際路8877號",
+        r_tel: "0987665233"
+      },
+      ]
+    };
   },
-  computed: mapGetters({
-    restaurantList: "getResList"
-  }),
-  created() {
-    this.$store.dispatch("getRestaurantList");
-  }
+  computed: mapGetters({}),
+  created() {}
 };
 </script>

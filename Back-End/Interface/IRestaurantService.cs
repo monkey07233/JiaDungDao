@@ -9,5 +9,6 @@ namespace Back_End.Interface
         RestaurantAndMenu GetRestaurantInfoById(int Id);
         string updateRestaurant(Restaurant restaurant);
         string createRestaurant(Restaurant restaurant);
+        int AddMenuItem(Menu newMenuItem);
     }
 }

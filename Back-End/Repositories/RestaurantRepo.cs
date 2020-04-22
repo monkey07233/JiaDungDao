@@ -59,5 +59,10 @@ namespace Back_End.Repositories {
             }
             return result;
         }
+        public int AddMenuItem(Menu newMenuItem)
+        {
+            db.Menu.Add(newMenuItem);
+            return db.SaveChanges();             
+        }
     }
 }

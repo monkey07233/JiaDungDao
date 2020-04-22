@@ -7,23 +7,29 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
-          <!--購物車-->
-          <b-nav-item-dropdown no-caret>
-            <template v-slot:button-content>
-              <font-awesome-icon icon="shopping-cart" />
-            </template>
-           <b-dropdown-item>餐點1</b-dropdown-item>  
-           <b-dropdown-item>餐點2</b-dropdown-item>            
-           <b-dropdown-item>
-            <span>總金額 :</span>       
-            <span id="totalAmount">50</span>
-            </b-dropdown-item>            
-          </b-nav-item-dropdown>        
           <!-- 登入前 -->
           <b-nav-item v-b-modal.login v-b-tooltip.hover title="Sign In" v-if="tokenInfo.token===''">
             <font-awesome-icon icon="user" />
           </b-nav-item>
           <!-- 登入後 -->
+          <!--購物車-->
+          <b-nav-item-dropdown no-caret v-if="tokenInfo.token!==''">
+            <template v-slot:button-content>
+              <font-awesome-icon icon="shopping-cart" />
+            </template>
+            <b-dropdown-item>餐點1</b-dropdown-item>
+            <b-dropdown-item>餐點2</b-dropdown-item>
+            <b-dropdown-item>
+              <span>總金額 :</span>
+              <span id="totalAmount">50</span>
+            </b-dropdown-item>
+            <router-link
+              class="btn btn-info btn-block"
+              style="color:white;text-decoration:none;"
+              to="/Cart">
+              <font-awesome-icon icon="credit-card" />&nbsp結帳
+            </router-link>
+          </b-nav-item-dropdown>
           <b-nav-item-dropdown right v-if="tokenInfo.token!==''">
             <template v-slot:button-content>
               <img class="profile-img" src="../assets/images/user.png" />
@@ -195,7 +201,7 @@ export default {
     },
     ...mapGetters({
       tokenInfo: "getTokenInfo",
-      memberInfo:"getMemberInfo"
+      memberInfo: "getMemberInfo"
     })
   },
   methods: {
@@ -242,7 +248,9 @@ export default {
               appendToast: false
             });
             this.$refs["login"].hide();
-            this.$store.dispatch("getMemberInfo", { m_account: this.tokenInfo.account });
+            this.$store.dispatch("getMemberInfo", {
+              m_account: this.tokenInfo.account
+            });
           })
           .catch(err => {
             if (err.response.status == 400) {
@@ -270,9 +278,11 @@ export default {
       this.$router.push("/");
     }
   },
-  created(){
-    if(this.tokenInfo.token != ""){
-      this.$store.dispatch("getMemberInfo", { m_account: this.tokenInfo.account });
+  created() {
+    if (this.tokenInfo.token != "") {
+      this.$store.dispatch("getMemberInfo", {
+        m_account: this.tokenInfo.account
+      });
     }
   }
 };

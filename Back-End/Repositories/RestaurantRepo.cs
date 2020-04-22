@@ -41,7 +41,6 @@ namespace Back_End.Repositories {
                 updateRestaurant.r_name = restaurant.r_name;
                 updateRestaurant.r_address = restaurant.r_address;
                 updateRestaurant.r_tel = restaurant.r_tel;
-                updateRestaurant.m_account = restaurant.m_account;
                 var Count = db.SaveChanges ();
                 return (Count > 0) ? "success" : "fail";
             } catch (Exception e) {

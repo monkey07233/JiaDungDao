@@ -5,7 +5,7 @@ export const state = {
   tokenInfo: {
     account: "",
     token: "",
-    role: null
+    role: 0
   },
   memberInfo: {
     m_name: "",
@@ -37,6 +37,7 @@ export const mutations = {
   [types.CLEAR_TOKEN](state) {
     state.tokenInfo.token = "";
     state.tokenInfo.account = "";
+    state.tokenInfo.role = 0;
   },
   [types.GET_MEMBERINFO](state, data) {
     state.memberInfo = data;

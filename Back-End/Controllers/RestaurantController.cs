@@ -61,5 +61,12 @@ namespace Back_End.Controllers
                 return BadRequest(result);
             }
         }
+        public IActionResult AddMenuItem(Menu newMenuItem){
+            int res=RestaurantService.AddMenuItem(newMenuItem);
+            if(res>0)
+                return Ok();
+            else 
+                return BadRequest("新增menu餐點失敗");
+        }
     }
 }

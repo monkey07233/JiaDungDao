@@ -1,4 +1,3 @@
-
 <template>
   <div class="d-flex flex-wrap">
     <div class="item col-md-3 col-sm-6" v-for="res in restaurantList">

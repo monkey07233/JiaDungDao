@@ -1,11 +1,12 @@
 <template>
   <div>
     <b-navbar toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand>
-        <router-link style="color:white;text-decoration:none;" to="/">JiaDungDao</router-link>
-      </b-navbar-brand>
+      <b-navbar-brand to="/">JiaDungDao</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav>
+        <b-nav-item to="/RestaurantManagement">餐廳管理</b-nav-item>
+      </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
           <!-- 登入前 -->
           <b-nav-item v-b-modal.login v-b-tooltip.hover title="Sign In" v-if="tokenInfo.token===''">
@@ -35,9 +36,7 @@
               <img class="profile-img" src="../assets/images/user.png" />
               <span>{{memberInfo.m_name}}</span>
             </template>
-            <b-dropdown-item>
-              <router-link style="color:black;text-decoration:none;" to="/Profile">會員專區</router-link>
-            </b-dropdown-item>
+            <b-dropdown-item to="/Profile">會員專區</b-dropdown-item>
             <b-dropdown-item @click.prevent="logout">登出</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>

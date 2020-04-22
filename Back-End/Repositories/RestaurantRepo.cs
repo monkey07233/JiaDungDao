@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Back_End.Interface;
@@ -32,6 +33,20 @@ namespace Back_End.Repositories {
         public Restaurant GetRestaurantById (int Id) 
         {
             return db.Restaurant.Where (r => r.RestaurantID == Id).FirstOrDefault ();
+        }
+        public string updateRestaurant (Restaurant restaurant) {
+            var result = string.Empty;
+            try {
+                var updateRestaurant = db.Restaurant.Where (r => r.RestaurantID == restaurant.RestaurantID).FirstOrDefault ();
+                updateRestaurant.r_name = restaurant.r_name;
+                updateRestaurant.r_address = restaurant.r_address;
+                updateRestaurant.r_tel = restaurant.r_tel;
+                var Count = db.SaveChanges ();
+                return (Count > 0) ? "success" : "fail";
+            } catch (Exception e) {
+                return e.ToString ();
+                throw;
+            }
         }
     }
 }

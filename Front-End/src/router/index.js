@@ -44,8 +44,8 @@ export default new Router({
       component: RestaurantManagement,
       meta: { requiresAuth: true },
       beforeEnter(to, from, next) {
-        const role=JSON.parse(JSON.stringify(store.state.tokenInfo)).role;
-        if(role==1){
+        const role = JSON.parse(JSON.stringify(store.state.tokenInfo)).role;
+        if (role != 0) {
           next();
         }
       }

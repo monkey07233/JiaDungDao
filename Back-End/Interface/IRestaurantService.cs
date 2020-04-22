@@ -6,5 +6,6 @@ namespace Back_End.Interface
     public interface IRestaurantService
     {
         List<Restaurant> GetAllRestaurant();
+        RestaurantAndMenu GetRestaurantInfoById(int Id);
     }
 }

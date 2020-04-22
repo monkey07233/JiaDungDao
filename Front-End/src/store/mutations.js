@@ -11,12 +11,24 @@ export const state = {
     m_birthday: "",
     m_email: "",
     m_address: ""
+  },
+  restaurantInfo: {
+    restaurant: {
+      restaurantID: "",
+      r_name: "",
+      r_address: "",
+      r_tel: ""
+    },
+    typeAndMenu: []
   }
 };
 
 export const mutations = {
   [types.GET_RESLIST](state, data) {
     state.restaurantList = data;
+  },
+  [types.GET_RESINFO](state, data) {
+    state.restaurantInfo = data;
   },
   [types.SAVE_TOKEN](state, data) {
     state.tokenInfo = data;

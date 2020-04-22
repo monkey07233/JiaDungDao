@@ -2,7 +2,7 @@
   <div id="app">
     <navbar />
     <div id="content">
-      <router-view />
+      <router-view :asd="items"/>
     </div>
   </div>
 </template>
@@ -12,6 +12,11 @@ import "@/assets/css/layout.css";
 import navbar from "./components/Navbar.vue";
 export default {
   name: "App",
+  data() {
+    return {
+      items: ['123','465']
+    };
+  },
   components: {
     navbar
   },

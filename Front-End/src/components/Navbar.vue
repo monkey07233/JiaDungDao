@@ -1,5 +1,6 @@
 <template>
   <div>
+    <p>{{items}}</p>
     <b-navbar toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand>
         <router-link style="color:white;text-decoration:none;" to="/">JiaDungDao</router-link>
@@ -7,6 +8,22 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
+          <!--購物車-->
+          <b-nav-item-dropdown no-caret>
+            <template v-slot:button-content>
+              <font-awesome-icon icon="shopping-cart" />
+            </template>
+            <span v-for="item in items">
+              <span v-html="item[0]"></span> -
+              <span v-html="item[1]"></span>
+            </span>
+            <b-dropdown-item>餐點1</b-dropdown-item>
+            <b-dropdown-item>餐點2</b-dropdown-item>
+            <b-dropdown-item>
+              <span>總金額 :</span>
+              <span id="totalAmount">50</span>
+            </b-dropdown-item>
+          </b-nav-item-dropdown>
           <!-- 登入前 -->
           <b-nav-item v-b-modal.login v-b-tooltip.hover title="Sign In" v-if="tokenInfo.token===''">
             <font-awesome-icon icon="user" />
@@ -160,6 +177,9 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
+  props: {
+  items: Array
+  },
   data() {
     return {
       newMember: {
@@ -183,7 +203,7 @@ export default {
     },
     ...mapGetters({
       tokenInfo: "getTokenInfo",
-      memberInfo:"getMemberInfo"
+      memberInfo: "getMemberInfo"
     })
   },
   methods: {
@@ -230,7 +250,9 @@ export default {
               appendToast: false
             });
             this.$refs["login"].hide();
-            this.$store.dispatch("getMemberInfo", { m_account: this.tokenInfo.account });
+            this.$store.dispatch("getMemberInfo", {
+              m_account: this.tokenInfo.account
+            });
           })
           .catch(err => {
             if (err.response.status == 400) {
@@ -258,9 +280,11 @@ export default {
       this.$router.push("/");
     }
   },
-  created(){
-    if(this.tokenInfo.token != ""){
-      this.$store.dispatch("getMemberInfo", { m_account: this.tokenInfo.account });
+  created() {
+    if (this.tokenInfo.token != "") {
+      this.$store.dispatch("getMemberInfo", {
+        m_account: this.tokenInfo.account
+      });
     }
   }
 };

@@ -13,9 +13,16 @@
                 ></b-card-img>
               </b-col>
               <b-col md="7">
-                <b-card-body title-tag="h5" :title="item.title">
-                  <b-card-text text-tag="h6">${{item.price}}</b-card-text>
-                  <b-button variant="outline-primary">加入購物車</b-button>
+                <b-card-body title-tag="h5" :title="item.m_item">
+                  <b-card-text text-tag="h6">${{item.m_price}}</b-card-text>
+                  <b-button
+                    @click="addToShoppingCart(item.m_item,item.m_price)"
+                    variant="outline-primary"
+                  >加入購物車</b-button>
+                  <span v-for="item in items">
+                    <span v-html="item[0]"></span> -
+                    <span v-html="item[1]"></span>
+                  </span>
                 </b-card-body>
               </b-col>
             </b-row>
@@ -28,9 +35,21 @@
 
 <script>
 export default {
+  data() {
+    return {
+      items: [],
+      item: ["", ""]
+    };
+  },
   props: {
     tabTitle: String,
     list: Array
+  },
+  methods: {
+    addToShoppingCart(a, b) {
+      this.item = [a, b];
+      this.items.push(this.item);
+    }
   }
 };
 </script>

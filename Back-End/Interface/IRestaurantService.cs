@@ -7,5 +7,6 @@ namespace Back_End.Interface
     {
         List<Restaurant> GetAllRestaurant();
         RestaurantAndMenu GetRestaurantInfoById(int Id);
+        string updateRestaurant(Restaurant restaurant);
     }
 }

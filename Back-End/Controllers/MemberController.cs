@@ -31,7 +31,7 @@ namespace Back_End.Controllers {
             var result = await MemberService.GetMemberByLogin (memberInfo.m_account, memberInfo.m_password);
             if (result != null) {
                 var token = MemberService.GetJwtToken (Configuration, result.MemberId.ToString (), result.m_account);
-                return Ok (new { account = result.m_account, token = token });
+                return Ok (new { account = result.m_account, token = token, role = result.m_role });
             }
             return BadRequest ("帳號或密碼錯誤");
         }

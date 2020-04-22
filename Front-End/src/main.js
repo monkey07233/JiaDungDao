@@ -16,22 +16,14 @@ Vue.use(BootstrapVue);
 library.add(fas);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
-/* eslint-disable no-new */
-new Vue({
-  el: "#app",
-  router,
-  store,
-  components: { App },
-  template: "<App/>"
-});
-
 router.beforeEach((to, from, next) => {
   if (
     to.matched.some(record => {
       return record.meta.requiresAuth;
     })
   ) {
-    if (store.state.tokenInfo.token == "") {
+    const tokenInfo = JSON.parse(localStorage.getItem("tokenInfo"));
+    if (tokenInfo == null || tokenInfo.token == "") {
       next({ path: "/" });
     } else {
       next();
@@ -39,4 +31,13 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
+});
+
+/* eslint-disable no-new */
+new Vue({
+  el: "#app",
+  router,
+  store,
+  components: { App },
+  template: "<App/>"
 });

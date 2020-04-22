@@ -48,5 +48,18 @@ namespace Back_End.Controllers
                 return BadRequest(result);
             }
         }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult createRestaurant(Restaurant restaurant){
+            var result = RestaurantService.createRestaurant(restaurant);
+            if (result == "successed")
+            {
+                return Ok(result);
+            }else
+            {
+                return BadRequest(result);
+            }
+        }
     }
 }

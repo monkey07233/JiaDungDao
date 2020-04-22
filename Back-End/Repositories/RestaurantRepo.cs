@@ -34,13 +34,12 @@ namespace Back_End.Repositories {
         {
             return db.Restaurant.Where (r => r.RestaurantID == Id).FirstOrDefault ();
         }
-        public string updateRestaurant (Restaurant restaurant) {
+        public string updateRestaurant (Restaurant oldData,Restaurant restaurant) {
             var result = string.Empty;
             try {
-                var updateRestaurant = db.Restaurant.Where (r => r.RestaurantID == restaurant.RestaurantID).FirstOrDefault ();
-                updateRestaurant.r_name = restaurant.r_name;
-                updateRestaurant.r_address = restaurant.r_address;
-                updateRestaurant.r_tel = restaurant.r_tel;
+                oldData.r_name = restaurant.r_name;
+                oldData.r_address = restaurant.r_address;
+                oldData.r_tel = restaurant.r_tel;
                 var Count = db.SaveChanges ();
                 return (Count > 0) ? "success" : "fail";
             } catch (Exception e) {

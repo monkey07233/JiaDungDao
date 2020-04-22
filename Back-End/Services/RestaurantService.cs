@@ -56,7 +56,7 @@ namespace Back_End.Services
             var oldData = RestaurantRepo.GetRestaurantById(restaurant.RestaurantID);
             if (oldData != null)
             {
-                result = RestaurantRepo.updateRestaurant(restaurant);
+                result = RestaurantRepo.updateRestaurant(oldData,restaurant);
             }
             return result;
         }

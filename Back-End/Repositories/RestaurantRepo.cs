@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Back_End.Interface;
 using Back_End.Models;
 using JiaDungDao.Connection;
+using Microsoft.EntityFrameworkCore;
 
 namespace Back_End.Repositories {
     public class RestaurantRepo : IRestaurantRepo {
@@ -61,8 +63,14 @@ namespace Back_End.Repositories {
         }
         public int AddMenuItem(Menu newMenuItem)
         {
-            db.Menu.Add(newMenuItem);
-            return db.SaveChanges();             
+            try{
+                db.Menu.Add(newMenuItem);
+                return db.SaveChanges();    
+            }
+            catch(DbUpdateException e){
+                Debug.WriteLine(e);
+                return -1;
+            }         
         }
     }
 }

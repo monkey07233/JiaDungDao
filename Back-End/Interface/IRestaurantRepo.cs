@@ -10,5 +10,6 @@ namespace Back_End.Interface
         List<string> GetAllMenuTypeById(int Id);
         List<Menu> GetAllMenuById(int Id);
         string updateRestaurant(Restaurant oldData,Restaurant restaurant);
+        string createRestaurant(Restaurant restaurant);
     }
 }

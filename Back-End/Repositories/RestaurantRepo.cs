@@ -47,5 +47,17 @@ namespace Back_End.Repositories {
                 throw;
             }
         }
+
+        public string createRestaurant(Restaurant restaurant){
+            var result = string.Empty;
+            try{
+                db.Restaurant.Add(restaurant);
+                db.SaveChanges ();
+                result = "successed";
+            }catch(Exception e){
+                result = e.Message.ToString();
+            }
+            return result;
+        }
     }
 }

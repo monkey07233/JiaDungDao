@@ -60,5 +60,9 @@ namespace Back_End.Services
             }
             return result;
         }
+
+        public string createRestaurant(Restaurant restaurant){
+            return RestaurantRepo.createRestaurant(restaurant);
+        }
     }
 }

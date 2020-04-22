@@ -4,9 +4,9 @@
       <b-navbar-brand to="/">JiaDungDao</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
-        <b-nav-item to="/RestaurantManagement">餐廳管理</b-nav-item>
-      </b-navbar-nav>
+        <b-navbar-nav v-if="tokenInfo.role!=0">
+          <b-nav-item to="/RestaurantManagement">餐廳管理</b-nav-item>
+        </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
           <!-- 登入前 -->
           <b-nav-item v-b-modal.login v-b-tooltip.hover title="Sign In" v-if="tokenInfo.token===''">
@@ -27,7 +27,8 @@
             <router-link
               class="btn btn-info btn-block"
               style="color:white;text-decoration:none;"
-              to="/Cart">
+              to="/Cart"
+            >
               <font-awesome-icon icon="credit-card" />&nbsp結帳
             </router-link>
           </b-nav-item-dropdown>

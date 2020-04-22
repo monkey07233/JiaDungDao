@@ -16,6 +16,10 @@ export const getTokenInfo = state => {
     return state.tokenInfo;
 };
 
+export const getResByAcc = (state, getters) => {
+    return state.restaurantList.filter(res => res.m_account === getters.getTokenInfo.account);
+};
+
 export const getShoppingCartInfo = state => {
     return state.shoppingCartItems;
 };

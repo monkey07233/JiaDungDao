@@ -36,5 +36,17 @@ namespace Back_End.Controllers
             }
             return BadRequest("查無此餐廳");
         }
+        [HttpPost]
+        [Authorize]
+        public IActionResult updateRestaurant(Restaurant restaurant){
+            var result = RestaurantService.updateRestaurant(restaurant);
+            if (result == "success")
+            {
+                return Ok(result);
+            }else
+            {
+                return BadRequest(result);
+            }
+        }
     }
 }

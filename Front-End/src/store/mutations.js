@@ -5,7 +5,8 @@ export const state = {
     restaurantList: [],
     tokenInfo: {
         account: "",
-        token: ""
+        token: "",
+        role: null
     },
     memberInfo: {
         m_name: "",
@@ -20,9 +21,23 @@ export const state = {
             r_address: "",
             r_tel: ""
         },
-        typeAndMenu: []
+        memberInfo: {
+            m_name: "",
+            m_birthday: "",
+            m_email: "",
+            m_address: ""
+        },
+        restaurantInfo: {
+            restaurant: {
+                restaurantID: "",
+                r_name: "",
+                r_address: "",
+                r_tel: ""
+            },
+            typeAndMenu: []
+        }
     }
-};
+}
 
 export const mutations = {
     [types.GET_RESLIST](state, data) {

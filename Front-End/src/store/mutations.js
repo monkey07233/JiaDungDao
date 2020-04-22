@@ -4,7 +4,8 @@ export const state = {
   restaurantList: [],
   tokenInfo: {
     account: "",
-    token: ""
+    token: "",
+    role: null
   },
   memberInfo: {
     m_name: "",

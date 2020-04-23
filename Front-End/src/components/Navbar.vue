@@ -18,18 +18,22 @@
             <template v-slot:button-content>
               <font-awesome-icon icon="shopping-cart" />
             </template>
-            <b-dropdown-item>餐點1</b-dropdown-item>
-            <b-dropdown-item>餐點2</b-dropdown-item>
             <b-dropdown-item>
-              <span>總金額 :</span>
-              <span id="totalAmount">50</span>
+              <span v-for="item in shoppingCart.shoppingCartItems">
+                <b-dropdown-item>
+                  <span v-html="item.name"></span> *
+                  <span v-html="item.number"></span> -
+                  <span v-html="item.price"></span>
+                </b-dropdown-item>
+              </span>
+              <b-dropdown-item>總金額 : {{shoppingCart.shoppingCartTotalPrice}}</b-dropdown-item>
             </b-dropdown-item>
             <router-link
               class="btn btn-info btn-block"
               style="color:white;text-decoration:none;"
               to="/Cart"
             >
-              <font-awesome-icon icon="credit-card" />&nbsp結帳
+              <font-awesome-icon icon="credit-card" />&nbsp;結帳
             </router-link>
           </b-nav-item-dropdown>
           <b-nav-item-dropdown right v-if="tokenInfo.token!==''">
@@ -201,7 +205,8 @@ export default {
     },
     ...mapGetters({
       tokenInfo: "getTokenInfo",
-      memberInfo: "getMemberInfo"
+      memberInfo: "getMemberInfo",
+      shoppingCart: "getShoppingCartInfo"
     })
   },
   methods: {

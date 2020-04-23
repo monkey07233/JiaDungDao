@@ -6,7 +6,7 @@ import Cart from "@/pages/Cart";
 import Restaurant from "@/pages/restaurant";
 import RestaurantManagement from "@/pages/RestaurantManagement";
 import store from "../store";
-
+import RestaurantEdit from "@/pages/RestaurantEdit"
 Vue.use(Router);
 
 export default new Router({
@@ -48,7 +48,13 @@ export default new Router({
         if (role != 0) {
           next();
         }
-      }
-    }
+      }    
+    },
+    {
+      path: "/RestaurantEdit",
+      name: "RestaurantEdit",
+      component: RestaurantEdit,
+      meta: { requiresAuth: true }
+    }     
   ]
 });

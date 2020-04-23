@@ -27,7 +27,7 @@
             <router-link
               class="stretched-link"
               :to="{
-              name:'Restaurant',
+              name:'RestaurantEdit',
               params:{id:res.restaurantID}
               }"
             ></router-link>

@@ -5,6 +5,7 @@ import Profile from "@/pages/profile";
 import Cart from "@/pages/Cart";
 import Restaurant from "@/pages/restaurant";
 import RestaurantManagement from "@/pages/RestaurantManagement";
+import AddRestaurant from "@/pages/AddRestaurant";
 import store from "../store";
 import RestaurantEdit from "@/pages/RestaurantEdit"
 Vue.use(Router);
@@ -55,6 +56,11 @@ export default new Router({
       name: "RestaurantEdit",
       component: RestaurantEdit,
       meta: { requiresAuth: true }
-    }     
+    },       
+    {
+      path: "/RestaurantManagement/AddRestaurant",
+      name: "AddRestaurant",
+      component: AddRestaurant
+    }
   ]
 });

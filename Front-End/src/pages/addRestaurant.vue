@@ -1,7 +1,7 @@
 <template>
   <div class="container rounded bg-white mb-4">
      <div class="row ml-3 mr-3 pt-3">
-      <h4 style="text-align:center">
+      <h4 class="form-title">
         <font-awesome-icon icon="plus" />&nbsp;新增餐廳
       </h4>
     </div>
@@ -16,7 +16,7 @@
         <b-form-group label="聯絡電話" label-for="input-3">
           <b-form-input id="input-3" type="tel" required placeholder="請輸入餐廳聯絡電話"></b-form-input>
         </b-form-group>       
-        <b-button type="submit" variant="primary" style="margin-bottom:12px;">送出</b-button>       
+        <b-button type="submit" variant="primary" class="submit-btn">送出</b-button>       
     </b-form>
   </div>
 </template>
@@ -30,3 +30,14 @@ export default {
   },
 };
 </script>
+
+<style >
+  .form-title{
+      margin-left:auto;
+      margin-right:auto;
+  }
+
+  .submit-btn{
+      margin-bottom:12px;
+  }
+</style>

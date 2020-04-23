@@ -44,16 +44,13 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      restaurantList: [
-          {
-          r_name: "陳大帥美式餐廳",
-        r_address: "國際路8877號",
-        r_tel: "0987665233"
-      },
-      ]
     };
   },
-  computed: mapGetters({}),
-  created() {}
+  computed: mapGetters({
+    restaurantList: "getResByAcc"
+  }),
+  created() {
+    this.$store.dispatch("getRestaurantList");
+  }
 };
 </script>

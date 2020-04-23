@@ -49,5 +49,23 @@ namespace Back_End.Services
             result.typeAndMenu = typeAndMenus;
             return result;
         }
+
+        public string updateRestaurant(Restaurant restaurant)
+        {
+            var result = string.Empty;
+            var oldData = RestaurantRepo.GetRestaurantById(restaurant.RestaurantID);
+            if (oldData != null)
+            {
+                result = RestaurantRepo.updateRestaurant(oldData,restaurant);
+            }
+            return result;
+        }
+
+        public string createRestaurant(Restaurant restaurant){
+            return RestaurantRepo.createRestaurant(restaurant);
+        }
+        public int AddMenuItem(Menu newMenuItem){
+            return RestaurantRepo.AddMenuItem(newMenuItem);
+        }
     }
 }

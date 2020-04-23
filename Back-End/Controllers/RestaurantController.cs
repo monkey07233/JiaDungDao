@@ -36,5 +36,37 @@ namespace Back_End.Controllers
             }
             return BadRequest("查無此餐廳");
         }
+        [HttpPost]
+        [Authorize]
+        public IActionResult updateRestaurant(Restaurant restaurant){
+            var result = RestaurantService.updateRestaurant(restaurant);
+            if (result == "success")
+            {
+                return Ok(result);
+            }else
+            {
+                return BadRequest(result);
+            }
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult createRestaurant(Restaurant restaurant){
+            var result = RestaurantService.createRestaurant(restaurant);
+            if (result == "successed")
+            {
+                return Ok(result);
+            }else
+            {
+                return BadRequest(result);
+            }
+        }
+        public IActionResult AddMenuItem(Menu newMenuItem){
+            int res=RestaurantService.AddMenuItem(newMenuItem);
+            if(res>0)
+                return Ok();
+            else 
+                return BadRequest("新增menu餐點失敗");
+        }
     }
 }

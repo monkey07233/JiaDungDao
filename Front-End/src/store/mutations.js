@@ -1,6 +1,10 @@
 import * as types from "./mutations_type.js";
 
 export const state = {
+  shoppingCartInfo: {
+    shoppingCartTotalPrice: 0,
+    shoppingCartItems: [],
+  },
   restaurantList: [],
   tokenInfo: {
     account: "",
@@ -43,5 +47,18 @@ export const mutations = {
     state.memberInfo = data;
     var birthday = data.m_birthday.split("T");
     state.memberInfo.m_birthday = birthday[0];
+  },
+  [types.SAVE_SHOPPINGCART](state, item) {
+    let itemdata = JSON.parse(JSON.stringify(item));
+    let index = state.shoppingCartInfo.shoppingCartItems.findIndex(item => item.name === itemdata.name);
+    if (index !== -1) {
+      state.shoppingCartInfo.shoppingCartItems[index].number++;
+      state.shoppingCartInfo.shoppingCartItems[index].price += item.price;
+    } else {
+      state.shoppingCartInfo.shoppingCartItems.push(item);
+    }
+    state.shoppingCartInfo.shoppingCartTotalPrice += item.price;
   }
 };
+
+

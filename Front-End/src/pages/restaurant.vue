@@ -25,7 +25,7 @@
     <div>
       <b-tabs content-class="mt-3" align="center">
         <template v-for="item in restaurantInfo.typeAndMenu">
-          <mealsCard :list="item.menu" :tabTitle="item.m_type" />
+          <mealsCard :list="item.menu" :tabTitle="item.m_type"/>
         </template>
       </b-tabs>
     </div>
@@ -42,7 +42,6 @@ export default {
   },
   data() {
     return {
-
     };
   },
   computed: mapGetters({

@@ -12,6 +12,9 @@ import "@/assets/css/layout.css";
 import navbar from "./components/Navbar.vue";
 export default {
   name: "App",
+  data() {
+    return {};
+  },
   components: {
     navbar
   },

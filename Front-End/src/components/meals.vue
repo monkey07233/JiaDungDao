@@ -15,6 +15,10 @@
               <b-col md="7">
                 <b-card-body title-tag="h5" :title="item.m_item">
                   <b-card-text text-tag="h6">${{item.m_price}}</b-card-text>
+                  <b-button
+                    @click="addToShoppingCart(item.m_item, item.m_price)"
+                    variant="outline-primary"
+                  >加入購物車</b-button>
                 </b-card-body>
               </b-col>
             </b-row>
@@ -26,10 +30,29 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
+  computed: {
+    ...mapGetters({
+      shoppingCart: "getShoppingCartInfo"
+    })
+  },
+  data() {
+    return {};
+  },
   props: {
     tabTitle: String,
     list: Array
+  },
+  methods: {
+    addToShoppingCart: function(m_item, m_price) {
+      let item = {
+        name:m_item,
+        price:m_price,
+        number:1
+      };
+      this.$store.dispatch("addToShoppingCart", item);
+    }
   }
 };
 </script>

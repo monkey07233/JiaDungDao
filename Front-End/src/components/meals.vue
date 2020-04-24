@@ -47,11 +47,20 @@ export default {
   methods: {
     addToShoppingCart: function(m_item, m_price) {
       let item = {
-        name:m_item,
-        price:m_price,
-        number:1
+        name: m_item,
+        price: m_price,
+        number: 1,
+        subtotal: m_price
       };
-      this.$store.dispatch("addToShoppingCart", item);
+      this.$store.dispatch("addItemToShoppingCart", item).then(res => {
+        this.$bvToast.toast("餐點已加入購物車", {
+          title: `successed`,
+          toaster: "b-toaster-top-center",
+          solid: true,
+          autoHideDelay: 1000,
+          appendToast: false
+        });
+      });
     }
   }
 };

@@ -146,7 +146,7 @@ export const addMenuItem = ({ commit, state }, newMenuItem) => {
     const config = {
         withCredentials: true,
         headers: {
-            Authorization: "Bearer " + state.tokenInfo.token
+            Authorization: "Bearer " + state.tokenInfo.token,
         }
     };
     return new Promise((resolve, reject) => {
@@ -156,10 +156,12 @@ export const addMenuItem = ({ commit, state }, newMenuItem) => {
                 newMenuItem,
                 config
             )
-            .then(function (res) {
-                resolve(res.data);
+            .then(function () {
+                alert("成功")
+                resolve();
             })
             .catch(function (err) {
+                alert(err)
                 console.log(err);
                 reject();
             });

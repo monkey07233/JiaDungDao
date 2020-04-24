@@ -4,10 +4,10 @@ import axios from "axios";
 export const getRestaurantList = ({ commit }) => {
     axios
         .get("https://localhost:5001/api/Restaurant/GetAllRestaurant")
-        .then(function(res) {
+        .then(function (res) {
             commit(types.GET_RESLIST, res.data);
         })
-        .catch(function(err) {
+        .catch(function (err) {
             console.log(err);
         });
 };
@@ -15,10 +15,10 @@ export const getRestaurantList = ({ commit }) => {
 export const getRestaurantInfo = ({ commit }, id) => {
     axios
         .get("https://localhost:5001/api/Restaurant/GetRestaurantInfoById?id=" + id)
-        .then(function(res) {
+        .then(function (res) {
             commit(types.GET_RESINFO, res.data);
         })
-        .catch(function(err) {
+        .catch(function (err) {
             console.log(err);
         });
 };
@@ -37,10 +37,10 @@ export const getMemberInfo = ({ commit, state }, memberInfo) => {
                 memberInfo,
                 config
             )
-            .then(function(res) {
+            .then(function (res) {
                 commit(types.GET_MEMBERINFO, res.data);
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err);
                 if (err.response.status == 401) {
                     localStorage.removeItem("tokenInfo");
@@ -55,10 +55,10 @@ export const register = ({ commit }, newMember) => {
     return new Promise((resolve, reject) => {
         axios
             .post("https://localhost:5001/api/Member/Register", newMember)
-            .then(function(res) {
+            .then(function (res) {
                 resolve(res.data);
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err);
                 reject();
             });
@@ -69,11 +69,11 @@ export const login = ({ commit }, loginInfo) => {
     return new Promise((resolve, reject) => {
         axios
             .post("https://localhost:5001/api/Member/Login", loginInfo)
-            .then(function(res) {
+            .then(function (res) {
                 resolve(res.data);
                 commit(types.SAVE_TOKEN, res.data);
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 reject(err);
             });
     });
@@ -101,16 +101,68 @@ export const UpdateProfile = ({ commit, state }, profileAfterEdit) => {
                 profileAfterEdit,
                 config
             )
-            .then(function(res) {
+            .then(function (res) {
                 resolve(res.data);
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err);
                 reject();
             });
     });
 };
 
-export const addToShoppingCart = (context, item) => {
-    context.commit(types.SAVE_SHOPPINGCART, item);
+export const addToShoppingCart = (commit, item) => {
+    commit(types.SAVE_SHOPPINGCART, item);
 };
+
+export const minusToShoppingCart = (commit, item) => {
+    commit(types.MINUS_NUMBER_SHOPPINGCART, item);
+};
+
+export const addMenuItem = ({ commit, state }, newMenuItem) => {
+    const config = {
+        withCredentials: true,
+        headers: {
+            Authorization: "Bearer " + state.tokenInfo.token
+        }
+    };
+    return new Promise((resolve, reject) => {
+        axios
+            .post(
+                "https://localhost:5001/api/Restaurant/AddMenuItem",
+                newMenuItem,
+                config
+            )
+            .then(function (res) {
+                resolve(res.data);
+            })
+            .catch(function (err) {
+                console.log(err);
+                reject();
+            });
+    });
+}
+
+export const UpdateRestaurant = ({ commit, state }, restaurant) => {
+    const config = {
+        withCredentials: true,
+        headers: {
+            Authorization: "Bearer " + state.tokenInfo.token
+        }
+    };
+    return new Promise((resolve, reject) => {
+        axios
+            .post(
+                "https://localhost:5001/api/Restaurant/updateRestaurant",
+                restaurant,
+                config
+            )
+            .then(function (res) {
+                resolve(res.data);
+            })
+            .catch(function (err) {
+                console.log(err);
+                reject();
+            });
+    });
+}

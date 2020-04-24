@@ -58,7 +58,17 @@ export const mutations = {
       state.shoppingCartInfo.shoppingCartItems.push(item);
     }
     state.shoppingCartInfo.shoppingCartTotalPrice += item.price;
-  }
+  },
+  [types.MINUS_NUMBER_SHOPPINGCART](state, item) {
+    let itemdata = JSON.parse(JSON.stringify(item));
+    let index = state.shoppingCartInfo.shoppingCartItems.findIndex(item => item.name === itemdata.name);
+    let cartItem = state.shoppingCartInfo.shoppingCartItems[index];
+    if (index !== -1 && cartItem.number > 1) {
+      cartItem.number--;
+      cartItem.price -= item.price;
+      state.shoppingCartInfo.shoppingCartTotalPrice -= item.price;
+    }
+  },
 };
 
 

@@ -7,14 +7,14 @@
     </div>
     <div class="row mt-3 ml-3 mr-3">
       <b-table hover :fields="fields" :items="shoppingCart.shoppingCartItems" outlined>
-        <template v-slot:cell(count)="data">
-            <b-button pill size="sm" variant="outline-secondary">
-              <font-awesome-icon icon="minus" />
-            </b-button>
-            &nbsp;{{ items.name }}&nbsp;
-            <b-button pill size="sm" variant="outline-danger">
-              <font-awesome-icon icon="plus" />
-            </b-button>
+        <template v-slot:cell(number)="data">
+          <b-button v-if="data.number>1" @click="minusNumberToShoppingCart(data)" pill size="sm" variant="outline-secondary">
+            <font-awesome-icon icon="minus" />
+          </b-button>
+          &nbsp;{{ data.number }}&nbsp;
+          <b-button @click="addNumberToShoppingCart(data)" pill size="sm" variant="outline-danger">
+            <font-awesome-icon icon="plus" />
+          </b-button>
         </template>
       </b-table>
     </div>
@@ -64,6 +64,14 @@ export default {
         { key: "price", label: "小計", class: "text-center" }
       ]
     };
+  },
+  method: {
+    addNumberToShoppingCart: function(item) {
+      this.$store.dispatch("addToShoppingCart", items);
+    },
+    minusNumberToShoppingCart: function(item) {
+      this.$store.dispatch("minusToShoppingCart", items);
+    }
   }
 };
 </script>

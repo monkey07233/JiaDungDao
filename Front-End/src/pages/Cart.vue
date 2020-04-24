@@ -61,7 +61,7 @@ export default {
       fields: [
         { key: "name", label: "餐點名稱" },
         { key: "number", label: "數量", class: "text-center" },
-        { key: "price", label: "小計", class: "text-center" },
+        { key: "price", label: "單價", class: "text-center" },
         { key: "subtotal", label: "小計", class: "text-center" }
       ]
     };

@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="row p-3">
-      <div class="item col-md-3 col-sm-6" v-for="res in restaurantList">
+      <div class="item col-md-3 col-sm-6" v-for="(res,index) in restaurantList" :key="index">
         <div class="card">
           <img class="card-img-top" src="../assets/images/restaurant.jpg" />
           <div class="card-body">

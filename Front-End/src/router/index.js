@@ -7,7 +7,7 @@ import Restaurant from "@/pages/restaurant";
 import RestaurantManagement from "@/pages/RestaurantManagement";
 import AddRestaurant from "@/pages/AddRestaurant";
 import store from "../store";
-import RestaurantEdit from "@/pages/RestaurantEdit"
+import RestaurantEdit from "@/pages/RestaurantEdit";
 Vue.use(Router);
 
 export default new Router({
@@ -45,18 +45,18 @@ export default new Router({
       component: RestaurantManagement,
       meta: { requiresAuth: true },
       beforeEnter(to, from, next) {
-        const role = JSON.parse(JSON.stringify(store.state.tokenInfo)).role;
-        if (role != 0) {
+        const tokenInfo = JSON.parse(localStorage.getItem("tokenInfo"));
+        if (tokenInfo.role != 0) {
           next();
         }
-      }    
+      }
     },
     {
       path: "/RestaurantEdit/:id",
       name: "RestaurantEdit",
       component: RestaurantEdit,
       meta: { requiresAuth: true }
-    },       
+    },
     {
       path: "/AddRestaurant",
       name: "AddRestaurant",

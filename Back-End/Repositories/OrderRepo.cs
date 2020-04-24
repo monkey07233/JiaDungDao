@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Back_End.Interface;
@@ -25,6 +26,31 @@ namespace Back_End.Repositories
                 tmp.title = title;
                 tmp.orderDetail = orderResult;
                 result.Add(tmp);
+            }
+            return result;
+        }
+
+
+        public string createOrder(OrderInfo orderInfo)
+        {
+            var result = string.Empty;
+            try
+            {
+                orderInfo.title.o_createtime = DateTime.Now;
+                db.OrderTitle.Add(orderInfo.title);
+                db.SaveChanges();
+                var orderTitleResult = db.OrderTitle.Where(o => o.m_account == orderInfo.title.m_account).OrderByDescending(o => o.OrderId).FirstOrDefault();
+                foreach (var order in orderInfo.orderDetail)
+                {
+                    order.OrderID = orderTitleResult.OrderId;
+                    db.Order.Add(order);
+                }
+                db.SaveChanges();
+                result = "successed";
+            }
+            catch (Exception e)
+            {
+                result = e.Message.ToString();
             }
             return result;
         }

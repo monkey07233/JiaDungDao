@@ -17,5 +17,10 @@ namespace Back_End.Services
             var result = OrderRepo.GetOrderInfo(m_account);
             return result;
         }
+
+        public string createOrder(OrderInfo orderInfo)
+        {
+            return OrderRepo.createOrder(orderInfo);
+        }
     }
 }

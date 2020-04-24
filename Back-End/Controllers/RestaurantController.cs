@@ -61,6 +61,9 @@ namespace Back_End.Controllers
                 return BadRequest(result);
             }
         }
+        
+        [HttpPost]
+        [Authorize]
         public IActionResult AddMenuItem(Menu newMenuItem){
             int res=RestaurantService.AddMenuItem(newMenuItem);
             if(res>0)

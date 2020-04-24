@@ -23,7 +23,7 @@
                 <b-dropdown-item>
                   <span v-html="item.name"></span> *
                   <span v-html="item.number"></span> -
-                  <span v-html="item.price"></span>
+                  <span v-html="item.subtotal"></span>
                 </b-dropdown-item>
               </span>
               <b-dropdown-item>總金額 : {{shoppingCart.shoppingCartTotalPrice}}</b-dropdown-item>

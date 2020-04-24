@@ -35,9 +35,11 @@ export default {
   data() {
     return {};
   },
-  computed: mapGetters({
-    restaurantList: "getResList"
-  }),
+  computed: {
+    ...mapGetters({
+      restaurantList: "getResList"
+    })
+  },
   created() {
     this.$store.dispatch("getRestaurantList");
   }

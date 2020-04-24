@@ -47,11 +47,12 @@ export default {
   methods: {
     addToShoppingCart: function(m_item, m_price) {
       let item = {
-        name:m_item,
-        price:m_price,
-        number:1
+        name: m_item,
+        price: m_price,
+        number: 1,
+        subtotal: m_price
       };
-      this.$store.dispatch("addToShoppingCart", item);
+      this.$store.dispatch("addItemToShoppingCart", item);
     }
   }
 };

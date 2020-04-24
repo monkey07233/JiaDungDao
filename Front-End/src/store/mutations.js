@@ -53,7 +53,7 @@ export const mutations = {
     let index = state.shoppingCartInfo.shoppingCartItems.findIndex(item => item.name === itemdata.name);
     if (index !== -1) {
       state.shoppingCartInfo.shoppingCartItems[index].number++;
-      state.shoppingCartInfo.shoppingCartItems[index].price += item.price;
+      state.shoppingCartInfo.shoppingCartItems[index].subtotal += item.price;
     } else {
       state.shoppingCartInfo.shoppingCartItems.push(item);
     }
@@ -65,7 +65,7 @@ export const mutations = {
     let cartItem = state.shoppingCartInfo.shoppingCartItems[index];
     if (index !== -1 && cartItem.number > 1) {
       cartItem.number--;
-      cartItem.price -= item.price;
+      state.shoppingCartInfo.shoppingCartItems[index].subtotal -= item.price;
       state.shoppingCartInfo.shoppingCartTotalPrice -= item.price;
     }
   },

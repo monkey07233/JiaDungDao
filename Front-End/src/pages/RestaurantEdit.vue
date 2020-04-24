@@ -50,11 +50,11 @@
             <b-alert show variant="white">
               <h2 class="alert-heading mb-2 text-center">編輯餐廳菜單</h2>
 
-              <b-form @submit.prevent="addMenuItem" inline class="justify-content-center">
+              <b-form @submit.prevent="addMenuItem()" inline class="justify-content-center">
                 <label class="sr-only" for="input-name">菜名</label>
                 <b-input
-                  v-model="m_item"
-                  id="input-name"
+              
+                  name="input-name"
                   class="mb-2 mr-sm-2 mb-sm-0"
                   placeholder="請輸入菜名"
                   required
@@ -105,6 +105,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -116,10 +117,12 @@ export default {
       }
     };
   },
-  computed: mapGetters({
+  computed: {
+    ...mapGetters({
     restaurantInfo: "getResInfo",
     tokenInfo: "getTokenInfo"
-  }),
+  })
+  },
   created() {
     this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
   },
@@ -144,7 +147,7 @@ export default {
       });
     },
     addMenuItem() {
-      this.$store.dispatch("addMenuItem", this.newMenuItem).then(res => {
+      /*this.$store.dispatch("addMenuItem", this.newMenuItem).then(res => {
         this.$bvToast.toast("新增成功", {
           title: `successed`,
           toaster: "b-toaster-top-center",
@@ -156,7 +159,8 @@ export default {
         this.m_type = "";
         this.m_price = null;
         this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
-      });
+      });*/
+      console.log(this.newMenuItem);
     }
   }
 };

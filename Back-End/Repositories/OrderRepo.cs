@@ -21,7 +21,7 @@ namespace Back_End.Repositories
             foreach (var title in orderTitleResult)
             {
                 OrderInfo tmp = new OrderInfo();
-                var orderResult = db.Order.Where(o => o.OrderID == title.OrderId).OrderBy(o => o.Id).ToList();
+                var orderResult = db.Order.Where(o => o.OrderID == title.OrderId).OrderBy(o => o.OrderDetailId).ToList();
                 tmp.title = title;
                 tmp.orderDetail = orderResult;
                 result.Add(tmp);

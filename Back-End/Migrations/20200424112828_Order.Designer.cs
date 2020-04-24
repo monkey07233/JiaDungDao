@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JiaDungDao.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200424100215_Order")]
+    [Migration("20200424112828_Order")]
     partial class Order
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,7 +88,7 @@ namespace JiaDungDao.Migrations
 
             modelBuilder.Entity("Back_End.Models.Order", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("OrderDetailId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -105,7 +105,7 @@ namespace JiaDungDao.Migrations
                     b.Property<int>("o_price")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("OrderDetailId");
 
                     b.ToTable("Order");
                 });

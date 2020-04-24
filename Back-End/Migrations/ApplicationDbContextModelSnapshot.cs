@@ -86,7 +86,7 @@ namespace JiaDungDao.Migrations
 
             modelBuilder.Entity("Back_End.Models.Order", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("OrderDetailId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -103,7 +103,7 @@ namespace JiaDungDao.Migrations
                     b.Property<int>("o_price")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("OrderDetailId");
 
                     b.ToTable("Order");
                 });

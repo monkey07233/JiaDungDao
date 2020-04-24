@@ -86,7 +86,7 @@
                     <th>分類</th>
                   </tr>
                   <template v-for="(items,index) in restaurantInfo.typeAndMenu">
-                    <tr v-for="menu in items.menu">
+                    <tr v-for="(menu,m_index) in items.menu" :key="m_index">
                       <td>{{index+1}}</td>
                       <td>{{menu.m_item}}</td>
                       <td>{{menu.m_price}}</td>
@@ -146,7 +146,7 @@ export default {
       });
     },
     addMenuItem() {
-      console.log(this.newMenuItem);
+      this.newMenuItem.m_price = parseInt(this.newMenuItem.m_price);
       this.$store.dispatch("addMenuItem", this.newMenuItem).then(res => {
         this.$bvToast.toast("新增餐點成功", {
           title: `successed`,

@@ -8,11 +8,32 @@
     <div class="row mt-3 ml-3 mr-3">
       <b-table hover :fields="fields" :items="shoppingCart.shoppingCartItems" outlined>
         <template v-slot:cell(number)="data">
-          <b-button @click="minusItemToShoppingCart(data.item)" pill size="sm" variant="outline-secondary">
+          <b-button
+            v-if="data.item.number==1"
+            disabled 
+            @click="minusItemToShoppingCart(data.item)"
+            pill
+            size="sm"
+            variant="outline-secondary"
+          >
+            <font-awesome-icon icon="minus" />
+          </b-button>
+          <b-button
+            v-if="data.item.number > 1"
+            @click="minusItemToShoppingCart(data.item)"
+            pill
+            size="sm"
+            variant="outline-secondary"
+          >
             <font-awesome-icon icon="minus" />
           </b-button>
           &nbsp{{data.item.number}}&nbsp
-          <b-button @click="addItemToShoppingCart(data.item)" pill size="sm" variant="outline-danger">
+          <b-button
+            @click="addItemToShoppingCart(data.item)"
+            pill
+            size="sm"
+            variant="outline-danger"
+          >
             <font-awesome-icon icon="plus" />
           </b-button>
         </template>

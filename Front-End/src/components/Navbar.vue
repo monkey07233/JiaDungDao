@@ -14,35 +14,35 @@
           </b-nav-item>
           <!-- 登入後 -->
           <!--購物車-->
-          <b-nav-item-dropdown no-caret v-if="tokenInfo.token!==''">
+          <b-nav-item-dropdown size="lg" no-caret v-if="tokenInfo.token!==''">
             <template v-slot:button-content>
               <font-awesome-icon icon="shopping-cart" />
+              <span
+                class="fa-layers-counter"
+                style="font-size:35px;background:Tomato;width:60px;height:60px"
+              >{{shoppingCartNumber}}</span>
             </template>
-            <b-dropdown-item>
-              <span v-for="item in shoppingCart.shoppingCartItems">
-                <b-dropdown-item>
-                  <span v-html="item.name"></span> *
-                  <span v-html="item.number"></span> -
-                  <span v-html="item.subtotal"></span>
-                </b-dropdown-item>
-              </span>
-              <b-dropdown-item>總金額 : {{shoppingCart.shoppingCartTotalPrice}}</b-dropdown-item>
-            </b-dropdown-item>
-            <router-link
-              class="btn btn-info btn-block"
-              style="color:white;text-decoration:none;"
-              to="/Cart"
-            >
-              <font-awesome-icon icon="credit-card" />&nbsp;結帳
-            </router-link>
+            <div style="width:270px" class="p-2 text-center">
+              <b-table
+                outlined
+                small
+                hover
+                :items="shoppingCart.shoppingCartItems"
+                :fields="fields"
+              ></b-table>
+              <span>總金額 : ${{shoppingCart.shoppingCartTotalPrice}}</span>
+              <b-button class="mt-2" block to="/Cart" variant="info">
+                <font-awesome-icon icon="credit-card" />&nbsp;結帳
+              </b-button>
+            </div>
           </b-nav-item-dropdown>
           <b-nav-item-dropdown right v-if="tokenInfo.token!==''">
             <template v-slot:button-content>
               <img class="profile-img" src="../assets/images/user.png" />
               <span>{{memberInfo.m_name}}</span>
             </template>
-            <b-dropdown-item to="/Profile">會員專區</b-dropdown-item>
-            <b-dropdown-item @click.prevent="logout">登出</b-dropdown-item>
+            <b-dropdown-item to="/Profile"><font-awesome-icon icon="user"/>&nbsp;會員專區</b-dropdown-item>
+            <b-dropdown-item @click.prevent="logout"><font-awesome-icon icon="sign-out-alt"/>&nbsp;登出</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -184,6 +184,10 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
+      fields: [
+        { key: "name", label: "餐點", class: "text-left" },
+        { key: "number", label: "數量", class: "text-center" }
+      ],
       newMember: {
         m_name: "",
         m_account: "",
@@ -196,7 +200,7 @@ export default {
       loginInfo: {
         m_account: "",
         m_password: ""
-      }
+      },
     };
   },
   computed: {
@@ -206,7 +210,8 @@ export default {
     ...mapGetters({
       tokenInfo: "getTokenInfo",
       memberInfo: "getMemberInfo",
-      shoppingCart: "getShoppingCartInfo"
+      shoppingCart: "getShoppingCartInfo",
+      shoppingCartNumber:"getShoppingCartTotalNum"
     })
   },
   methods: {

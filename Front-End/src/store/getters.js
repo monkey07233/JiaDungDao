@@ -23,3 +23,11 @@ export const getResByAcc = (state, getters) => {
 export const getShoppingCartInfo = state => {
     return state.shoppingCartInfo;
 };
+
+export const getShoppingCartTotalNum = (state, getters) => {
+    let sum = 0;
+    getters.getShoppingCartInfo.shoppingCartItems.forEach(item => {
+        sum += item.number;
+    });
+    return sum;
+};

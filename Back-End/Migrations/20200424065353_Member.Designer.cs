@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JiaDungDao.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200414035225_Member")]
+    [Migration("20200424065353_Member")]
     partial class Member
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,9 +54,36 @@ namespace JiaDungDao.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("m_role")
+                        .HasColumnType("int");
+
                     b.HasKey("MemberId");
 
                     b.ToTable("Member");
+                });
+
+            modelBuilder.Entity("Back_End.Models.Menu", b =>
+                {
+                    b.Property<int>("MenuID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("RestaurantID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("m_item")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("m_price")
+                        .HasColumnType("int");
+
+                    b.Property<string>("m_type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MenuID");
+
+                    b.ToTable("Menu");
                 });
 
             modelBuilder.Entity("Back_End.Models.Restaurant", b =>
@@ -65,6 +92,11 @@ namespace JiaDungDao.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("m_account")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("r_address")
                         .HasColumnType("nvarchar(max)");

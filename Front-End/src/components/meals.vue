@@ -52,7 +52,15 @@ export default {
         number: 1,
         subtotal: m_price
       };
-      this.$store.dispatch("addItemToShoppingCart", item);
+      this.$store.dispatch("addItemToShoppingCart", item).then(res => {
+        this.$bvToast.toast("餐點已加入購物車", {
+          title: `successed`,
+          toaster: "b-toaster-top-center",
+          solid: true,
+          autoHideDelay: 1000,
+          appendToast: false
+        });
+      });
     }
   }
 };

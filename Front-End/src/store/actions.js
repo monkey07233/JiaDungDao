@@ -112,7 +112,10 @@ export const UpdateProfile = ({ commit, state }, profileAfterEdit) => {
 };
 
 export const addItemToShoppingCart = (context, item) => {
-    context.commit(types.SAVE_SHOPPINGCART, item);
+    return new Promise((resolve, reject) => {
+        context.commit(types.SAVE_SHOPPINGCART, item);
+        resolve();
+    });
 };
 
 export const minusItemToShoppingCart = (context, item) => {

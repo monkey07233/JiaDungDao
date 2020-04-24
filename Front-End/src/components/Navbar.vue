@@ -31,7 +31,7 @@
                 :fields="fields"
               ></b-table>
               <span>總金額 : ${{shoppingCart.shoppingCartTotalPrice}}</span>
-              <b-button class="mt-2" block to="/Cart" variant="info">
+              <b-button size="sm" class="mt-2" block to="/Cart" variant="info">
                 <font-awesome-icon icon="credit-card" />&nbsp;結帳
               </b-button>
             </div>

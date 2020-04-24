@@ -88,6 +88,43 @@
           </template>
         </b-card>
       </div>
+      <div class="col-sm-6">
+        <b-card>
+          <template v-if="!isShow">
+            <b-card-body>
+              <b-button @click="toggle">
+                <font-awesome-icon icon="undo-alt" />&nbsp返回
+              </b-button>
+            </b-card-body>
+          </template>
+          <!-- 會員資料 -->
+          <template v-bind="OrderInfo">
+            <b-card-body flush>
+              <b-list-group-item>
+                <font-awesome-icon icon="birthday-cake" />
+                &nbsp店家：丹尼爾拉姆齊ㄉ窩
+              </b-list-group-item>
+
+              <b-list-group-item>
+                <font-awesome-icon icon="envelope" />
+                &nbsp訂單時間：2020/04/24 下午 02:40
+              </b-list-group-item>
+
+              <b-list-group-item>
+                <font-awesome-icon icon="home" />
+                &nbsp總計：180
+              </b-list-group-item>
+            </b-card-body>
+            <b-card-body>
+              <a href="#">
+                <b-button>
+                  查看更多
+                </b-button>
+              </a>
+            </b-card-body>
+          </template>
+        </b-card>
+      </div>
     </b-row>
   </b-container>
 </template>

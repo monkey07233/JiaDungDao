@@ -5,6 +5,6 @@ namespace Back_End.Interface
 {
     public interface IOrderService
     {
-         List<Order> GetOrderInfo(string m_account);
+         List<OrderInfo> GetOrderInfo(string m_account);
     }
 }

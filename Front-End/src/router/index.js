@@ -58,7 +58,7 @@ export default new Router({
       meta: { requiresAuth: true }
     },       
     {
-      path: "/RestaurantManagement/AddRestaurant",
+      path: "/AddRestaurant",
       name: "AddRestaurant",
       component: AddRestaurant
     }

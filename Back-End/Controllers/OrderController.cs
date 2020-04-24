@@ -14,17 +14,17 @@ namespace Back_End.Controllers
             this.OrderService = orderService;
         }
         
-        [HttpPost]
-        [Authorize]
-        public IActionResult GetOrderInfo(Order order){
-            var result = OrderService.GetOrderInfo(order.m_account);
-            if (result != null)
-            {
-                return Ok(result);
-            }else
-            {
-                return BadRequest("尚未建立訂單");
-            }
-        }
+        // [HttpPost]
+        // [Authorize]
+        // public IActionResult GetOrderInfo(Order order){
+        //     var result = OrderService.GetOrderInfo(order.m_account);
+        //     if (result != null)
+        //     {
+        //         return Ok(result);
+        //     }else
+        //     {
+        //         return BadRequest("尚未建立訂單");
+        //     }
+        // }
     }
 }

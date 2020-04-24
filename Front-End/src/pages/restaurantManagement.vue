@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-11"></div>
       <div class="col-1">
-        <router-link to="/RestaurantManagement/AddRestaurant">
+        <router-link to="/AddRestaurant">
           <b-button pill variant="light">
             <font-awesome-icon style="color:#A9A9A9" icon="plus" />
           </b-button>

@@ -6,15 +6,33 @@
       </h4>
     </div>
     <hr>
-    <b-form>
+    <b-form @submit.prevent="createRestaurant">
         <b-form-group label="餐廳名稱" label-for="input-1">
-          <b-form-input id="input-1" type="text" required placeholder="請輸入餐廳名稱"></b-form-input>
+          <b-form-input 
+            id="input-1" 
+            type="text" 
+            v-model="newRestaurant.r_name"
+            placeholder="請輸入餐廳名稱"
+            required >
+          </b-form-input>
         </b-form-group>
         <b-form-group label="餐廳地址：" label-for="input-2">
-          <b-form-input id="input-2" type="text" required placeholder="請輸入餐廳地址"></b-form-input>
+          <b-form-input 
+            id="input-2" 
+            type="text" 
+            v-model="newRestaurant.r_address"
+            placeholder="請輸入餐廳地址"
+            required >
+            </b-form-input>
         </b-form-group>
         <b-form-group label="聯絡電話" label-for="input-3">
-          <b-form-input id="input-3" type="tel" required placeholder="請輸入餐廳聯絡電話"></b-form-input>
+          <b-form-input 
+            id="input-3" 
+            type="tel" 
+            v-model="newRestaurant.r_tel"
+            placeholder="請輸入餐廳聯絡電話"
+            required >
+          </b-form-input>
         </b-form-group>       
         <b-button type="submit" variant="primary" class="submit-btn">送出</b-button>       
     </b-form>
@@ -22,12 +40,33 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-
+      newRestaurant: {
+        r_name: "",
+        r_address: "",
+        r_tel: "",
+        m_account: "",
+      },
     };
   },
+  computed: {
+    ...mapGetters({
+      tokenInfo: "getTokenInfo",
+      MemberInfo: "getMemberInfo"
+    })
+  },
+  methods: {
+    createRestaurant() {
+      this.newRestaurant.m_account = JSON.parse(localStorage.getItem("tokenInfo")).account;
+      console.log(this.newRestaurant.m_account);
+      this.$store.dispatch("createRestaurant", this.newRestaurant).then(res => {
+        console.log(res);
+      });
+    }
+  }
 };
 </script>
 

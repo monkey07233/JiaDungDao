@@ -64,7 +64,10 @@ namespace JiaDungDao {
             services.AddScoped<IMemberService, MemberService> ();
             services.AddScoped<IMemberRepo, MemberRepo> ();
             #endregion
-
+            #region Order
+            services.AddScoped<IOrderService, OrderService> ();
+            services.AddScoped<IOrderRepo, OrderRepo> ();
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -7,5 +7,7 @@ namespace JiaDungDao.Connection {
         public DbSet<Restaurant> Restaurant { get; set; }
         public DbSet<Member> Member { get; set; }
         public DbSet<Menu> Menu { get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<OrderTitle> OrderTitle { get; set; }
     }
 }

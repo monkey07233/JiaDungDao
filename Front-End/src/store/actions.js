@@ -23,6 +23,26 @@ export const getRestaurantInfo = ({ commit }, id) => {
         });
 };
 
+export const createRestaurant = ({ commit,state }, newRestaurant) => {
+    const config = {
+        withCredentials: true,
+        headers: {
+            Authorization: "Bearer " + state.tokenInfo.token
+        }
+    };
+    return new Promise((resolve, reject) => {
+        axios
+            .post("https://localhost:5001/api/Restaurant/createRestaurant", newRestaurant,config)
+            .then(function(res) {
+                resolve(res.data);
+            })
+            .catch(function(err) {
+                console.log(err);
+                reject();
+            });
+    });
+};
+
 export const getMemberInfo = ({ commit, state }, memberInfo) => {
     const config = {
         withCredentials: true,

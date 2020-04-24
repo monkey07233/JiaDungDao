@@ -5,7 +5,7 @@ namespace Back_End.Interface
 {
     public interface IOrderRepo
     {
-        List<Order> GetOrderInfo(string m_account);
-        string createOrder(List<Order> Orders);
+        List<OrderInfo> GetOrderInfo(string m_account);
+        string createOrder(OrderInfo orderInfo);
     }
 }

@@ -17,9 +17,9 @@ namespace Back_End.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult GetOrderInfo(Order order)
+        public IActionResult GetOrderInfo(OrderInfo orderInfo)
         {
-            var result = OrderService.GetOrderInfo(order.m_account);
+            var result = OrderService.GetOrderInfo(orderInfo.title.m_account);
             if (result != null)
             {
                 return Ok(result);
@@ -32,10 +32,10 @@ namespace Back_End.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult createOrder(List<Order> orders)
+        public IActionResult createOrder(OrderInfo orderInfo)
         {
-            var result = OrderService.createOrder(orders);
-            if (result != null)
+            var result = OrderService.createOrder(orderInfo);
+            if (result == "successed")
             {
                 return Ok(result);
             }

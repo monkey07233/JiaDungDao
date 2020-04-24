@@ -86,13 +86,13 @@ namespace JiaDungDao.Migrations
 
             modelBuilder.Entity("Back_End.Models.Order", b =>
                 {
-                    b.Property<int>("OrderID")
+                    b.Property<int>("OrderDetailId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("m_account")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("OrderID")
+                        .HasColumnType("int");
 
                     b.Property<int>("o_count")
                         .HasColumnType("int");
@@ -103,12 +103,33 @@ namespace JiaDungDao.Migrations
                     b.Property<int>("o_price")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("o_time")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("OrderID");
+                    b.HasKey("OrderDetailId");
 
                     b.ToTable("Order");
+                });
+
+            modelBuilder.Entity("Back_End.Models.OrderTitle", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("RestaurantID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("m_account")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("o_createtime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("o_total")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderId");
+
+                    b.ToTable("OrderTitle");
                 });
 
             modelBuilder.Entity("Back_End.Models.Restaurant", b =>

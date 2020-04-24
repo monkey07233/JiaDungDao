@@ -12,15 +12,15 @@ namespace Back_End.Services
             this.OrderRepo = orderRepo;
         }
 
-        public List<Order> GetOrderInfo(string m_account)
+        public List<OrderInfo> GetOrderInfo(string m_account)
         {
             var result = OrderRepo.GetOrderInfo(m_account);
             return result;
         }
 
-        public string createOrder(List<Order> Orders)
+        public string createOrder(OrderInfo orderInfo)
         {
-            return OrderRepo.createOrder(Orders);
+            return OrderRepo.createOrder(orderInfo);
         }
     }
 }

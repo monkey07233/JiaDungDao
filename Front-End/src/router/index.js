@@ -52,7 +52,7 @@ export default new Router({
       }    
     },
     {
-      path: "/RestaurantEdit",
+      path: "/RestaurantEdit/:id",
       name: "RestaurantEdit",
       component: RestaurantEdit,
       meta: { requiresAuth: true }

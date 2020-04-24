@@ -50,10 +50,10 @@
             <b-alert show variant="white">
               <h2 class="alert-heading mb-2 text-center">編輯餐廳菜單</h2>
 
-              <b-form @submit.prevent="addMenuItem()" inline class="justify-content-center">
+              <b-form @submit.prevent="addMenuItem" inline class="justify-content-center">
                 <label class="sr-only" for="input-name">菜名</label>
                 <b-input
-              
+                  v-model="newMenuItem.m_item"
                   name="input-name"
                   class="mb-2 mr-sm-2 mb-sm-0"
                   placeholder="請輸入菜名"
@@ -61,7 +61,7 @@
                 ></b-input>
                 <label class="sr-only" for="input-price">價錢</label>
                 <b-input
-                  v-model="m_price"
+                  v-model="newMenuItem.m_price"
                   id="input-price"
                   class="mb-2 mr-sm-2 mb-sm-0"
                   placeholder="請輸入價錢"
@@ -69,7 +69,7 @@
                 ></b-input>
                 <label class="sr-only" for="input-type">分類</label>
                 <b-input
-                  v-model="m_type"
+                  v-model="newMenuItem.m_type"
                   id="input-type"
                   class="mb-2 mr-sm-2 mb-sm-0"
                   placeholder="請輸入分類"
@@ -85,18 +85,17 @@
                     <th>價錢</th>
                     <th>分類</th>
                   </tr>
-                  <tr v-for="(menu,index) in restaurantInfo.typeAndMenu.menu">
-                    <td>{{index+1}}</td>
-                    <td>{{menu.item}}</td>
-                    <td>{{menu.price}}</td>
-                    <td>{{menu.type}}</td>
-                  </tr>
+                  <template v-for="(items,index) in restaurantInfo.typeAndMenu">
+                    <tr v-for="menu in items.menu">
+                      <td>{{index+1}}</td>
+                      <td>{{menu.m_item}}</td>
+                      <td>{{menu.m_price}}</td>
+                      <td>{{menu.m_type}}</td>
+                    </tr>
+                  </template>
                 </thead>
               </table>
             </b-alert>
-            <div class="text-center">
-              <button class="btn btn-info">儲存菜單</button>
-            </div>
           </div>
         </div>
       </div>
@@ -119,9 +118,9 @@ export default {
   },
   computed: {
     ...mapGetters({
-    restaurantInfo: "getResInfo",
-    tokenInfo: "getTokenInfo"
-  })
+      restaurantInfo: "getResInfo",
+      tokenInfo: "getTokenInfo"
+    })
   },
   created() {
     this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
@@ -132,10 +131,10 @@ export default {
         RestaurantID: this.$route.params.id,
         r_name: this.$refs.form.r_name.value,
         r_address: this.$refs.form.r_address.value,
-        r_tel: this.$refs.form.r_address.value,
+        r_tel: this.$refs.form.r_tel.value,
         m_account: this.tokenInfo.account
       };
-      this.$store.dispatch("UpdateRestaurant", this.restaurant).then(res => {
+      this.$store.dispatch("UpdateRestaurant", restaurant).then(res => {
         this.$bvToast.toast("更新餐廳資訊成功", {
           title: `successed`,
           toaster: "b-toaster-top-center",
@@ -147,20 +146,20 @@ export default {
       });
     },
     addMenuItem() {
-      /*this.$store.dispatch("addMenuItem", this.newMenuItem).then(res => {
-        this.$bvToast.toast("新增成功", {
+      console.log(this.newMenuItem);
+      this.$store.dispatch("addMenuItem", this.newMenuItem).then(res => {
+        this.$bvToast.toast("新增餐點成功", {
           title: `successed`,
           toaster: "b-toaster-top-center",
           solid: true,
           autoHideDelay: 1000,
           appendToast: false
         });
-        this.m_item = "";
-        this.m_type = "";
-        this.m_price = null;
+        this.newMenuItem.m_item = "";
+        this.newMenuItem.m_type = "";
+        this.newMenuItem.m_price = null;
         this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
-      });*/
-      console.log(this.newMenuItem);
+      });
     }
   }
 };

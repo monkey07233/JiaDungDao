@@ -1,7 +1,7 @@
 <template>
   <b-tab :title="tabTitle" active>
     <div class="row">
-      <div class="ml-3 mb-3" v-for="item in list">
+      <div class="ml-3 mb-3" v-for="(item,index) in list" :key="index">
         <div>
           <b-card no-body class="overflow-hidden" style="max-width: 359px;">
             <b-row no-gutters>

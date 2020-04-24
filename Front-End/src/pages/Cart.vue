@@ -27,13 +27,8 @@
           >
             <font-awesome-icon icon="minus" />
           </b-button>
-          &nbsp{{data.item.number}}&nbsp
-          <b-button
-            @click="addItemToShoppingCart(data.item)"
-            pill
-            size="sm"
-            variant="outline-danger"
-          >
+          &nbsp;{{data.item.number}}&nbsp;
+          <b-button @click="addItemToShoppingCart(data.item)" pill size="sm" variant="outline-danger">
             <font-awesome-icon icon="plus" />
           </b-button>
         </template>

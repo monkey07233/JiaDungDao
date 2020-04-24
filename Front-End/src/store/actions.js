@@ -111,11 +111,11 @@ export const UpdateProfile = ({ commit, state }, profileAfterEdit) => {
     });
 };
 
-export const addToShoppingCart = (commit, item) => {
+export const addItemToShoppingCart = (commit, item) => {
     commit(types.SAVE_SHOPPINGCART, item);
 };
 
-export const minusToShoppingCart = (commit, item) => {
+export const minusItemToShoppingCart = (commit, item) => {
     commit(types.MINUS_NUMBER_SHOPPINGCART, item);
 };
 

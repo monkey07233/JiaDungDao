@@ -14,11 +14,19 @@ namespace Back_End.Repositories
             this.db = dbContext;
         }
 
-        public List<Order> GetOrderInfo(string m_account)
+        public List<OrderInfo> GetOrderInfo(string m_account)
         {
-            return null;
-            // var result = db.Order.Where(o => o.m_account == m_account).OrderByDescending(o => o.OrderID).ToList();
-            // return result;
+            List<OrderInfo> result = new List<OrderInfo>();
+            var orderTitleResult = db.OrderTitle.Where(o => o.m_account == m_account).OrderByDescending(o => o.OrderId).ToList();
+            foreach (var title in orderTitleResult)
+            {
+                OrderInfo tmp = new OrderInfo();
+                var orderResult = db.Order.Where(o => o.OrderID == title.OrderId).OrderBy(o => o.Id).ToList();
+                tmp.title = title;
+                tmp.orderDetail = orderResult;
+                result.Add(tmp);
+            }
+            return result;
         }
     }
 }

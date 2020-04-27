@@ -92,16 +92,18 @@
       <div class="col-sm-6">
         <b-card>
           <template v-bind="OrderInfo">
-            <h5 class="text-center"><font-awesome-icon icon="search" />&nbsp;訂單查詢</h5>
+            <h5 class="text-center">
+              <font-awesome-icon icon="search" />&nbsp;訂單查詢
+            </h5>
             <b-card-body flush>
               <b-list-group-item>
-                <font-awesome-icon icon="store-alt" />&nbsp;店家：丹尼爾拉姆齊ㄉ窩
+                <font-awesome-icon icon="store-alt" />&nbsp;店家：{{OrderInfo[0].title.r_name}}
               </b-list-group-item>
               <b-list-group-item>
-                <font-awesome-icon icon="calendar-alt" />&nbsp;訂單時間：2020/04/24 下午 02:40
+                <font-awesome-icon icon="calendar-alt" />&nbsp;訂單時間：{{OrderInfo[0].title.o_createtime}}
               </b-list-group-item>
               <b-list-group-item>
-                <font-awesome-icon icon="credit-card" />&nbsp;總計：$180
+                <font-awesome-icon icon="credit-card" />&nbsp;總計：{{OrderInfo[0].title.o_total}}
               </b-list-group-item>
             </b-card-body>
             <b-card-body>
@@ -126,7 +128,8 @@ export default {
   computed: {
     ...mapGetters({
       tokenInfo: "getTokenInfo",
-      MemberInfo: "getMemberInfo"
+      MemberInfo: "getMemberInfo",
+      OrderInfo: "getOrderInfo"
     })
   },
   methods: {
@@ -159,6 +162,9 @@ export default {
   },
   created() {
     this.$store.dispatch("getMemberInfo", {
+      m_account : this.tokenInfo.account
+    });
+    this.$store.dispatch("getOrderInfo", {
       m_account: this.tokenInfo.account
     });
   }

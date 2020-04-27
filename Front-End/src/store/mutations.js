@@ -64,6 +64,7 @@ export const mutations = {
       });
     }
     state.shoppingCartInfo.shoppingCartTotalPrice += itemInfo.o_price;
+    localStorage.setItem("shpopingCart",JSON.stringify(state.shoppingCartInfo));
   },
   [types.MINUS_NUMBER_SHOPPINGCART](state, item) {
     let itemInfo = JSON.parse(JSON.stringify(item));
@@ -77,5 +78,8 @@ export const mutations = {
       state.shoppingCartInfo.shoppingCartItems[index].o_count--;
       state.shoppingCartInfo.shoppingCartTotalPrice -= itemInfo.o_price;
     }
-  }
+  },
+  [types.SET_CART](state,item){
+    state.shoppingCartInfo = item;
+  },  
 };

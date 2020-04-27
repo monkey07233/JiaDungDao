@@ -277,7 +277,7 @@ export default {
     },
     logout() {
       this.$store.dispatch("logout");
-      localStorage.removeItem("tokenInfo");
+      localStorage.clear();
       this.$bvToast.toast("登出成功", {
         title: `Logout`,
         toaster: "b-toaster-top-center",
@@ -293,6 +293,10 @@ export default {
       this.$store.dispatch("getMemberInfo", {
         m_account: this.tokenInfo.account
       });
+    }
+    const cart = JSON.parse(localStorage.getItem("shpopingCart"));
+    if(cart!=null){
+      this.$store.dispatch("setCart",cart)
     }
   }
 };

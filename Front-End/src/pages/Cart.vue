@@ -9,7 +9,7 @@
       <b-table-simple hover outlined v-for="(items,indexs) in GroupBy" :key="indexs">
         <b-thead>
           <b-tr>
-            <b-td colspan="4">{{indexs}}</b-td>
+            <b-td colspan="4" style="text-align:center;">{{indexs}}</b-td>
           </b-tr>
           <b-tr>
             <b-td style="width:400px;">餐點名稱</b-td>
@@ -89,7 +89,6 @@ export default {
       const result = {};
       this.shoppingCart.shoppingCartItems.forEach(item => {
         if (!result[item["r_name"]]) result[item["r_name"]] = [];
-        console.log(item);
         result[item["r_name"]].push(item);
       });
       return result;

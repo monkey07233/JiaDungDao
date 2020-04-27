@@ -39,12 +39,14 @@ export default {
   },
   props: {
     tabTitle: String,
-    list: Array
+    list: Array,
+    resName: String
   },
   methods: {
     addToShoppingCart: function(item) {
       let order = {
         r_id: item.restaurantID,
+        r_name: this.resName,
         o_item: item.m_item,
         o_price: item.m_price,
         o_count: 1

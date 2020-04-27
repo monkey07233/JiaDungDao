@@ -6,7 +6,7 @@
           <template v-if="!isShow">
             <b-card-body>
               <b-button @click="toggle">
-                <font-awesome-icon icon="undo-alt" />&nbsp返回
+                <font-awesome-icon icon="undo-alt" />&nbsp;返回
               </b-button>
             </b-card-body>
           </template>
@@ -19,17 +19,17 @@
             <b-list-group flush>
               <b-list-group-item>
                 <font-awesome-icon icon="birthday-cake" />
-                &nbsp生日:{{MemberInfo.m_birthday}}
+                &nbsp;生日:{{MemberInfo.m_birthday}}
               </b-list-group-item>
 
               <b-list-group-item>
                 <font-awesome-icon icon="envelope" />
-                &nbspE-mail:{{MemberInfo.m_email}}
+                &nbsp;E-mail:{{MemberInfo.m_email}}
               </b-list-group-item>
 
               <b-list-group-item>
                 <font-awesome-icon icon="home" />
-                &nbsp住址:{{MemberInfo.m_address}}
+                &nbsp;住址:{{MemberInfo.m_address}}
               </b-list-group-item>
             </b-list-group>
             <b-card-body>
@@ -88,28 +88,20 @@
           </template>
         </b-card>
       </div>
+      <!-- 訂單資料 -->
       <div class="col-sm-6">
         <b-card>
-          <template v-if="!isShow">
-            <b-card-body>
-              <b-button @click="toggle">
-                <font-awesome-icon icon="undo-alt" />&nbsp返回
-              </b-button>
-            </b-card-body>
-          </template>
-          <!-- 會員資料 -->
           <template v-bind="OrderInfo">
+            <h5 class="text-center"><font-awesome-icon icon="search" />&nbsp;訂單查詢</h5>
             <b-card-body flush>
               <b-list-group-item>
-                <font-awesome-icon icon="birthday-cake" />&nbsp店家：丹尼爾拉姆齊ㄉ窩
+                <font-awesome-icon icon="store-alt" />&nbsp;店家：丹尼爾拉姆齊ㄉ窩
               </b-list-group-item>
-
               <b-list-group-item>
-                <font-awesome-icon icon="envelope" />&nbsp訂單時間：2020/04/24 下午 02:40
+                <font-awesome-icon icon="calendar-alt" />&nbsp;訂單時間：2020/04/24 下午 02:40
               </b-list-group-item>
-
               <b-list-group-item>
-                <font-awesome-icon icon="home" />&nbsp總計：180
+                <font-awesome-icon icon="credit-card" />&nbsp;總計：$180
               </b-list-group-item>
             </b-card-body>
             <b-card-body>

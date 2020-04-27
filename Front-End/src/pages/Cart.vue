@@ -44,35 +44,34 @@
             <b-td>{{item.o_price}}</b-td>
             <b-td>{{item.o_count*item.o_price}}</b-td>
           </b-tr>
+          <div class="row mb-3">
+            <div class="col-10">
+              <h5 class="text-right mr-3">訂單總金額</h5>
+            </div>
+            <div class="col-2 totalPrice">${{shoppingCart.shoppingCartTotalPrice}}</div>
+          </div>
+          <div class="row p-3">
+            <div class="col-6">
+              <router-link
+                class="btn btn-secondary btn-block"
+                style="color:white;text-decoration:none;"
+                to="/"
+              >
+                <font-awesome-icon icon="store" />&nbsp;繼續購物
+              </router-link>
+            </div>
+            <div class="col-6">
+              <router-link
+                class="btn btn-info btn-block"
+                style="color:white;text-decoration:none;"
+                to="/"
+              >
+                <font-awesome-icon icon="credit-card" />&nbsp;結帳
+              </router-link>
+            </div>
+          </div>
         </b-tbody>
       </b-table-simple>
-    </div>
-    <div class="row mb-3">
-      <div class="col-10">
-        <h5 class="text-right mr-3">訂單總金額</h5>
-      </div>
-      <div class="col-2 totalPrice">${{shoppingCart.shoppingCartTotalPrice}}</div>
-    </div>
-
-    <div class="row p-3">
-      <div class="col-6">
-        <router-link
-          class="btn btn-secondary btn-block"
-          style="color:white;text-decoration:none;"
-          to="/"
-        >
-          <font-awesome-icon icon="store" />&nbsp;繼續購物
-        </router-link>
-      </div>
-      <div class="col-6">
-        <router-link
-          class="btn btn-info btn-block"
-          style="color:white;text-decoration:none;"
-          to="/"
-        >
-          <font-awesome-icon icon="credit-card" />&nbsp;結帳
-        </router-link>
-      </div>
     </div>
   </div>
 </template>

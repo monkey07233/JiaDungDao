@@ -51,7 +51,7 @@ export const mutations = {
   [types.SAVE_SHOPPINGCART](state, item) {
     let itemInfo = JSON.parse(JSON.stringify(item));
     let index = state.shoppingCartInfo.shoppingCartItems.findIndex(
-      item => item.o_item === itemInfo.o_item
+      item => item.o_item === itemInfo.o_item & item.r_id === itemInfo.r_id
     );
     if (index !== -1) {
       state.shoppingCartInfo.shoppingCartItems[index].o_count++;
@@ -69,7 +69,7 @@ export const mutations = {
   [types.MINUS_NUMBER_SHOPPINGCART](state, item) {
     let itemInfo = JSON.parse(JSON.stringify(item));
     let index = state.shoppingCartInfo.shoppingCartItems.findIndex(
-      item => item.o_item === itemInfo.o_item
+      item => item.o_item === itemInfo.o_item  & item.r_id === itemInfo.r_id
     );
     if (
       index !== -1 &&

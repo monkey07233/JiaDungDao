@@ -9,13 +9,14 @@
       <b-table-simple hover outlined v-for="(items,indexs) in GroupBy" :key="indexs">
         <b-thead>
           <b-tr>
-            <b-td colspan="4" style="text-align:center;">{{indexs}}</b-td>
+            <b-td colspan="5" style="text-align:center;">{{indexs}}</b-td>
           </b-tr>
           <b-tr>
             <b-td style="width:400px;">餐點名稱</b-td>
             <b-td>數量</b-td>
             <b-td>單價</b-td>
             <b-td>小計</b-td>
+            <b-td>刪除</b-td>
           </b-tr>
         </b-thead>
         <b-tbody>
@@ -43,36 +44,33 @@
             </b-td>
             <b-td>{{item.o_price}}</b-td>
             <b-td>{{item.o_count*item.o_price}}</b-td>
-            <b-td><font-awesome-icon icon="trash-alt" @click="deleteCartItem(index)"/></b-td>
+            <b-td>
+              <font-awesome-icon icon="trash-alt" @click="deleteCartItem(index)" />
+            </b-td>
           </b-tr>
-          <div class="row mb-3">
-            <div class="col-10">
-              <h5 class="text-right mr-3">訂單總金額</h5>
-            </div>
-            <div class="col-2 totalPrice">${{shoppingCart.shoppingCartTotalPrice}}</div>
-          </div>
-          <div class="row p-3">
-            <div class="col-6">
-              <router-link
-                class="btn btn-secondary btn-block"
-                style="color:white;text-decoration:none;"
-                to="/"
-              >
-                <font-awesome-icon icon="store" />&nbsp;繼續購物
-              </router-link>
-            </div>
-            <div class="col-6">
-              <router-link
-                class="btn btn-info btn-block"
-                style="color:white;text-decoration:none;"
-                to="/"
-              >
+          <b-tr>
+            <b-td colspan="3">
+              <h5>訂單金額${{shoppingCart.shoppingCartTotalPrice}}</h5>
+            </b-td>
+            <b-td block colspan="2"> <b-button variant="info">
                 <font-awesome-icon icon="credit-card" />&nbsp;結帳
-              </router-link>
-            </div>
-          </div>
+              </b-button></b-td>
+          </b-tr>
         </b-tbody>
       </b-table-simple>
+    </div>
+    <div class="row mb-3">
+      <div class="col-10">
+        <h5 class="text-right mr-3">總金額</h5>
+      </div>
+      <div class="col-2 totalPrice">${{shoppingCart.shoppingCartTotalPrice}}</div>
+    </div>
+    <div class="row p-3">
+      <div class="col-12">
+        <b-button block to="/" variant="secondary">
+          <font-awesome-icon icon="store" />&nbsp;繼續購物
+        </b-button>
+      </div>
     </div>
   </div>
 </template>
@@ -95,15 +93,7 @@ export default {
     }
   },
   data() {
-    return {
-      fields: [
-        { key: "o_item", label: "餐點名稱" },
-        { key: "o_count", label: "數量", class: "text-center" },
-        { key: "o_price", label: "單價", class: "text-center" },
-        { key: "subtotal", label: "小計", class: "text-center" },
-        { key: "del", label: "", class: "text-center" }
-      ]
-    };
+    return {};
   },
   methods: {
     addItemToShoppingCart(item) {
@@ -111,9 +101,6 @@ export default {
     },
     minusItemToShoppingCart: function(item) {
       this.$store.dispatch("minusItemToShoppingCart", item);
-    },
-    deleteCartItem(index){
-      this.$store.dispatch("deleteItemFromCart", index);
     }
   }
 };

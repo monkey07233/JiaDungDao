@@ -72,5 +72,45 @@ namespace Back_End.Repositories {
                 return -1;
             }         
         }
+
+        public bool DeleteMenu(int MenuID)
+        {
+            try
+            {
+                var Data = db.Menu.Where(m =>m.MenuID == MenuID).FirstOrDefault();
+                db.Menu.Remove(Data);
+                var successCount = db.SaveChanges();
+                if (successCount == 1)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (System.Exception e)
+            {
+                Debug.WriteLine(e);
+                return false;
+            }
+        }
+
+        public bool DeleteRestaurant(int RestaurantID)
+        {
+            try
+            {
+                var Data = db.Restaurant.Where(m =>m.RestaurantID == RestaurantID).FirstOrDefault();
+                db.Restaurant.Remove(Data);
+                var successCount = db.SaveChanges();
+                if (successCount == 1)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (System.Exception e)
+            {
+                Debug.WriteLine(e);
+                return false;
+            }
+        }
     }
 }

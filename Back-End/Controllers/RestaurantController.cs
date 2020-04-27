@@ -62,7 +62,7 @@ namespace Back_End.Controllers
             }
         }
         
-        [HttpPost]
+        [HttpGet]
         [Authorize]
         public IActionResult AddMenuItem(Menu newMenuItem){
             int res=RestaurantService.AddMenuItem(newMenuItem);
@@ -70,6 +70,28 @@ namespace Back_End.Controllers
                 return Ok();
             else 
                 return BadRequest("新增menu餐點失敗");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult DeleteMenu(int MenuID){
+            var IsSuccess = RestaurantService.DeleteMenu(MenuID);
+            if (IsSuccess)
+            {
+                return Ok("刪除餐廳成功");
+            }
+            return BadRequest("刪除餐廳失敗");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult DeleteRestaurant(int RestaurantID){
+            var IsSuccess = RestaurantService.DeleteRestaurant(RestaurantID);
+            if (IsSuccess)
+            {
+                return Ok("刪除餐廳成功");
+            }
+            return BadRequest("刪除餐廳失敗");
         }
     }
 }

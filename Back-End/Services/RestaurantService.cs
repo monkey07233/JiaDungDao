@@ -68,5 +68,17 @@ namespace Back_End.Services
         public int AddMenuItem(Menu newMenuItem){
             return RestaurantRepo.AddMenuItem(newMenuItem);
         }
+
+        public bool DeleteMenu(int MenuID)
+        {
+            var isSuccess = RestaurantRepo.DeleteMenu(MenuID);
+            return isSuccess;
+        }
+
+        public bool DeleteRestaurant(int RestaurantID)
+        {
+            var isSuccess = RestaurantRepo.DeleteRestaurant(RestaurantID);
+            return isSuccess;
+        }
     }
 }

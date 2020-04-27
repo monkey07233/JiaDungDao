@@ -295,7 +295,7 @@ export default {
       this.$router.push("/");
     },
     deleteCartItem(item){
-      this.$store.dispatch("deleteItemFromCart",item);
+      this.$store.dispatch("deleteItemFromCart",[item]);
     }
   },
   created() {

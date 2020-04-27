@@ -150,10 +150,6 @@ export const deleteItemFromCart = ({ commit }, item) => {
   commit(types.DELETE_SHOPPINGCART, item);
 };
 
-export const deletemultipleItemFromCart = ({ commit }, items) => {
-  commit(types.DELETE_MULTIPLE_SHOPPINGCART, items);
-};
-
 export const minusItemToShoppingCart = (context, order) => {
   context.commit(types.MINUS_NUMBER_SHOPPINGCART, order);
 };

@@ -119,7 +119,7 @@ export default {
       this.$store.dispatch("minusItemToShoppingCart", item);
     },
     deleteCartItem(item) {
-      this.$store.dispatch("deleteItemFromCart", item);
+      this.$store.dispatch("deleteItemFromCart", [item]);
     },
     calculateOrderSubtotal(resName) {
       let sum = 0;
@@ -154,7 +154,7 @@ export default {
         }
       });
       this.$store.dispatch("createOrder", orderInfo).then(res =>{
-        this.$store.dispatch("deletemultipleItemFromCart", deleteItems);
+        this.$store.dispatch("deleteItemFromCart", deleteItems);
         this.$bvToast.toast("訂單已成立，可至會員專區→訂單查詢查看訂單", {
           title: `successed`,
           toaster: "b-toaster-top-center",

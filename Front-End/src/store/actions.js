@@ -145,6 +145,11 @@ export const addItemToShoppingCart = (context, order) => {
  export const setCart = ({commit},cart) =>{
    commit(types.SET_CART,cart);
  };
+
+export const deleteItemFromCart =({commit},index)=>{
+  commit(types.DELETE_SHOPPINGCART, index);
+};
+
 export const minusItemToShoppingCart = (context, order) => {
   context.commit(types.MINUS_NUMBER_SHOPPINGCART, order);
 };

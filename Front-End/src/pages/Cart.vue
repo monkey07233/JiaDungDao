@@ -43,6 +43,7 @@
             </b-td>
             <b-td>{{item.o_price}}</b-td>
             <b-td>{{item.o_count*item.o_price}}</b-td>
+            <b-td><font-awesome-icon icon="trash-alt" @click="deleteCartItem(index)"/></b-td>
           </b-tr>
           <div class="row mb-3">
             <div class="col-10">
@@ -99,7 +100,8 @@ export default {
         { key: "o_item", label: "餐點名稱" },
         { key: "o_count", label: "數量", class: "text-center" },
         { key: "o_price", label: "單價", class: "text-center" },
-        { key: "subtotal", label: "小計", class: "text-center" }
+        { key: "subtotal", label: "小計", class: "text-center" },
+        { key: "del", label: "", class: "text-center" }
       ]
     };
   },
@@ -109,6 +111,9 @@ export default {
     },
     minusItemToShoppingCart: function(item) {
       this.$store.dispatch("minusItemToShoppingCart", item);
+    },
+    deleteCartItem(index){
+      this.$store.dispatch("deleteItemFromCart", index);
     }
   }
 };

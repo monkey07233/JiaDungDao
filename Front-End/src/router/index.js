@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Index from "@/pages/Index";
+import OrderList from "@/pages/OrderList";
 import Profile from "@/pages/profile";
 import Cart from "@/pages/Cart";
 import Restaurant from "@/pages/restaurant";
@@ -21,6 +22,11 @@ export default new Router({
       path: "/",
       name: "Index",
       component: Index
+    },
+    {
+      path: "/OrderList",
+      name: "OrderList",
+      component: OrderList
     },
     {
       path: "/Profile",

@@ -185,8 +185,8 @@ export default {
   data() {
     return {
       fields: [
-        { key: "name", label: "餐點", class: "text-left" },
-        { key: "number", label: "數量", class: "text-center" }
+        { key: "o_item", label: "餐點", class: "text-left" },
+        { key: "o_count", label: "數量", class: "text-center" }
       ],
       newMember: {
         m_name: "",

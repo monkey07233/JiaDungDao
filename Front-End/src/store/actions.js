@@ -136,15 +136,15 @@ export const UpdateProfile = ({ commit, state }, profileAfterEdit) => {
   });
 };
 
-export const addItemToShoppingCart = (context, item) => {
+export const addItemToShoppingCart = (context, order) => {
   return new Promise((resolve, reject) => {
-    context.commit(types.SAVE_SHOPPINGCART, item);
+    context.commit(types.SAVE_SHOPPINGCART, order);
     resolve();
   });
 };
 
-export const minusItemToShoppingCart = (context, item) => {
-  context.commit(types.MINUS_NUMBER_SHOPPINGCART, item);
+export const minusItemToShoppingCart = (context, order) => {
+  context.commit(types.MINUS_NUMBER_SHOPPINGCART, order);
 };
 
 export const addMenuItem = ({ commit, state }, newMenuItem) => {

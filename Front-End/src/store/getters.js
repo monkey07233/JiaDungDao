@@ -31,7 +31,7 @@ export const getShoppingCartInfo = state => {
 export const getShoppingCartTotalNum = (state, getters) => {
     let sum = 0;
     getters.getShoppingCartInfo.shoppingCartItems.forEach(item => {
-        sum += item.number;
+        sum += item.o_count;
     });
     return sum;
 };

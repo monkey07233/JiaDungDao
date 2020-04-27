@@ -49,25 +49,22 @@ export const mutations = {
     state.memberInfo.m_birthday = birthday[0];
   },
   [types.SAVE_SHOPPINGCART](state, item) {
-    let itemdata = JSON.parse(JSON.stringify(item));
-    let index = state.shoppingCartInfo.shoppingCartItems.findIndex(item => item.name === itemdata.name);
+    let itemInfo = JSON.parse(JSON.stringify(item));
+    let index = state.shoppingCartInfo.shoppingCartItems.findIndex(item => item.o_item === itemInfo.o_item);
     if (index !== -1) {
-      state.shoppingCartInfo.shoppingCartItems[index].number++;
-      state.shoppingCartInfo.shoppingCartItems[index].subtotal += item.price;
+      state.shoppingCartInfo.shoppingCartItems[index].o_count++;
     } else {
-      state.shoppingCartInfo.shoppingCartItems.push(item);
+      state.shoppingCartInfo.shoppingCartItems.push(itemInfo);
     }
-    state.shoppingCartInfo.shoppingCartTotalPrice += item.price;   
+    state.shoppingCartInfo.shoppingCartTotalPrice += itemInfo.o_price;
     localStorage.setItem("shpopingCart",JSON.stringify(state.shoppingCartInfo));
   },
   [types.MINUS_NUMBER_SHOPPINGCART](state, item) {
-    let itemdata = JSON.parse(JSON.stringify(item));
-    let index = state.shoppingCartInfo.shoppingCartItems.findIndex(item => item.name === itemdata.name);
-    let cartItem = state.shoppingCartInfo.shoppingCartItems[index];
+    let itemInfo = JSON.parse(JSON.stringify(item));
+    let index = state.shoppingCartInfo.shoppingCartItems.findIndex(item => item.o_item === itemInfo.o_item);
     if (index !== -1 && cartItem.number > 1) {
-      cartItem.number--;
-      state.shoppingCartInfo.shoppingCartItems[index].subtotal -= item.price;
-      state.shoppingCartInfo.shoppingCartTotalPrice -= item.price;
+      state.shoppingCartInfo.shoppingCartItems[index].o_count--;
+      state.shoppingCartInfo.shoppingCartTotalPrice -= itemInfo.o_price;
     }
   },
 };

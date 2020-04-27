@@ -61,6 +61,9 @@ namespace Back_End.Controllers
                 return BadRequest(result);
             }
         }
+
+        [HttpPost]
+        [Authorize]
         
         [HttpGet]
         [Authorize]

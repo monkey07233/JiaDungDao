@@ -23,7 +23,7 @@
               >{{shoppingCartNumber}}</span>
             </template>
             <div style="width:270px" class="p-2 text-center">
-               <b-table
+               <!--<b-table
                 outlined
                 small
                 hover
@@ -33,8 +33,8 @@
               <template v-slot:cell(del)="data">
                 <font-awesome-icon icon="trash-alt" @click="deleteCartItem(data.item)"/>
               </template> 
-              </b-table>                          
-              <!-- <table role="table" class="table table-hover border table-sm">
+              </b-table>                           -->
+              <table role="table" class="table table-hover border table-sm">
                 <thead role="rowgroup">
                   <tr role="row">
                     <th class="text-left">餐點</th>
@@ -51,7 +51,7 @@
                     </td>
                   </tr>
                 </tbody>
-              </table> -->
+              </table>
               <span>總金額 : ${{shoppingCart.shoppingCartTotalPrice}}</span>
               <b-button size="sm" class="mt-2" block to="/Cart" variant="info">
                 <font-awesome-icon icon="credit-card" />&nbsp;結帳
@@ -310,8 +310,8 @@ export default {
       });
       this.$router.push("/");
     },
-    deleteCartItem(delItem){
-      this.$store.dispatch("deleteItemFromCart",delItem);
+    deleteCartItem(index){
+      this.$store.dispatch("deleteItemFromCart",index);
     }
   },
   created() {

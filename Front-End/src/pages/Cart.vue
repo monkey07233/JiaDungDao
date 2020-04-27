@@ -43,12 +43,10 @@
             </b-td>
             <b-td>{{item.o_price}}</b-td>
             <b-td>{{item.o_count*item.o_price}}</b-td>
+            <b-td><font-awesome-icon icon="trash-alt" @click="deleteCartItem(index)"/></b-td>
           </b-tr>
         </b-tbody>
       </b-table-simple>
-        <!-- <template v-slot:cell(del)="data">
-          <font-awesome-icon icon="trash-alt" @click="deleteCartItem(data.item)"/>
-        </template> -->
     </div>
     <div class="row mb-3">
       <div class="col-10">
@@ -115,9 +113,8 @@ export default {
     minusItemToShoppingCart: function(item) {
       this.$store.dispatch("minusItemToShoppingCart", item);
     },
-    deleteCartItem(item){
-      this.$store.dispatch("deleteItemFromCart", item);
-
+    deleteCartItem(index){
+      this.$store.dispatch("deleteItemFromCart", index);
     }
   }
 };

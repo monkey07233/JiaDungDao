@@ -66,11 +66,10 @@ export const mutations = {
     state.shoppingCartInfo.shoppingCartTotalPrice += itemInfo.o_price;
     localStorage.setItem("shpopingCart",JSON.stringify(state.shoppingCartInfo));
   },
-  [types.DELETE_SHOPPINGCART](state,delItem){
-    let itemInfo = JSON.parse(JSON.stringify(delItem));
-    let index = state.shoppingCartInfo.shoppingCartItems.findIndex(delItem => delItem.o_item === itemInfo.o_item);
+  [types.DELETE_SHOPPINGCART](state,index){
+    let delItem=state.shoppingCartInfo.shoppingCartItems[index];
+    state.shoppingCartInfo.shoppingCartTotalPrice-=delItem.o_price*delItem.o_count;    
     state.shoppingCartInfo.shoppingCartItems.splice(index,1);
-    state.shoppingCartInfo.shoppingCartTotalPrice-=itemInfo.o_price*itemInfo.o_count;
   },
   [types.MINUS_NUMBER_SHOPPINGCART](state, item) {
     let itemInfo = JSON.parse(JSON.stringify(item));

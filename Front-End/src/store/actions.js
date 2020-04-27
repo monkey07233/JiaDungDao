@@ -142,11 +142,11 @@ export const addItemToShoppingCart = (context, order) => {
     resolve();
   });
 };
- export const setCart = ({commit},cart) =>{
-   commit(types.SET_CART,cart);
- };
+export const setCart = ({ commit }, cart) => {
+  commit(types.SET_CART, cart);
+};
 
-export const deleteItemFromCart =({commit},index)=>{
+export const deleteItemFromCart = ({ commit }, index) => {
   commit(types.DELETE_SHOPPINGCART, index);
 };
 
@@ -155,7 +155,6 @@ export const minusItemToShoppingCart = (context, order) => {
 };
 
 export const addMenuItem = ({ commit, state }, newMenuItem) => {
-  console.log(newMenuItem);
   const config = {
     withCredentials: true,
     headers: {
@@ -167,6 +166,29 @@ export const addMenuItem = ({ commit, state }, newMenuItem) => {
       .post(
         "https://localhost:5001/api/Restaurant/AddMenuItem",
         JSON.parse(JSON.stringify(newMenuItem)),
+        config
+      )
+      .then(function() {
+        resolve();
+      })
+      .catch(function(err) {
+        console.log(err);
+        reject();
+      });
+  });
+};
+
+export const deleteMenuItem = ({ commit, state }, menuID) => {
+  const config = {
+    withCredentials: true,
+    headers: {
+      Authorization: "Bearer " + state.tokenInfo.token
+    }
+  };
+  return new Promise((resolve, reject) => {
+    axios
+      .get(
+        "https://localhost:5001/api/Restaurant/DeleteMenu?MenuID=" + menuID,
         config
       )
       .then(function() {

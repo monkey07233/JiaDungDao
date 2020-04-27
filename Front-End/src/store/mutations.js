@@ -3,7 +3,7 @@ import * as types from "./mutations_type.js";
 export const state = {
   shoppingCartInfo: {
     shoppingCartTotalPrice: 0,
-    shoppingCartItems: [],
+    shoppingCartItems: []
   },
   restaurantList: [],
   tokenInfo: {
@@ -50,22 +50,32 @@ export const mutations = {
   },
   [types.SAVE_SHOPPINGCART](state, item) {
     let itemInfo = JSON.parse(JSON.stringify(item));
-    let index = state.shoppingCartInfo.shoppingCartItems.findIndex(item => item.o_item === itemInfo.o_item);
+    let index = state.shoppingCartInfo.shoppingCartItems.findIndex(
+      item => item.o_item === itemInfo.o_item
+    );
     if (index !== -1) {
       state.shoppingCartInfo.shoppingCartItems[index].o_count++;
     } else {
       state.shoppingCartInfo.shoppingCartItems.push(itemInfo);
+      state.shoppingCartInfo.shoppingCartItems.sort(function(a, b) {
+        if (a.r_id < b.r_id) return -1;
+        if (a.r_id > b.r_id) return 1;
+        return 0;
+      });
     }
     state.shoppingCartInfo.shoppingCartTotalPrice += itemInfo.o_price;
   },
   [types.MINUS_NUMBER_SHOPPINGCART](state, item) {
     let itemInfo = JSON.parse(JSON.stringify(item));
-    let index = state.shoppingCartInfo.shoppingCartItems.findIndex(item => item.o_item === itemInfo.o_item);
-    if (index !== -1 && cartItem.number > 1) {
+    let index = state.shoppingCartInfo.shoppingCartItems.findIndex(
+      item => item.o_item === itemInfo.o_item
+    );
+    if (
+      index !== -1 &&
+      state.shoppingCartInfo.shoppingCartItems[index].o_count > 1
+    ) {
       state.shoppingCartInfo.shoppingCartItems[index].o_count--;
       state.shoppingCartInfo.shoppingCartTotalPrice -= itemInfo.o_price;
     }
-  },
+  }
 };
-
-

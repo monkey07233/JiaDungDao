@@ -79,6 +79,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import axios from "axios";
 export default {
   computed: {
     ...mapGetters({
@@ -87,8 +88,9 @@ export default {
     GroupBy() {
       const result = {};
       this.shoppingCart.shoppingCartItems.forEach(item => {
-        if (!result[item["r_id"]]) result[item["r_id"]] = [];
-        result[item["r_id"]].push(item);
+        if (!result[item["r_name"]]) result[item["r_name"]] = [];
+        console.log(item);
+        result[item["r_name"]].push(item);
       });
       return result;
     }

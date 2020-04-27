@@ -70,6 +70,7 @@ export const mutations = {
     let delItem=state.shoppingCartInfo.shoppingCartItems[index];
     state.shoppingCartInfo.shoppingCartTotalPrice-=delItem.o_price*delItem.o_count;    
     state.shoppingCartInfo.shoppingCartItems.splice(index,1);
+    localStorage.setItem("shpopingCart",JSON.stringify(state.shoppingCartInfo));
   },
   [types.MINUS_NUMBER_SHOPPINGCART](state, item) {
     let itemInfo = JSON.parse(JSON.stringify(item));

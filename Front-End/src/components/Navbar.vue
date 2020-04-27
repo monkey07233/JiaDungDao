@@ -35,7 +35,9 @@
                   <tr>
                     <td class="text-left">{{item.o_item}}</td>
                     <td class="text-center">{{item.o_count}}</td>
-                    <td class="text-center" @click="deleteCartItem(index)"><font-awesome-icon icon="trash-alt"/></td>
+                    <td class="text-center" @click="deleteCartItem(index)">
+                      <font-awesome-icon icon="trash-alt"/>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -193,11 +195,6 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      fields: [
-        { key: "o_item", label: "餐點", class: "text-left" },
-        { key: "o_count", label: "數量", class: "text-center" },
-        { key: "del",  label:"", class: "text-center" }
-      ],
       newMember: {
         m_name: "",
         m_account: "",

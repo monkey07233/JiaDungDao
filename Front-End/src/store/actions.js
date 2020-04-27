@@ -150,6 +150,10 @@ export const deleteItemFromCart =({commit},index)=>{
   commit(types.DELETE_SHOPPINGCART, index);
 };
 
+export const deleteItemFromCart2 =({commit},item)=>{
+  commit(types.DELETE_SHOPPINGCART2, item);
+};
+
 export const minusItemToShoppingCart = (context, order) => {
   context.commit(types.MINUS_NUMBER_SHOPPINGCART, order);
 };

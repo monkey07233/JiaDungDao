@@ -46,6 +46,9 @@
           </b-tr>
         </b-tbody>
       </b-table-simple>
+        <!-- <template v-slot:cell(del)="data">
+          <font-awesome-icon icon="trash-alt" @click="deleteCartItem(data.item)"/>
+        </template> -->
     </div>
     <div class="row mb-3">
       <div class="col-10">
@@ -100,7 +103,8 @@ export default {
         { key: "o_item", label: "餐點名稱" },
         { key: "o_count", label: "數量", class: "text-center" },
         { key: "o_price", label: "單價", class: "text-center" },
-        { key: "subtotal", label: "小計", class: "text-center" }
+        { key: "subtotal", label: "小計", class: "text-center" },
+        { key: "del", label: "", class: "text-center" }
       ]
     };
   },
@@ -110,6 +114,10 @@ export default {
     },
     minusItemToShoppingCart: function(item) {
       this.$store.dispatch("minusItemToShoppingCart", item);
+    },
+    deleteCartItem(item){
+      this.$store.dispatch("deleteItemFromCart2", item);
+
     }
   }
 };

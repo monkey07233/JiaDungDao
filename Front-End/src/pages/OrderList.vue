@@ -5,36 +5,36 @@
       <h4 class="text-center pt-4">
         <font-awesome-icon icon="search" />&nbsp;訂單查詢
       </h4>
-      <b-card-body v-b-toggle.allOrder-1 >
-        <span v-for="order in OrderInfo">
-        <b-list-group-item style="border-bottom: 0px;">
-          <font-awesome-icon icon="store-alt" />
-          &nbsp;店家：{{order.title.r_name}}
-        </b-list-group-item>
+      <span v-for="(order, index) in OrderInfo" :key="index">
+        <b-card-body v-b-toggle="'accordion-' + index">
+          <b-list-group-item style="border-bottom: 0px;">
+            <font-awesome-icon icon="store-alt" />
+            &nbsp;店家：{{order.title.r_name}}
+          </b-list-group-item>
 
-        <b-list-group-item style="border-bottom: 0px;">
-          <font-awesome-icon icon="calendar-alt" />
-          &nbsp;訂單時間：{{order.title.o_createtime}}
-        </b-list-group-item>
-        <b-collapse
-          id="allOrder-1"
-          class="p-2"
-          style="border-left: 1px solid rgba(0, 0, 0, 0.125);border-right: 1px solid rgba(0, 0, 0, 0.125);"
-        >
-          <b-card-body style="border: 0px;">
-            <span v-for="orderdetail in order.orderDetail">
-            <b-list-group-item style="border-bottom: 0px;">品名：{{orderdetail.o_item}}</b-list-group-item>
-            <b-list-group-item style="border-bottom: 0px;">數量：{{orderdetail.o_count}}</b-list-group-item>
-            <b-list-group-item style="border-top: 0px;">小計：{{orderdetail.o_price}}</b-list-group-item>
-            </span>
-          </b-card-body>
-        </b-collapse>
-        <b-list-group-item style="border-top: 0px;">
-          <font-awesome-icon icon="credit-card" />
-          &nbsp;總計：{{order.title.o_total}}
-        </b-list-group-item>
-        </span>
-      </b-card-body>
+          <b-list-group-item style="border-bottom: 0px;">
+            <font-awesome-icon icon="calendar-alt" />
+            &nbsp;訂單時間：{{order.title.o_createtime}}
+          </b-list-group-item>
+          <b-collapse
+            :id=" 'accordion-' + index "
+            class="p-2"
+            style="border-left: 1px solid rgba(0, 0, 0, 0.125);border-right: 1px solid rgba(0, 0, 0, 0.125);"
+          >
+            <b-card-body style="border: 0px;">
+              <span v-for="orderdetail in order.orderDetail">
+                <b-list-group-item style="border-bottom: 0px;">品名：{{orderdetail.o_item}}</b-list-group-item>
+                <b-list-group-item style="border-bottom: 0px;">數量：{{orderdetail.o_count}}</b-list-group-item>
+                <b-list-group-item style="border-top: 0px;">小計：{{orderdetail.o_price}}</b-list-group-item>
+              </span>
+            </b-card-body>
+          </b-collapse>
+          <b-list-group-item style="border-top: 0px;">
+            <font-awesome-icon icon="credit-card" />
+            &nbsp;總計：{{order.title.o_total}}
+          </b-list-group-item>
+        </b-card-body>
+      </span>
     </div>
   </div>
 </template>

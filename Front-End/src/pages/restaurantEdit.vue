@@ -85,6 +85,7 @@
                     <th>菜名</th>
                     <th>價錢</th>
                     <th>分類</th>
+                    <th></th>
                   </tr>
                   <template v-for="(items,index) in restaurantInfo.typeAndMenu">
                     <tr v-for="(menu,m_index) in items.menu" :key="m_index">
@@ -92,6 +93,13 @@
                       <td>{{menu.m_item}}</td>
                       <td>{{menu.m_price}}</td>
                       <td>{{menu.m_type}}</td>
+                      <td>
+                        <font-awesome-icon
+                          style="cursor:pointer;"
+                          icon="trash-alt"
+                          @click="deleteMenuItem(menu.menuID)"
+                        />
+                      </td>
                     </tr>
                   </template>
                 </thead>
@@ -162,8 +170,20 @@ export default {
         this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
       });
     },
-    back(){
+    back() {
       this.$router.back();
+    },
+    deleteMenuItem(menuID) {
+      this.$store.dispatch("deleteMenuItem", menuID).then(res => {
+        this.$bvToast.toast("刪除餐點成功", {
+          title: `successed`,
+          toaster: "b-toaster-top-center",
+          solid: true,
+          autoHideDelay: 1000,
+          appendToast: false
+        });
+        this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
+      });
     }
   }
 };

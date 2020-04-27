@@ -29,7 +29,11 @@
                 hover
                 :items="shoppingCart.shoppingCartItems"
                 :fields="fields"
-              ></b-table>
+              >
+              <template v-slot:cell(del)="data">
+                <font-awesome-icon icon="trash-alt"/>
+              </template>
+              </b-table>
               <span>總金額 : ${{shoppingCart.shoppingCartTotalPrice}}</span>
               <b-button size="sm" class="mt-2" block to="/Cart" variant="info">
                 <font-awesome-icon icon="credit-card" />&nbsp;結帳
@@ -186,7 +190,8 @@ export default {
     return {
       fields: [
         { key: "o_item", label: "餐點", class: "text-left" },
-        { key: "o_count", label: "數量", class: "text-center" }
+        { key: "o_count", label: "數量", class: "text-center" },
+        { key: "del",  label:"", class: "text-center" }
       ],
       newMember: {
         m_name: "",

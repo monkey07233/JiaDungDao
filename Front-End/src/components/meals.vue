@@ -15,10 +15,7 @@
               <b-col md="7">
                 <b-card-body title-tag="h5" :title="item.m_item">
                   <b-card-text text-tag="h6">${{item.m_price}}</b-card-text>
-                  <b-button
-                    @click="addToShoppingCart(item.m_item, item.m_price)"
-                    variant="outline-primary"
-                  >加入購物車</b-button>
+                  <b-button @click="addToShoppingCart(item)" variant="outline-primary">加入購物車</b-button>
                 </b-card-body>
               </b-col>
             </b-row>
@@ -34,7 +31,7 @@ import { mapGetters } from "vuex";
 export default {
   computed: {
     ...mapGetters({
-      shoppingCart: "getShoppingCartInfo"
+      tokenInfo: "getTokenInfo"
     })
   },
   data() {
@@ -45,14 +42,14 @@ export default {
     list: Array
   },
   methods: {
-    addToShoppingCart: function(m_item, m_price) {
-      let item = {
-        name: m_item,
-        price: m_price,
-        number: 1,
-        subtotal: m_price
+    addToShoppingCart: function(item) {
+      let order = {
+        r_id: item.restaurantID,
+        o_item: item.m_item,
+        o_price: item.m_price,
+        o_count: 1
       };
-      this.$store.dispatch("addItemToShoppingCart", item).then(res => {
+      this.$store.dispatch("addItemToShoppingCart", order).then(res => {
         this.$bvToast.toast("餐點已加入購物車", {
           title: `successed`,
           toaster: "b-toaster-top-center",

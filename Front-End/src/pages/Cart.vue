@@ -7,10 +7,10 @@
     </div>
     <div class="row mt-3 ml-3 mr-3">
       <b-table hover :fields="fields" :items="shoppingCart.shoppingCartItems" outlined>
-        <template v-slot:cell(number)="data">
+        <template v-slot:cell(o_count)="data">
           <b-button
-            v-if="data.item.number==1"
-            disabled 
+            v-if="data.item.o_count==1"
+            disabled
             @click="minusItemToShoppingCart(data.item)"
             pill
             size="sm"
@@ -19,7 +19,7 @@
             <font-awesome-icon icon="minus" />
           </b-button>
           <b-button
-            v-if="data.item.number > 1"
+            v-if="data.item.o_count > 1"
             @click="minusItemToShoppingCart(data.item)"
             pill
             size="sm"
@@ -27,10 +27,18 @@
           >
             <font-awesome-icon icon="minus" />
           </b-button>
-          &nbsp;{{data.item.number}}&nbsp;
-          <b-button @click="addItemToShoppingCart(data.item)" pill size="sm" variant="outline-danger">
+          &nbsp;{{data.item.o_count}}&nbsp;
+          <b-button
+            @click="addItemToShoppingCart(data.item)"
+            pill
+            size="sm"
+            variant="outline-danger"
+          >
             <font-awesome-icon icon="plus" />
           </b-button>
+        </template>
+        <template v-slot:cell(subtotal)="data">
+          {{data.item.o_count * data.item.o_price}}
         </template>
       </b-table>
     </div>
@@ -75,9 +83,9 @@ export default {
   data() {
     return {
       fields: [
-        { key: "name", label: "餐點名稱" },
-        { key: "number", label: "數量", class: "text-center" },
-        { key: "price", label: "單價", class: "text-center" },
+        { key: "o_item", label: "餐點名稱" },
+        { key: "o_count", label: "數量", class: "text-center" },
+        { key: "o_price", label: "單價", class: "text-center" },
         { key: "subtotal", label: "小計", class: "text-center" }
       ]
     };

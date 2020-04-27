@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <b-button class="mb-4 font-weight-bold" @click="back" variant="warning">回到上一頁</b-button>
     <div class="rounded bg-white mb-4">
       <div class="row">
         <div class="col-12 mt-3 mb-5">
@@ -160,6 +161,9 @@ export default {
         this.newMenuItem.m_price = null;
         this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
       });
+    },
+    back(){
+      this.$router.back();
     }
   }
 };

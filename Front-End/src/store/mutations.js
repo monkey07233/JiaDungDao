@@ -1,9 +1,20 @@
 import * as types from "./mutations_type.js";
 
 export const state = {
+  OrderInfo: [{
+    title: {
+      OrderId: "",
+      RestaurantID: "",
+      r_name: "",
+      m_account: "",
+      o_createtime: "",
+      o_total: 0
+    },
+    orderDetail: []
+  }],
   shoppingCartInfo: {
     shoppingCartTotalPrice: 0,
-    shoppingCartItems: []
+    shoppingCartItems: [],
   },
   restaurantList: [],
   tokenInfo: {
@@ -90,6 +101,10 @@ export const mutations = {
       state.shoppingCartInfo.shoppingCartTotalPrice -= itemInfo.o_price;
     }
     localStorage.setItem("shpopingCart", JSON.stringify(state.shoppingCartInfo));
+  },
+  [types.GET_ORDER](state, order) {
+    let orderinfo = JSON.parse(JSON.stringify(order));
+    state.OrderInfo = orderinfo;
   },
   [types.SET_CART](state, item) {
     state.shoppingCartInfo = item;

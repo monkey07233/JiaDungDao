@@ -31,3 +31,7 @@ export const getShoppingCartTotalNum = (state, getters) => {
     });
     return sum;
 };
+
+export const getOrderInfo = state => {
+    return state.OrderInfo;
+};

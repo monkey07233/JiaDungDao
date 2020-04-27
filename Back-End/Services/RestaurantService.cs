@@ -80,5 +80,11 @@ namespace Back_End.Services
             var isSuccess = RestaurantRepo.DeleteRestaurant(RestaurantID);
             return isSuccess;
         }
+
+        public string updateMenu(Menu menu)
+        {
+            var result = RestaurantRepo.updateMenu(menu);
+            return result;
+        }
     }
 }

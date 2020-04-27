@@ -91,7 +91,7 @@ namespace JiaDungDao.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("OrderID")
+                    b.Property<int>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<int>("o_count")
@@ -126,6 +126,9 @@ namespace JiaDungDao.Migrations
 
                     b.Property<int>("o_total")
                         .HasColumnType("int");
+
+                    b.Property<string>("r_name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("OrderId");
 

@@ -22,7 +22,7 @@ namespace Back_End.Repositories
             foreach (var title in orderTitleResult)
             {
                 OrderInfo tmp = new OrderInfo();
-                var orderResult = db.Order.Where(o => o.OrderID == title.OrderId).OrderBy(o => o.OrderDetailId).ToList();
+                var orderResult = db.Order.Where(o => o.OrderId == title.OrderId).OrderBy(o => o.OrderDetailId).ToList();
                 tmp.title = title;
                 tmp.orderDetail = orderResult;
                 result.Add(tmp);
@@ -42,7 +42,7 @@ namespace Back_End.Repositories
                 var orderTitleResult = db.OrderTitle.Where(o => o.m_account == orderInfo.title.m_account).OrderByDescending(o => o.OrderId).FirstOrDefault();
                 foreach (var order in orderInfo.orderDetail)
                 {
-                    order.OrderID = orderTitleResult.OrderId;
+                    order.OrderId = orderTitleResult.OrderId;
                     db.Order.Add(order);
                 }
                 db.SaveChanges();

@@ -22,18 +22,7 @@
                 style="font-size:35px;background:Tomato;width:60px;height:60px"
               >{{shoppingCartNumber}}</span>
             </template>
-            <div style="width:270px" class="p-2 text-center">
-              <!-- <b-table
-                outlined
-                small
-                hover
-                :items="shoppingCart.shoppingCartItems"
-                :fields="fields"
-              >
-              <template v-slot:cell(del)="data">
-                <font-awesome-icon icon="trash-alt" @click="deleteCartItem" />
-              </template>
-              </b-table> -->
+            <div style="width:270px" class="p-2 text-center">              
               <table role="table" class="table table-hover border table-sm">
                 <thead role="rowgroup">
                   <tr role="row">

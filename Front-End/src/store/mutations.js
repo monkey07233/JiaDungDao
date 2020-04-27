@@ -66,6 +66,9 @@ export const mutations = {
     state.shoppingCartInfo.shoppingCartTotalPrice += itemInfo.o_price;
     localStorage.setItem("shpopingCart",JSON.stringify(state.shoppingCartInfo));
   },
+  [types.DELETE_SHOPPINGCART](state,index){
+    state.shoppingCartInfo.shoppingCartItems.splice(index,1);
+  },
   [types.MINUS_NUMBER_SHOPPINGCART](state, item) {
     let itemInfo = JSON.parse(JSON.stringify(item));
     let index = state.shoppingCartInfo.shoppingCartItems.findIndex(

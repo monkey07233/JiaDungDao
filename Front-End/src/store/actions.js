@@ -147,8 +147,7 @@ export const addItemToShoppingCart = (context, order) => {
  };
 
 export const deleteItemFromCart =({commit},index)=>{
-  commit(types.SAVE_TOKEN, tokenInfo);
-  commit(types.SAVE_TOKEN, index);
+  commit(types.DELETE_SHOPPINGCART, index);
 };
 
 export const minusItemToShoppingCart = (context, order) => {

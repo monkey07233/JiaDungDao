@@ -116,7 +116,7 @@ export default {
       this.$store.dispatch("minusItemToShoppingCart", item);
     },
     deleteCartItem(item){
-      this.$store.dispatch("deleteItemFromCart2", item);
+      this.$store.dispatch("deleteItemFromCart", item);
 
     }
   }

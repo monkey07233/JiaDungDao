@@ -22,8 +22,19 @@
                 style="font-size:35px;background:Tomato;width:60px;height:60px"
               >{{shoppingCartNumber}}</span>
             </template>
-            <div style="width:270px" class="p-2 text-center">              
-              <table role="table" class="table table-hover border table-sm">
+            <div style="width:270px" class="p-2 text-center">
+               <b-table
+                outlined
+                small
+                hover
+                :items="shoppingCart.shoppingCartItems"
+                :fields="fields"
+              >
+              <template v-slot:cell(del)="data">
+                <font-awesome-icon icon="trash-alt" @click="deleteCartItem(data.item)"/>
+              </template> 
+              </b-table>                          
+              <!-- <table role="table" class="table table-hover border table-sm">
                 <thead role="rowgroup">
                   <tr role="row">
                     <th class="text-left">餐點</th>
@@ -40,7 +51,7 @@
                     </td>
                   </tr>
                 </tbody>
-              </table>
+              </table> -->
               <span>總金額 : ${{shoppingCart.shoppingCartTotalPrice}}</span>
               <b-button size="sm" class="mt-2" block to="/Cart" variant="info">
                 <font-awesome-icon icon="credit-card" />&nbsp;結帳
@@ -195,6 +206,11 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
+       fields: [
+        { key: "o_item", label: "餐點", class: "text-left" },
+        { key: "o_count", label: "數量", class: "text-center" },
+        { key: "del", label: "", class: "text-center" },
+      ],
       newMember: {
         m_name: "",
         m_account: "",
@@ -294,8 +310,8 @@ export default {
       });
       this.$router.push("/");
     },
-    deleteCartItem(index){
-      this.$store.dispatch("deleteItemFromCart",index);
+    deleteCartItem(delItem){
+      this.$store.dispatch("deleteItemFromCart",delItem);
     }
   },
   created() {

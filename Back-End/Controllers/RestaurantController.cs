@@ -61,7 +61,7 @@ namespace Back_End.Controllers
                 return BadRequest(result);
             }
         }
-        
+
         [HttpGet]
         [Authorize]
         public IActionResult AddMenuItem(Menu newMenuItem){

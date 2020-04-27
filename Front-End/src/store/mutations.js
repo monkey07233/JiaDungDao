@@ -67,6 +67,9 @@ export const mutations = {
       state.shoppingCartInfo.shoppingCartTotalPrice -= itemInfo.o_price;
     }
   },
+  [types.SET_CART](state,item){
+    state.shoppingCartInfo = item;
+  },
 };
 
 

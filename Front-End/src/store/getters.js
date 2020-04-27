@@ -21,11 +21,7 @@ export const getResByAcc = (state, getters) => {
 };
 
 export const getShoppingCartInfo = state => {
-    if (JSON.parse(localStorage.getItem("shpopingCart")) != null) {
-        return state.shoppingCartInfo=JSON.parse(localStorage.getItem("shpopingCart"));
-    } else {
-        return state.shoppingCartInfo;
-    }
+    return state.shoppingCartInfo;    
 };
 
 export const getShoppingCartTotalNum = (state, getters) => {

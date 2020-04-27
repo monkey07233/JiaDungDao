@@ -294,6 +294,10 @@ export default {
         m_account: this.tokenInfo.account
       });
     }
+    const cart = JSON.parse(localStorage.getItem("shpopingCart"));
+    if(cart!=null){
+      this.$store.dispatch("setCart",cart)
+    }
   }
 };
 </script>

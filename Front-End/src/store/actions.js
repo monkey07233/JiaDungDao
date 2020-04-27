@@ -248,7 +248,7 @@ export const createOrder = ({ commit, state }, orderInfo) => {
       });
   });
 };
-export const getOrderInfo = ({ commit, state }, account) => {
+export const getOrderInfo = ({ commit, state }, order) => {
     const config = {
         withCredentials: true,
         headers: {
@@ -259,7 +259,7 @@ export const getOrderInfo = ({ commit, state }, account) => {
         axios
             .post(
                 "https://localhost:5001/api/Order/GetOrderInfo",
-                account,
+                order,
                 config
             )
             .then(function(res) {

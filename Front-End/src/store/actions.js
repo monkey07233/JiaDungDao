@@ -146,8 +146,12 @@ export const setCart = ({ commit }, cart) => {
   commit(types.SET_CART, cart);
 };
 
-export const deleteItemFromCart = ({ commit }, index) => {
-  commit(types.DELETE_SHOPPINGCART, index);
+export const deleteItemFromCart = ({ commit }, item) => {
+  commit(types.DELETE_SHOPPINGCART, item);
+};
+
+export const deletemultipleItemFromCart = ({ commit }, items) => {
+  commit(types.DELETE_MULTIPLE_SHOPPINGCART, items);
 };
 
 export const minusItemToShoppingCart = (context, order) => {
@@ -213,6 +217,30 @@ export const UpdateRestaurant = ({ commit, state }, restaurant) => {
       .post(
         "https://localhost:5001/api/Restaurant/updateRestaurant",
         restaurant,
+        config
+      )
+      .then(function(res) {
+        resolve(res.data);
+      })
+      .catch(function(err) {
+        console.log(err);
+        reject();
+      });
+  });
+};
+
+export const createOrder = ({ commit, state }, orderInfo) => {
+  const config = {
+    withCredentials: true,
+    headers: {
+      Authorization: "Bearer " + state.tokenInfo.token
+    }
+  };
+  return new Promise((resolve, reject) => {
+    axios
+      .post(
+        "https://localhost:5001/api/Order/createOrder",
+        orderInfo,
         config
       )
       .then(function(res) {

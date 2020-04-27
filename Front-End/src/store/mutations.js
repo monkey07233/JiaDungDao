@@ -57,25 +57,39 @@ export const mutations = {
       state.shoppingCartInfo.shoppingCartItems[index].o_count++;
     } else {
       state.shoppingCartInfo.shoppingCartItems.push(itemInfo);
-      state.shoppingCartInfo.shoppingCartItems.sort(function(a, b) {
+      state.shoppingCartInfo.shoppingCartItems.sort(function (a, b) {
         if (a.r_id < b.r_id) return -1;
         if (a.r_id > b.r_id) return 1;
         return 0;
       });
     }
     state.shoppingCartInfo.shoppingCartTotalPrice += itemInfo.o_price;
-    localStorage.setItem("shpopingCart",JSON.stringify(state.shoppingCartInfo));
+    localStorage.setItem("shpopingCart", JSON.stringify(state.shoppingCartInfo));
   },
-  [types.DELETE_SHOPPINGCART](state,index){
-    let delItem=state.shoppingCartInfo.shoppingCartItems[index];
-    state.shoppingCartInfo.shoppingCartTotalPrice-=delItem.o_price*delItem.o_count;    
-    state.shoppingCartInfo.shoppingCartItems.splice(index,1);
-    localStorage.setItem("shpopingCart",JSON.stringify(state.shoppingCartInfo));
+  [types.DELETE_SHOPPINGCART](state, itemInfo) {
+    let delIndex = state.shoppingCartInfo.shoppingCartItems.findIndex(
+      item => item.o_item === itemInfo.o_item & item.r_id === itemInfo.r_id
+    );
+    let delItem = state.shoppingCartInfo.shoppingCartItems[delIndex];
+    state.shoppingCartInfo.shoppingCartTotalPrice -= delItem.o_price * delItem.o_count;
+    state.shoppingCartInfo.shoppingCartItems.splice(delIndex, 1);
+    localStorage.setItem("shpopingCart", JSON.stringify(state.shoppingCartInfo));
+  },
+  [types.DELETE_MULTIPLE_SHOPPINGCART](state, items) {
+    items.forEach(itemInfo => {
+      let delIndex = state.shoppingCartInfo.shoppingCartItems.findIndex(
+        item => item.o_item === itemInfo.o_item & item.r_id === itemInfo.r_id
+      );
+      let delItem = state.shoppingCartInfo.shoppingCartItems[delIndex];
+      state.shoppingCartInfo.shoppingCartTotalPrice -= delItem.o_price * delItem.o_count;
+      state.shoppingCartInfo.shoppingCartItems.splice(delIndex, 1);
+    });
+    localStorage.setItem("shpopingCart", JSON.stringify(state.shoppingCartInfo));
   },
   [types.MINUS_NUMBER_SHOPPINGCART](state, item) {
     let itemInfo = JSON.parse(JSON.stringify(item));
     let index = state.shoppingCartInfo.shoppingCartItems.findIndex(
-      item => item.o_item === itemInfo.o_item  & item.r_id === itemInfo.r_id
+      item => item.o_item === itemInfo.o_item & item.r_id === itemInfo.r_id
     );
     if (
       index !== -1 &&
@@ -84,8 +98,9 @@ export const mutations = {
       state.shoppingCartInfo.shoppingCartItems[index].o_count--;
       state.shoppingCartInfo.shoppingCartTotalPrice -= itemInfo.o_price;
     }
+    localStorage.setItem("shpopingCart", JSON.stringify(state.shoppingCartInfo));
   },
-  [types.SET_CART](state,item){
+  [types.SET_CART](state, item) {
     state.shoppingCartInfo = item;
-  },  
+  },
 };

@@ -101,5 +101,18 @@ namespace Back_End.Repositories {
                 return false;
             }
         }
+
+        public string updateMenu (Menu menu) {
+            var oldMenu = db.Menu.Where (m => m.MenuID == menu.MenuID).FirstOrDefault ();
+            try {
+                oldMenu.m_item = menu.m_item;
+                oldMenu.m_price = menu.m_price;
+                oldMenu.m_type = menu.m_type;
+                var count = db.SaveChanges ();
+                return (count > 0) ? "successed" : "fail";
+            } catch (Exception e) {
+                return e.Message.ToString ();
+            }
+        }
     }
 }

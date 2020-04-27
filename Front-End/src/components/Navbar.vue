@@ -23,13 +23,24 @@
               >{{shoppingCartNumber}}</span>
             </template>
             <div style="width:270px" class="p-2 text-center">
-              <b-table
-                outlined
-                small
-                hover
-                :items="shoppingCart.shoppingCartItems"
-                :fields="fields"
-              ></b-table>
+              <table role="table" class="table table-hover border table-sm">
+                <thead role="rowgroup">
+                  <tr role="row">
+                    <th class="text-left">餐點</th>
+                    <th class="text-center">數量</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody v-for="(item,index) in shoppingCart.shoppingCartItems" :key="index">
+                  <tr>
+                    <td class="text-left">{{item.o_item}}</td>
+                    <td class="text-center">{{item.o_count}}</td>
+                    <td class="text-center" @click="deleteCartItem(index)">
+                      <font-awesome-icon icon="trash-alt"/>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
               <span>總金額 : ${{shoppingCart.shoppingCartTotalPrice}}</span>
               <b-button size="sm" class="mt-2" block to="/Cart" variant="info">
                 <font-awesome-icon icon="credit-card" />&nbsp;結帳
@@ -184,9 +195,10 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      fields: [
+       fields: [
         { key: "o_item", label: "餐點", class: "text-left" },
-        { key: "o_count", label: "數量", class: "text-center" }
+        { key: "o_count", label: "數量", class: "text-center" },
+        { key: "del", label: "", class: "text-center" },
       ],
       newMember: {
         m_name: "",
@@ -277,7 +289,7 @@ export default {
     },
     logout() {
       this.$store.dispatch("logout");
-      localStorage.removeItem("tokenInfo");
+      localStorage.clear();
       this.$bvToast.toast("登出成功", {
         title: `Logout`,
         toaster: "b-toaster-top-center",
@@ -286,6 +298,9 @@ export default {
         appendToast: false
       });
       this.$router.push("/");
+    },
+    deleteCartItem(index){
+      this.$store.dispatch("deleteItemFromCart",index);
     }
   },
   created() {
@@ -293,6 +308,10 @@ export default {
       this.$store.dispatch("getMemberInfo", {
         m_account: this.tokenInfo.account
       });
+    }
+    const cart = JSON.parse(localStorage.getItem("shpopingCart"));
+    if(cart!=null){
+      this.$store.dispatch("setCart",cart)
     }
   }
 };

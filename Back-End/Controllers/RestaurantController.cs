@@ -93,5 +93,16 @@ namespace Back_End.Controllers
             }
             return BadRequest("刪除餐廳失敗");
         }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult updateMenu(Menu menu){
+            var result = RestaurantService.updateMenu(menu);
+            if (result == "successed")
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 }

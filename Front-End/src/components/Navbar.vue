@@ -277,7 +277,7 @@ export default {
     },
     logout() {
       this.$store.dispatch("logout");
-      localStorage.removeItem("tokenInfo");
+      localStorage.clear();
       this.$bvToast.toast("登出成功", {
         title: `Logout`,
         toaster: "b-toaster-top-center",

@@ -57,7 +57,8 @@ export const mutations = {
     } else {
       state.shoppingCartInfo.shoppingCartItems.push(item);
     }
-    state.shoppingCartInfo.shoppingCartTotalPrice += item.price;
+    state.shoppingCartInfo.shoppingCartTotalPrice += item.price;   
+    localStorage.setItem("shpopingCart",JSON.stringify(state.shoppingCartInfo));
   },
   [types.MINUS_NUMBER_SHOPPINGCART](state, item) {
     let itemdata = JSON.parse(JSON.stringify(item));

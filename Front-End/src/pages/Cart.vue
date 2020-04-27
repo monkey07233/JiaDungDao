@@ -6,41 +6,46 @@
       </h4>
     </div>
     <div class="row mt-3 ml-3 mr-3">
-      <b-table hover :fields="fields" :items="shoppingCart.shoppingCartItems" outlined>
-        <template v-slot:cell(o_count)="data">
-          <b-button
-            v-if="data.item.o_count==1"
-            disabled
-            @click="minusItemToShoppingCart(data.item)"
-            pill
-            size="sm"
-            variant="outline-secondary"
-          >
-            <font-awesome-icon icon="minus" />
-          </b-button>
-          <b-button
-            v-if="data.item.o_count > 1"
-            @click="minusItemToShoppingCart(data.item)"
-            pill
-            size="sm"
-            variant="outline-secondary"
-          >
-            <font-awesome-icon icon="minus" />
-          </b-button>
-          &nbsp;{{data.item.o_count}}&nbsp;
-          <b-button
-            @click="addItemToShoppingCart(data.item)"
-            pill
-            size="sm"
-            variant="outline-danger"
-          >
-            <font-awesome-icon icon="plus" />
-          </b-button>
-        </template>
-        <template v-slot:cell(subtotal)="data">
-          {{data.item.o_count * data.item.o_price}}
-        </template>
-      </b-table>
+      <b-table-simple hover outlined v-for="(items,indexs) in GroupBy" :key="indexs">
+        <b-thead>
+          <b-tr>
+            <b-td colspan="4">{{indexs}}</b-td>
+          </b-tr>
+          <b-tr>
+            <b-td style="width:400px;">餐點名稱</b-td>
+            <b-td>數量</b-td>
+            <b-td>單價</b-td>
+            <b-td>小計</b-td>
+          </b-tr>
+        </b-thead>
+        <b-tbody>
+          <b-tr v-for="(item,index) in items" :key="index">
+            <b-td style="width:400px;">{{item.o_item}}</b-td>
+            <b-td>
+              <b-button
+                :disabled="item.o_count==1"
+                @click="minusItemToShoppingCart(item)"
+                pill
+                size="sm"
+                variant="outline-secondary"
+              >
+                <font-awesome-icon icon="minus" />
+              </b-button>
+              &nbsp;{{item.o_count}}&nbsp;
+              <b-button
+                @click="addItemToShoppingCart(item)"
+                pill
+                size="sm"
+                variant="outline-danger"
+              >
+                <font-awesome-icon icon="plus" />
+              </b-button>
+            </b-td>
+            <b-td>{{item.o_price}}</b-td>
+            <b-td>{{item.o_count*item.o_price}}</b-td>
+          </b-tr>
+        </b-tbody>
+      </b-table-simple>
     </div>
     <div class="row mb-3">
       <div class="col-10">
@@ -74,11 +79,21 @@
 
 <script>
 import { mapGetters } from "vuex";
+import axios from "axios";
 export default {
   computed: {
     ...mapGetters({
       shoppingCart: "getShoppingCartInfo"
-    })
+    }),
+    GroupBy() {
+      const result = {};
+      this.shoppingCart.shoppingCartItems.forEach(item => {
+        if (!result[item["r_name"]]) result[item["r_name"]] = [];
+        console.log(item);
+        result[item["r_name"]].push(item);
+      });
+      return result;
+    }
   },
   data() {
     return {

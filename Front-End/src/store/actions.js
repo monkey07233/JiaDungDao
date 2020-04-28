@@ -224,3 +224,25 @@ export const UpdateRestaurant = ({ commit, state }, restaurant) => {
       });
   });
 };
+export const deleteRestaurant = ({ commit, state }, restaurantID) => {
+  const config = {
+    withCredentials: true,
+    headers: {
+      Authorization: "Bearer " + state.tokenInfo.token
+    }
+  };
+  return new Promise((resolve, reject) => {
+    axios
+      .get(
+        "https://localhost:5001/api/Restaurant/DeleteRestaurant?RestaurantID="+restaurantID,
+        config
+      )
+      .then(function(res) {
+        resolve(res.data);
+      })
+      .catch(function(err) {
+        console.log(err);
+        reject();
+      });
+  });
+};

@@ -1,6 +1,13 @@
 <template>
   <div class="container">
-    <b-button class="mb-4 font-weight-bold" @click="back" variant="warning">回到上一頁</b-button>
+    <div class="d-flex">
+      <b-button class="mb-4 font-weight-bold" @click="back" variant="warning">回到上一頁</b-button>
+      <b-button
+        class="mb-4 ml-auto"
+        @click="deleteRestaurant(newMenuItem.RestaurantID)"
+        variant="danger"
+      >刪除此餐廳</b-button>
+    </div>
     <div class="rounded bg-white mb-4">
       <div class="row">
         <div class="col-12 mt-3 mb-5">
@@ -254,6 +261,20 @@ export default {
           appendToast: false
         });
         this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
+      });
+    },
+    deleteRestaurant(ResID) {
+      this.$store.dispatch("deleteRestaurant", ResID).then(res => {
+       this.$bvToast.toast("成功刪除餐廳", {
+          title: `successed`,
+          toaster: "b-toaster-top-center",
+          solid: true,
+          autoHideDelay: 1000,
+          appendToast: false
+        });
+        setTimeout(() => {
+          this.$router.push("/RestaurantManagement");
+        }, 1500);
       });
     }
   }

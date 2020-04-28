@@ -1,16 +1,23 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Back_End.Interface;
 using Back_End.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 
 namespace Back_End.Services
 {
     public class RestaurantService : IRestaurantService
     {
         private readonly IRestaurantRepo RestaurantRepo;
-        public RestaurantService(IRestaurantRepo restaurantRepo)
+        public static IWebHostEnvironment _environment;
+
+        public RestaurantService(IRestaurantRepo restaurantRepo, IWebHostEnvironment environment)
         {
             this.RestaurantRepo = restaurantRepo;
+            _environment = environment;
         }
         public List<Restaurant> GetAllRestaurant()
         {
@@ -62,7 +69,8 @@ namespace Back_End.Services
         }
 
         public string createRestaurant(Restaurant restaurant){
-            return RestaurantRepo.createRestaurant(restaurant);
+            var result = RestaurantRepo.createRestaurant(restaurant);
+            return result;
         }
 
         public int AddMenuItem(Menu newMenuItem){
@@ -79,6 +87,25 @@ namespace Back_End.Services
         {
             var isSuccess = RestaurantRepo.DeleteRestaurant(RestaurantID);
             return isSuccess;
+        }
+
+        public async Task<string> uploadRestaurantImg(Restaurant restaurant, IFormFile files)
+        {
+            try {
+                if (files != null) {
+                    if (!Directory.Exists (_environment.ContentRootPath + "\\File\\Restaurant\\")) {
+                        Directory.CreateDirectory (_environment.ContentRootPath + "\\File\\Restaurant\\");
+                    }
+                    using (FileStream stream = System.IO.File.Create (_environment.ContentRootPath + "\\File\\Restaurant\\" + restaurant.r_name + "_餐廳封面_" + files.FileName)) {
+                        await files.CopyToAsync (stream);
+                        stream.Flush ();
+                    }
+                    return "新增成功且照片上傳完成";
+                }
+                return "新增成功但照片上傳失敗";
+            } catch (System.Exception e) {
+                return e.Message.ToString ();
+            }
         }
     }
 }

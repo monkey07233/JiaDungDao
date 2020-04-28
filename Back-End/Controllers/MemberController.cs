@@ -11,15 +11,19 @@ namespace Back_End.Controllers {
     public class MemberController : ControllerBase {
         private readonly IMemberService MemberService;
         private readonly IConfiguration Configuration;
-        public MemberController (IMemberService memberService, IConfiguration configuration) {
+        private readonly IMailService MailService;
+
+        public MemberController (IMemberService memberService, IConfiguration configuration,IMailService mailService) {
             this.MemberService = memberService;
             this.Configuration = configuration;
+            this.MailService=mailService;
         }
 
         [HttpPost]
         public IActionResult Register (Member member) {
             var result = MemberService.Register (member);
             if (result == "successed" || result == "帳號已存在") {
+                MailService.SendMail(member.m_email);
                 return Ok (result);
             } else {
                 return BadRequest (result);
@@ -57,5 +61,11 @@ namespace Back_End.Controllers {
                 return BadRequest (result);
             }
         }
+
+        // [HttpPost]
+        // public IActionResult TestMail(){
+        //     MailService.SendMail();
+        //     return Ok();
+        // }
     }
 }

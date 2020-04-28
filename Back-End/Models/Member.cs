@@ -26,6 +26,6 @@ namespace Back_End.Models
         [Required]
         public int m_role{get;set;}
         [Required]
-        public int isValid{get;set;}
+        public bool isValid{get;set;}
     }
 }

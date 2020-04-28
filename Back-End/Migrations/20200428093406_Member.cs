@@ -6,18 +6,22 @@ namespace JiaDungDao.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
+            migrationBuilder.AlterColumn<bool>(
                 name: "isValid",
                 table: "Member",
                 nullable: false,
-                defaultValue: 0);
+                oldClrType: typeof(int),
+                oldType: "int");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
+            migrationBuilder.AlterColumn<int>(
                 name: "isValid",
-                table: "Member");
+                table: "Member",
+                type: "int",
+                nullable: false,
+                oldClrType: typeof(bool));
         }
     }
 }

@@ -62,7 +62,7 @@ namespace Back_End.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         [Authorize]
         public IActionResult AddMenuItem(Menu newMenuItem){
             int res=RestaurantService.AddMenuItem(newMenuItem);

@@ -25,7 +25,7 @@
               <span v-for="orderdetail in order.orderDetail">
                 <b-list-group-item style="border-bottom: 0px;">品名：{{orderdetail.o_item}}</b-list-group-item>
                 <b-list-group-item style="border-bottom: 0px;">數量：{{orderdetail.o_count}}</b-list-group-item>
-                <b-list-group-item style="border-top: 0px;">小計：{{orderdetail.o_price}}</b-list-group-item>
+                <b-list-group-item style="border-top: 0px;">小計：{{orderdetail.o_price * orderdetail.o_count}}</b-list-group-item>
               </span>
             </b-card-body>
           </b-collapse>

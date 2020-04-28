@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JiaDungDao.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200424065353_Member")]
+    [Migration("20200428085741_Member")]
     partial class Member
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,6 +27,9 @@ namespace JiaDungDao.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("isValid")
+                        .HasColumnType("int");
 
                     b.Property<string>("m_account")
                         .IsRequired()
@@ -84,6 +87,57 @@ namespace JiaDungDao.Migrations
                     b.HasKey("MenuID");
 
                     b.ToTable("Menu");
+                });
+
+            modelBuilder.Entity("Back_End.Models.Order", b =>
+                {
+                    b.Property<int>("OrderDetailId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("o_count")
+                        .HasColumnType("int");
+
+                    b.Property<string>("o_item")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("o_price")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderDetailId");
+
+                    b.ToTable("Order");
+                });
+
+            modelBuilder.Entity("Back_End.Models.OrderTitle", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("RestaurantID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("m_account")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("o_createtime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("o_total")
+                        .HasColumnType("int");
+
+                    b.Property<string>("r_name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("OrderId");
+
+                    b.ToTable("OrderTitle");
                 });
 
             modelBuilder.Entity("Back_End.Models.Restaurant", b =>

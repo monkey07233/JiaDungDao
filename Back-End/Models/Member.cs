@@ -25,5 +25,7 @@ namespace Back_End.Models
         public string m_address{get;set;}
         [Required]
         public int m_role{get;set;}
+        [Required]
+        public int isValid{get;set;}
     }
 }

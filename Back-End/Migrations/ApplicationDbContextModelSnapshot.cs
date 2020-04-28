@@ -26,6 +26,9 @@ namespace JiaDungDao.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("isValid")
+                        .HasColumnType("int");
+
                     b.Property<string>("m_account")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")

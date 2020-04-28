@@ -61,6 +61,14 @@ namespace Back_End.Services {
             return MemberRepo.Register (member);
         }
 
+        public string VerifyAccount(string account){
+            var member = MemberRepo.GetMemberByAcc (account);
+            if(member == null){
+                return "查無此會員";
+            }
+            return MemberRepo.VerifyAccount(member);
+        }
+
         public Member GetMemberByAcc (string account) {
             return MemberRepo.GetMemberByAcc (account);
         }

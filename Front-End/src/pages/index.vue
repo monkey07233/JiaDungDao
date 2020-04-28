@@ -1,11 +1,10 @@
 <template>
   <div>
     <div class="d-flex flex-wrap" style="justify-content:center;">
-      <b-form-input size="sm" class="col-4" placeholder="餐廳名稱"></b-form-input>
-      <b-button size="sm" class="col-1"><font-awesome-icon icon="search" />搜尋</b-button>
+      <b-form-input class="col-5" placeholder="餐廳名稱" v-model="search"></b-form-input>
     </div>
     <div class="d-flex flex-wrap">
-      <div class="item col-md-3 col-sm-6" v-for="(res,index) in restaurantList" :key="index">
+      <div class="item col-md-3 col-sm-6" v-for="(res,index) in filterData" :key="index">
         <div class="card">
           <img class="card-img-top" src="../assets/images/restaurant.jpg" />
           <div class="card-body">
@@ -39,12 +38,22 @@ import "@/assets/css/index.css";
 import { mapGetters } from "vuex";
 export default {
   data() {
-    return {};
+    return {
+      search: ""
+    };
   },
   computed: {
     ...mapGetters({
       restaurantList: "getResList"
-    })
+    }),
+    filterData() {
+      const filter = this.search;
+      return filter.trim() != ""
+        ? this.restaurantList.filter(function(data) {
+            return data.r_name.indexOf(filter) > -1;
+          })
+        : this.restaurantList;
+    }
   },
   created() {
     this.$store.dispatch("getRestaurantList");

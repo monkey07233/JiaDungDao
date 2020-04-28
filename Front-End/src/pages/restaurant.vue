@@ -25,7 +25,7 @@
     <div>
       <b-tabs content-class="mt-3" align="center">
         <template v-for="(item,index) in restaurantInfo.typeAndMenu">
-          <mealsCard :list="item.menu" :tabTitle="item.m_type" :key="index"/>
+          <mealsCard :list="item.menu" :tabTitle="item.m_type" :resName="restaurantInfo.restaurant.r_name" :key="index"/>
         </template>
       </b-tabs>
     </div>

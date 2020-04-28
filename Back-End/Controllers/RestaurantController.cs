@@ -82,7 +82,7 @@ namespace Back_End.Controllers {
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         [Authorize]
         public IActionResult AddMenuItem (Menu newMenuItem) {
             int res = RestaurantService.AddMenuItem (newMenuItem);
@@ -110,6 +110,17 @@ namespace Back_End.Controllers {
                 return Ok ("刪除餐廳成功");
             }
             return BadRequest ("刪除餐廳失敗");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult updateMenu(Menu menu){
+            var result = RestaurantService.updateMenu(menu);
+            if (result == "successed")
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
     }
 }

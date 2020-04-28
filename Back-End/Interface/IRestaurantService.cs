@@ -12,5 +12,6 @@ namespace Back_End.Interface
         int AddMenuItem(Menu newMenuItem);
         bool DeleteMenu(int MenuID);
         bool DeleteRestaurant(int RestaurantID);
+        string updateMenu(Menu menu);
     }
 }

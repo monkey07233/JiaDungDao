@@ -1,6 +1,13 @@
 <template>
   <div class="container">
-    <b-button class="mb-4 font-weight-bold" @click="back" variant="warning">回到上一頁</b-button>
+    <div class="d-flex">
+      <b-button class="mb-4 font-weight-bold" @click="back" variant="warning">回到上一頁</b-button>
+      <b-button
+        class="mb-4 ml-auto"
+        @click="deleteRestaurant(newMenuItem.RestaurantID)"
+        variant="danger"
+      >刪除此餐廳</b-button>
+    </div>
     <div class="rounded bg-white mb-4">
       <div class="row">
         <div class="col-12 mt-3 mb-5">
@@ -50,8 +57,10 @@
           <div>
             <b-alert show variant="white">
               <h2 class="alert-heading mb-2 text-center">編輯餐廳菜單</h2>
-
-              <b-form @submit.prevent="addMenuItem" inline class="justify-content-center">
+              <b-form @submit.prevent="addMenuItem" inline class="justify-content-center pt-3">
+                <b-form-group class="mr-2">
+                  <b-form-file id="file-default"></b-form-file>
+                </b-form-group>
                 <label class="sr-only" for="input-name">菜名</label>
                 <b-input
                   v-model="newMenuItem.m_item"
@@ -85,15 +94,54 @@
                     <th>菜名</th>
                     <th>價錢</th>
                     <th>分類</th>
+                    <th></th>
+                    <th></th>
                   </tr>
-                  <template v-for="(items,index) in restaurantInfo.typeAndMenu">
-                    <tr v-for="(menu,m_index) in items.menu" :key="m_index">
-                      <td>{{index+1}}</td>
-                      <td>{{menu.m_item}}</td>
-                      <td>{{menu.m_price}}</td>
-                      <td>{{menu.m_type}}</td>
-                    </tr>
-                  </template>
+                  <tr v-for="(item,index) in getMenuItemList()" :key="index">
+                    <td>{{index+1}}</td>
+                    <template v-if="edit_Index != index">
+                      <td>{{item.m_item}}</td>
+                      <td>{{item.m_price}}</td>
+                      <td>{{item.m_type}}</td>
+                      <td>
+                        <font-awesome-icon
+                          @click="edit_Index = index"
+                          style="cursor:pointer;"
+                          icon="pencil-alt"
+                        />
+                      </td>
+                    </template>
+                    <template v-if="edit_Index == index">
+                      <td>
+                        <b-input name="item" type="text" required :value="item.m_item"></b-input>
+                      </td>
+                      <td>
+                        <b-input name="price" type="number" required :value="item.m_price"></b-input>
+                      </td>
+                      <td>
+                        <b-input name="type" type="text" required :value="item.m_type"></b-input>
+                      </td>
+                      <td class="text-center">
+                        <font-awesome-icon
+                          @click="updateMenu(item)"
+                          style="cursor:pointer;"
+                          icon="save"
+                        />&nbsp;&nbsp;
+                        <font-awesome-icon
+                          @click="edit_Index = null"
+                          style="cursor:pointer;"
+                          icon="times"
+                        />
+                      </td>
+                    </template>
+                    <td>
+                      <font-awesome-icon
+                        style="cursor:pointer;"
+                        icon="trash-alt"
+                        @click="deleteMenuItem(item.menuID)"
+                      />
+                    </td>
+                  </tr>
                 </thead>
               </table>
             </b-alert>
@@ -114,7 +162,8 @@ export default {
         m_item: "",
         m_type: "",
         m_price: null
-      }
+      },
+      edit_Index: null
     };
   },
   computed: {
@@ -127,6 +176,43 @@ export default {
     this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
   },
   methods: {
+    getMenuItemList() {
+      let ItemList = [];
+      this.restaurantInfo.typeAndMenu.forEach(element => {
+        element.menu.forEach(item => {
+          ItemList.push(item);
+        });
+      });
+      return ItemList;
+    },
+    updateMenu(item) {
+      this.edit_Index = null;
+      console.log({
+        MenuID: item.menuID,
+        RestaurantID: item.restaurantID,
+        m_item: document.querySelector("input[name=item]").value,
+        m_price: parseInt(document.querySelector("input[name=price]").value),
+        m_type: document.querySelector("input[name=type]").value
+      });
+      this.$store
+        .dispatch("updateMenu", {
+          MenuID: item.menuID,
+          RestaurantID: item.restaurantID,
+          m_item: document.querySelector("input[name=item]").value,
+          m_price: parseInt(document.querySelector("input[name=price]").value),
+          m_type: document.querySelector("input[name=type]").value
+        })
+        .then(res => {
+          this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
+          this.$bvToast.toast("更新菜單資訊成功", {
+            title: `successed`,
+            toaster: "b-toaster-top-center",
+            solid: true,
+            autoHideDelay: 1000,
+            appendToast: false
+          });
+        });
+    },
     UpdateRestaurant() {
       var restaurant = {
         RestaurantID: this.$route.params.id,
@@ -162,8 +248,34 @@ export default {
         this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
       });
     },
-    back(){
+    back() {
       this.$router.back();
+    },
+    deleteMenuItem(menuID) {
+      this.$store.dispatch("deleteMenuItem", menuID).then(res => {
+        this.$bvToast.toast("刪除餐點成功", {
+          title: `successed`,
+          toaster: "b-toaster-top-center",
+          solid: true,
+          autoHideDelay: 1000,
+          appendToast: false
+        });
+        this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
+      });
+    },
+    deleteRestaurant(ResID) {
+      this.$store.dispatch("deleteRestaurant", ResID).then(res => {
+       this.$bvToast.toast("成功刪除餐廳", {
+          title: `successed`,
+          toaster: "b-toaster-top-center",
+          solid: true,
+          autoHideDelay: 1000,
+          appendToast: false
+        });
+        setTimeout(() => {
+          this.$router.push("/RestaurantManagement");
+        }, 1500);
+      });
     }
   }
 };

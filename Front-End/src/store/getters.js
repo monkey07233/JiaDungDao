@@ -21,7 +21,7 @@ export const getResByAcc = (state, getters) => {
 };
 
 export const getShoppingCartInfo = state => {
-    return state.shoppingCartInfo;
+    return state.shoppingCartInfo;    
 };
 
 export const getShoppingCartTotalNum = (state, getters) => {
@@ -30,4 +30,8 @@ export const getShoppingCartTotalNum = (state, getters) => {
         sum += item.o_count;
     });
     return sum;
+};
+
+export const getOrderInfo = state => {
+    return state.OrderInfo;
 };

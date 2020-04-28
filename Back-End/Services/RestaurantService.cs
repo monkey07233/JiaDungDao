@@ -89,6 +89,12 @@ namespace Back_End.Services
             return isSuccess;
         }
 
+        public string updateMenu(Menu menu)
+        {
+            var result = RestaurantRepo.updateMenu(menu);
+            return result;
+        }
+
         public async Task<string> uploadRestaurantImg(Restaurant restaurant, IFormFile files)
         {
             try {

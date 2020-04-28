@@ -4,10 +4,10 @@ import axios from "axios";
 export const getRestaurantList = ({ commit }) => {
   axios
     .get("https://localhost:5001/api/Restaurant/GetAllRestaurant")
-    .then(function(res) {
+    .then(function (res) {
       commit(types.GET_RESLIST, res.data);
     })
-    .catch(function(err) {
+    .catch(function (err) {
       console.log(err);
     });
 };
@@ -15,10 +15,10 @@ export const getRestaurantList = ({ commit }) => {
 export const getRestaurantInfo = ({ commit }, id) => {
   axios
     .get("https://localhost:5001/api/Restaurant/GetRestaurantInfoById?id=" + id)
-    .then(function(res) {
+    .then(function (res) {
       commit(types.GET_RESINFO, res.data);
     })
-    .catch(function(err) {
+    .catch(function (err) {
       console.log(err);
     });
 };
@@ -38,10 +38,10 @@ export const createRestaurant = ({ commit, state }, newRestaurant) => {
         newRestaurant,
         config
       )
-      .then(function(res) {
+      .then(function (res) {
         resolve(res.data);
       })
-      .catch(function(err) {
+      .catch(function (err) {
         console.log(err);
         reject();
       });
@@ -62,10 +62,10 @@ export const getMemberInfo = ({ commit, state }, memberInfo) => {
         memberInfo,
         config
       )
-      .then(function(res) {
+      .then(function (res) {
         commit(types.GET_MEMBERINFO, res.data);
       })
-      .catch(function(err) {
+      .catch(function (err) {
         console.log(err);
         if (err.response.status == 401) {
           localStorage.removeItem("tokenInfo");
@@ -80,10 +80,10 @@ export const register = ({ commit }, newMember) => {
   return new Promise((resolve, reject) => {
     axios
       .post("https://localhost:5001/api/Member/Register", newMember)
-      .then(function(res) {
+      .then(function (res) {
         resolve(res.data);
       })
-      .catch(function(err) {
+      .catch(function (err) {
         console.log(err);
         reject();
       });
@@ -94,11 +94,11 @@ export const login = ({ commit }, loginInfo) => {
   return new Promise((resolve, reject) => {
     axios
       .post("https://localhost:5001/api/Member/Login", loginInfo)
-      .then(function(res) {
+      .then(function (res) {
         resolve(res.data);
         commit(types.SAVE_TOKEN, res.data);
       })
-      .catch(function(err) {
+      .catch(function (err) {
         reject(err);
       });
   });
@@ -126,10 +126,10 @@ export const UpdateProfile = ({ commit, state }, profileAfterEdit) => {
         profileAfterEdit,
         config
       )
-      .then(function(res) {
+      .then(function (res) {
         resolve(res.data);
       })
-      .catch(function(err) {
+      .catch(function (err) {
         console.log(err);
         reject();
       });
@@ -142,13 +142,19 @@ export const addItemToShoppingCart = (context, order) => {
     resolve();
   });
 };
+export const setCart = ({ commit }, cart) => {
+  commit(types.SET_CART, cart);
+};
+
+export const deleteItemFromCart = ({ commit }, item) => {
+  commit(types.DELETE_SHOPPINGCART, item);
+};
 
 export const minusItemToShoppingCart = (context, order) => {
   context.commit(types.MINUS_NUMBER_SHOPPINGCART, order);
 };
 
 export const addMenuItem = ({ commit, state }, newMenuItem) => {
-  console.log(newMenuItem);
   const config = {
     withCredentials: true,
     headers: {
@@ -162,10 +168,33 @@ export const addMenuItem = ({ commit, state }, newMenuItem) => {
         JSON.parse(JSON.stringify(newMenuItem)),
         config
       )
-      .then(function() {
+      .then(function () {
         resolve();
       })
-      .catch(function(err) {
+      .catch(function (err) {
+        console.log(err);
+        reject();
+      });
+  });
+};
+
+export const deleteMenuItem = ({ commit, state }, menuID) => {
+  const config = {
+    withCredentials: true,
+    headers: {
+      Authorization: "Bearer " + state.tokenInfo.token
+    }
+  };
+  return new Promise((resolve, reject) => {
+    axios
+      .get(
+        "https://localhost:5001/api/Restaurant/DeleteMenu?MenuID=" + menuID,
+        config
+      )
+      .then(function () {
+        resolve();
+      })
+      .catch(function (err) {
         console.log(err);
         reject();
       });
@@ -186,10 +215,104 @@ export const UpdateRestaurant = ({ commit, state }, restaurant) => {
         restaurant,
         config
       )
-      .then(function(res) {
+      .then(function (res) {
         resolve(res.data);
       })
-      .catch(function(err) {
+      .catch(function (err) {
+        console.log(err);
+        reject();
+      });
+  });
+};
+
+export const updateMenu = ({ commit, state }, menu) => {
+  const config = {
+    withCredentials: true,
+    headers: {
+      Authorization: "Bearer " + state.tokenInfo.token
+    }
+  };
+  return new Promise((resolve, reject) => {
+    axios
+      .post(
+        "https://localhost:5001/api/Restaurant/updateMenu",
+        menu,
+        config
+      )
+      .then(function (res) {
+        resolve(res.data);
+      })
+      .catch(function (err) {
+        console.log(err);
+        reject();
+      });
+  });
+};
+
+export const createOrder = ({ commit, state }, orderInfo) => {
+  const config = {
+    withCredentials: true,
+    headers: {
+      Authorization: "Bearer " + state.tokenInfo.token
+    }
+  };
+  return new Promise((resolve, reject) => {
+    axios
+      .post(
+        "https://localhost:5001/api/Order/createOrder",
+        orderInfo,
+        config
+      )
+      .then(function (res) {
+        resolve(res.data);
+      })
+      .catch(function (err) {
+        console.log(err);
+        reject();
+      });
+  });
+};
+export const getOrderInfo = ({ commit, state }, order) => {
+  const config = {
+    withCredentials: true,
+    headers: {
+      Authorization: "Bearer " + state.tokenInfo.token
+    }
+  };
+  return new Promise((resolve, reject) => {
+    axios
+      .post(
+        "https://localhost:5001/api/Order/GetOrderInfo",
+        order,
+        config
+      )
+      .then(function (res) {
+        commit(types.GET_ORDER, res.data);
+        resolve(res.data);
+      })
+      .catch(function (err) {
+        console.log(err);
+        reject();
+      });
+  });
+};
+export const deleteRestaurant = ({ commit, state }, restaurantID) => {
+  const config = {
+    withCredentials: true,
+    headers: {
+      Authorization: "Bearer " + state.tokenInfo.token
+    }
+  };
+  return new Promise((resolve, reject) => {
+    axios
+      .get(
+        "https://localhost:5001/api/Restaurant/DeleteRestaurant?RestaurantID=" + restaurantID,
+        config
+      )
+      .then(function (res) {
+        resolve(res.data);
+      })
+      .catch(function (err) {
         console.log(err);
         reject();
       });

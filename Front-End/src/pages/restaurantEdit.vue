@@ -50,8 +50,10 @@
           <div>
             <b-alert show variant="white">
               <h2 class="alert-heading mb-2 text-center">編輯餐廳菜單</h2>
-
-              <b-form @submit.prevent="addMenuItem" inline class="justify-content-center">
+              <b-form @submit.prevent="addMenuItem" inline class="justify-content-center pt-3">
+                <b-form-group class="mr-2">
+                  <b-form-file id="file-default"></b-form-file>
+                </b-form-group>
                 <label class="sr-only" for="input-name">菜名</label>
                 <b-input
                   v-model="newMenuItem.m_item"
@@ -112,11 +114,16 @@
                       <td>
                         <b-input name="type" type="text" required :value="item.m_type"></b-input>
                       </td>
-                      <td>
+                      <td class="text-center">
                         <font-awesome-icon
                           @click="updateMenu(item)"
                           style="cursor:pointer;"
                           icon="save"
+                        />&nbsp;&nbsp;
+                        <font-awesome-icon
+                          @click="edit_Index = null"
+                          style="cursor:pointer;"
+                          icon="times"
                         />
                       </td>
                     </template>
@@ -171,24 +178,33 @@ export default {
       });
       return ItemList;
     },
-    updateMenu(item){
+    updateMenu(item) {
       this.edit_Index = null;
-      this.$store.dispatch("updateMenu",{
-          MenuID:item.menuID,
-          RestaurantID:item.restaurantID,
-          m_item:document.querySelector("input[name=item]").value,
-          m_price:parseInt(document.querySelector("input[name=price]").value),
-          m_type:document.querySelector("input[name=type]").value
-      }).then(res =>{
-        this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
-        this.$bvToast.toast("更新菜單資訊成功", {
-          title: `successed`,
-          toaster: "b-toaster-top-center",
-          solid: true,
-          autoHideDelay: 1000,
-          appendToast: false
-        });
+      console.log({
+        MenuID: item.menuID,
+        RestaurantID: item.restaurantID,
+        m_item: document.querySelector("input[name=item]").value,
+        m_price: parseInt(document.querySelector("input[name=price]").value),
+        m_type: document.querySelector("input[name=type]").value
       });
+      this.$store
+        .dispatch("updateMenu", {
+          MenuID: item.menuID,
+          RestaurantID: item.restaurantID,
+          m_item: document.querySelector("input[name=item]").value,
+          m_price: parseInt(document.querySelector("input[name=price]").value),
+          m_type: document.querySelector("input[name=type]").value
+        })
+        .then(res => {
+          this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
+          this.$bvToast.toast("更新菜單資訊成功", {
+            title: `successed`,
+            toaster: "b-toaster-top-center",
+            solid: true,
+            autoHideDelay: 1000,
+            appendToast: false
+          });
+        });
     },
     UpdateRestaurant() {
       var restaurant = {

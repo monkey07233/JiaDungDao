@@ -11,9 +11,12 @@ namespace Back_End.Controllers {
     public class MemberController : ControllerBase {
         private readonly IMemberService MemberService;
         private readonly IConfiguration Configuration;
-        public MemberController (IMemberService memberService, IConfiguration configuration) {
+        private readonly IMailService MailService;
+
+        public MemberController (IMemberService memberService, IConfiguration configuration,IMailService mailService) {
             this.MemberService = memberService;
             this.Configuration = configuration;
+            this.MailService=mailService;
         }
 
         [HttpPost]
@@ -56,6 +59,12 @@ namespace Back_End.Controllers {
             } else {
                 return BadRequest (result);
             }
+        }
+        
+        [HttpPost]
+        public IActionResult TestMail(){
+            MailService.SendMail();
+            return Ok();
         }
     }
 }

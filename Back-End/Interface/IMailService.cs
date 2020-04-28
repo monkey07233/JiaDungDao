@@ -2,6 +2,6 @@ namespace Back_End.Interface
 {
     public interface IMailService
     {
-        void SendMail();
+        void SendMail(string toMail);
     }
 }

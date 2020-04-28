@@ -225,6 +225,30 @@ export const UpdateRestaurant = ({ commit, state }, restaurant) => {
     });
 };
 
+export const updateMenu = ({ commit, state }, menu) => {
+    const config = {
+        withCredentials: true,
+        headers: {
+            Authorization: "Bearer " + state.tokenInfo.token
+        }
+    };
+    return new Promise((resolve, reject) => {
+        axios
+            .post(
+                "https://localhost:5001/api/Restaurant/updateMenu",
+                menu,
+                config
+            )
+            .then(function(res) {
+                resolve(res.data);
+            })
+            .catch(function(err) {
+                console.log(err);
+                reject();
+            });
+    });
+};
+
 export const createOrder = ({ commit, state }, orderInfo) => {
   const config = {
     withCredentials: true,

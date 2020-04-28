@@ -86,22 +86,48 @@
                     <th>價錢</th>
                     <th>分類</th>
                     <th></th>
+                    <th></th>
                   </tr>
-                  <template v-for="(items,index) in restaurantInfo.typeAndMenu">
-                    <tr v-for="(menu,m_index) in items.menu" :key="m_index">
-                      <td>{{index+1}}</td>
-                      <td>{{menu.m_item}}</td>
-                      <td>{{menu.m_price}}</td>
-                      <td>{{menu.m_type}}</td>
+                  <tr v-for="(item,index) in getMenuItemList()" :key="index">
+                    <td>{{index+1}}</td>
+                    <template v-if="edit_Index != index">
+                      <td>{{item.m_item}}</td>
+                      <td>{{item.m_price}}</td>
+                      <td>{{item.m_type}}</td>
                       <td>
                         <font-awesome-icon
+                          @click="edit_Index = index"
                           style="cursor:pointer;"
-                          icon="trash-alt"
-                          @click="deleteMenuItem(menu.menuID)"
+                          icon="pencil-alt"
                         />
                       </td>
-                    </tr>
-                  </template>
+                    </template>
+                    <template v-if="edit_Index == index">
+                      <td>
+                        <b-input name="item" type="text" required :value="item.m_item"></b-input>
+                      </td>
+                      <td>
+                        <b-input name="price" type="number" required :value="item.m_price"></b-input>
+                      </td>
+                      <td>
+                        <b-input name="type" type="text" required :value="item.m_type"></b-input>
+                      </td>
+                      <td>
+                        <font-awesome-icon
+                          @click="updateMenu(item)"
+                          style="cursor:pointer;"
+                          icon="save"
+                        />
+                      </td>
+                    </template>
+                    <td>
+                      <font-awesome-icon
+                        style="cursor:pointer;"
+                        icon="trash-alt"
+                        @click="deleteMenuItem(item.menuID)"
+                      />
+                    </td>
+                  </tr>
                 </thead>
               </table>
             </b-alert>
@@ -122,7 +148,8 @@ export default {
         m_item: "",
         m_type: "",
         m_price: null
-      }
+      },
+      edit_Index: null
     };
   },
   computed: {
@@ -135,6 +162,34 @@ export default {
     this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
   },
   methods: {
+    getMenuItemList() {
+      let ItemList = [];
+      this.restaurantInfo.typeAndMenu.forEach(element => {
+        element.menu.forEach(item => {
+          ItemList.push(item);
+        });
+      });
+      return ItemList;
+    },
+    updateMenu(item){
+      this.edit_Index = null;
+      this.$store.dispatch("updateMenu",{
+          MenuID:item.menuID,
+          RestaurantID:item.restaurantID,
+          m_item:document.querySelector("input[name=item]").value,
+          m_price:parseInt(document.querySelector("input[name=price]").value),
+          m_type:document.querySelector("input[name=type]").value
+      }).then(res =>{
+        this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
+        this.$bvToast.toast("更新菜單資訊成功", {
+          title: `successed`,
+          toaster: "b-toaster-top-center",
+          solid: true,
+          autoHideDelay: 1000,
+          appendToast: false
+        });
+      });
+    },
     UpdateRestaurant() {
       var restaurant = {
         RestaurantID: this.$route.params.id,

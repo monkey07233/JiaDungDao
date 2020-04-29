@@ -19,9 +19,15 @@ export default {
     } else {
       if (param.split("=")[0] != "account") {
         this.$router.push("Index");
+      } else {
+        this.$store.dispatch("VerifyAccount", {
+          m_account: param.split("=")[1].toString()
+        });
       }
     }
-    this.$store.dispatch("");
+    setTimeout(function() {
+      this.location.replace("Index");
+    }, 3000);
   }
 };
 </script>

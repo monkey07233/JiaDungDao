@@ -95,14 +95,14 @@ namespace Back_End.Controllers
                     {
                         case 0:
                             root += "\\File\\Restaurant\\";
-                            rootFile = root + restaurantInfo.RestaurantID + "_" + restaurantInfo.r_name + "_餐廳封面_" + restaurantInfo.files.FileName;
-                            imgUrl = restaurantInfo.RestaurantID + "_" + restaurantInfo.r_name + "_餐廳封面_" + restaurantInfo.files.FileName;
+                            rootFile = root + restaurantInfo.RestaurantID + "_" + restaurantInfo.r_name + "_餐廳封面.jpg";
+                            imgUrl = restaurantInfo.RestaurantID + "_" + restaurantInfo.r_name + "_餐廳封面.jpg";
                             RestaurantService.uploadRestaurantImg(restaurantInfo.RestaurantID, imgUrl);
                             break;
                         case 1:
                             root += "\\File\\Menu\\";
-                            rootFile = root + restaurantInfo.MenuID + "_" + restaurantInfo.m_item + "_菜單圖片_" + restaurantInfo.files.FileName;
-                            imgUrl = restaurantInfo.MenuID + "_" + restaurantInfo.m_item + "_菜單圖片_" + restaurantInfo.files.FileName;
+                            rootFile = root + restaurantInfo.MenuID + "_" + restaurantInfo.m_item + "_菜單圖片.jpg";
+                            imgUrl = restaurantInfo.MenuID + "_" + restaurantInfo.m_item + "_菜單圖片.jpg";
                             RestaurantService.uploadMenuImg(restaurantInfo.MenuID, imgUrl);
                             break;
                     }

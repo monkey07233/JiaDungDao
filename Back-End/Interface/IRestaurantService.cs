@@ -13,5 +13,8 @@ namespace Back_End.Interface
         bool DeleteMenu(int MenuID);
         bool DeleteRestaurant(int RestaurantID);
         string updateMenu(Menu menu);
+        int GetLatestMenuId();
+        string uploadMenuImg(int MenuID, string imgUrl);
+        string uploadRestaurantImg(int RestaurantID, string imgUrl);
     }
 }

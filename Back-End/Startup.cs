@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
 
 namespace JiaDungDao {
     public class Startup {
@@ -77,6 +78,9 @@ namespace JiaDungDao {
             app.UseCors ("CorsPolicy");
             if (env.IsDevelopment ()) {
                 app.UseDeveloperExceptionPage ();
+            }else
+            {
+                app.UseHsts();
             }
 
             
@@ -87,10 +91,16 @@ namespace JiaDungDao {
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseStaticFiles();
+
             app.UseEndpoints (endpoints => {
                 endpoints.MapControllerRoute (
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+            app.Run(async(context) => {
+                await context.Response.WriteAsync("Could Not Find Anything");
             });
         }
     }

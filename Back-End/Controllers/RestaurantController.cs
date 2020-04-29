@@ -134,5 +134,12 @@ namespace Back_End.Controllers {
             }
             return BadRequest (result);
         }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetLatestMenuId () {
+            var menuId = RestaurantService.GetLatestMenuId ();
+            return Ok (menuId);
+        }
     }
 }

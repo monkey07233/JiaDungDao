@@ -94,5 +94,9 @@ namespace Back_End.Services
             var result = RestaurantRepo.updateMenu(menu);
             return result;
         }
+
+        public int GetLatestMenuId(){
+            return RestaurantRepo.GetLatestMenuId();
+        }
     }
 }

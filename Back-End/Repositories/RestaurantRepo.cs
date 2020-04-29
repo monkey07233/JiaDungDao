@@ -114,5 +114,10 @@ namespace Back_End.Repositories {
                 return e.Message.ToString ();
             }
         }
+
+        public int GetLatestMenuId () {
+            var menu = db.Menu.OrderByDescending (m => m.MenuID).FirstOrDefault ();
+            return menu.MenuID;
+        }
     }
 }

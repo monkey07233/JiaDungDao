@@ -57,9 +57,9 @@
           <div>
             <b-alert show variant="white">
               <h2 class="alert-heading mb-2 text-center">編輯餐廳菜單</h2>
-              <b-form @submit.prevent="addMenuItem" inline class="justify-content-center pt-3">
+              <b-form inline class="justify-content-center pt-3">
                 <b-form-group class="mr-2">
-                  <b-form-file id="file-default"></b-form-file>
+                  <b-form-file id="file-default" v-model="menuImage"></b-form-file>
                 </b-form-group>
                 <label class="sr-only" for="input-name">菜名</label>
                 <b-input
@@ -85,7 +85,7 @@
                   placeholder="請輸入分類"
                   required
                 ></b-input>
-                <b-button type="submit" variant="success">新增</b-button>
+                <b-button type="button" variant="success" @click.prevent="addMenuItem">新增</b-button>
               </b-form>
               <table class="table mt-2">
                 <thead class="thead-light">
@@ -163,7 +163,9 @@ export default {
         m_type: "",
         m_price: null
       },
-      edit_Index: null
+      edit_Index: null,
+      menuImage: null,
+      formData: new FormData()
     };
   },
   computed: {
@@ -233,19 +235,29 @@ export default {
       });
     },
     addMenuItem() {
+      this.newMenuItem.RestaurantID = parseInt(this.newMenuItem.RestaurantID);
       this.newMenuItem.m_price = parseInt(this.newMenuItem.m_price);
       this.$store.dispatch("addMenuItem", this.newMenuItem).then(res => {
-        this.$bvToast.toast("新增餐點成功", {
-          title: `successed`,
-          toaster: "b-toaster-top-center",
-          solid: true,
-          autoHideDelay: 1000,
-          appendToast: false
+        this.$store.dispatch("getMenuId").then(res2 => {
+          console.log(res2.data);
+          this.formData.append("files", this.menuImage);
+          this.formData.append("uploadType", 1);
+          this.formData.append("MenuID", res2.data);
+          this.formData.append("m_item", this.newMenuItem.m_item);
+          this.$store.dispatch("uploadMenuImage", this.formData).then(res3 => {
+            this.$bvToast.toast("新增餐點成功", {
+              title: `successed`,
+              toaster: "b-toaster-top-center",
+              solid: true,
+              autoHideDelay: 1000,
+              appendToast: false
+            });
+            this.newMenuItem.m_item = "";
+            this.newMenuItem.m_type = "";
+            this.newMenuItem.m_price = null;
+            this.newMenuItem.menuImage = null;
+          });
         });
-        this.newMenuItem.m_item = "";
-        this.newMenuItem.m_type = "";
-        this.newMenuItem.m_price = null;
-        this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
       });
     },
     back() {
@@ -265,7 +277,7 @@ export default {
     },
     deleteRestaurant(ResID) {
       this.$store.dispatch("deleteRestaurant", ResID).then(res => {
-       this.$bvToast.toast("成功刪除餐廳", {
+        this.$bvToast.toast("成功刪除餐廳", {
           title: `successed`,
           toaster: "b-toaster-top-center",
           solid: true,

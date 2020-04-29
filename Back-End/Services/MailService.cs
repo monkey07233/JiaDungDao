@@ -23,7 +23,7 @@ namespace Back_End.Services
 
         private string GetMailBody(string account)
         {
-            string validateUrl="http://localhost:8080/validate?account="+account;
+            string validateUrl="http://localhost:8080/Validate?account="+account;
             string mailBody=System.IO.File.ReadAllText("verficationMail.html");
             mailBody=mailBody.Replace("validateUrl",validateUrl);
             return mailBody;

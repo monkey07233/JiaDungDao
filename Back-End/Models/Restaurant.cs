@@ -13,6 +13,7 @@ namespace Back_End.Models
         public string r_tel { get; set; }
         [Required]
         [MaxLength(50)]
-        public string m_account{get;set;}
+        public string m_account { get; set; }
+        public string r_imgUrl { get; set; }
     }
 }

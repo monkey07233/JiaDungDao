@@ -13,17 +13,27 @@ namespace Back_End.Controllers {
         private readonly IConfiguration Configuration;
         private readonly IMailService MailService;
 
-        public MemberController (IMemberService memberService, IConfiguration configuration,IMailService mailService) {
+        public MemberController (IMemberService memberService, IConfiguration configuration, IMailService mailService) {
             this.MemberService = memberService;
             this.Configuration = configuration;
-            this.MailService=mailService;
+            this.MailService = mailService;
         }
 
         [HttpPost]
         public IActionResult Register (Member member) {
             var result = MemberService.Register (member);
-            if (result == "successed" || result == "帳號已存在") {
-                MailService.SendMail(member.m_email);
+            if (result == "successed") {
+                MailService.SendMail(member.m_email,member.m_account);
+                return Ok (result);
+            } else {
+                return BadRequest (result);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult VerifyAccount (LoginMemberInfo memberInfo) {
+            var result = MemberService.VerifyAccount (memberInfo.m_account);
+            if (result == "Verified") {
                 return Ok (result);
             } else {
                 return BadRequest (result);
@@ -34,8 +44,11 @@ namespace Back_End.Controllers {
         public async Task<IActionResult> Login (LoginMemberInfo memberInfo) {
             var result = await MemberService.GetMemberByLogin (memberInfo.m_account, memberInfo.m_password);
             if (result != null) {
-                var token = MemberService.GetJwtToken (Configuration, result.MemberId.ToString (), result.m_account);
-                return Ok (new { account = result.m_account, token = token, role = result.m_role });
+                if (result.isValid == true) {
+                    var token = MemberService.GetJwtToken (Configuration, result.MemberId.ToString (), result.m_account);
+                    return Ok (new { account = result.m_account, token = token, role = result.m_role });
+                }
+                return BadRequest("帳號未通過驗證");
             }
             return BadRequest ("帳號或密碼錯誤");
         }
@@ -61,11 +74,5 @@ namespace Back_End.Controllers {
                 return BadRequest (result);
             }
         }
-
-        // [HttpPost]
-        // public IActionResult TestMail(){
-        //     MailService.SendMail();
-        //     return Ok();
-        // }
     }
 }

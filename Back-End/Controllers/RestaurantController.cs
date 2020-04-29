@@ -64,13 +64,26 @@ namespace Back_End.Controllers {
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> uploadRestaurantImg ([FromForm]RestaurantInfo restaurantInfo) {
+        public async Task<IActionResult> uploadRestaurantImg ([FromForm] RestaurantInfo restaurantInfo) {
             try {
+                string root = _environment.ContentRootPath;
+                string rootFile = string.Empty;
+                //uploadType 0:餐廳封面 ,  1:菜單圖片 
+                switch (restaurantInfo.uploadType) {
+                    case 0:
+                        root += "\\File\\Restaurant\\";
+                        rootFile = root + restaurantInfo.RestaurantID + "_" + restaurantInfo.r_name + "_餐廳封面_" + restaurantInfo.files.FileName;
+                        break;
+                    case 1:
+                        root += "\\File\\Menu\\";
+                        rootFile = root + restaurantInfo.MenuID + "_" + restaurantInfo.m_item + "_菜單圖片_" + restaurantInfo.files.FileName;
+                        break;
+                }
                 if (restaurantInfo.files != null) {
-                    if (!Directory.Exists (_environment.ContentRootPath + "\\File\\Restaurant\\")) {
-                        Directory.CreateDirectory (_environment.ContentRootPath + "\\File\\Restaurant\\");
+                    if (!Directory.Exists (root)) {
+                        Directory.CreateDirectory (root);
                     }
-                    using (FileStream stream = System.IO.File.Create (_environment.ContentRootPath + "\\File\\Restaurant\\" + restaurantInfo.RestaurantID + "_" + restaurantInfo.r_name + "_餐廳封面_" +  restaurantInfo.files.FileName)) {
+                    using (FileStream stream = System.IO.File.Create (rootFile)) {
                         await restaurantInfo.files.CopyToAsync (stream);
                         stream.Flush ();
                     }
@@ -114,13 +127,19 @@ namespace Back_End.Controllers {
 
         [HttpPost]
         [Authorize]
-        public IActionResult updateMenu(Menu menu){
-            var result = RestaurantService.updateMenu(menu);
-            if (result == "successed")
-            {
-                return Ok(result);
+        public IActionResult updateMenu (Menu menu) {
+            var result = RestaurantService.updateMenu (menu);
+            if (result == "successed") {
+                return Ok (result);
             }
-            return BadRequest(result);
+            return BadRequest (result);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetLatestMenuId () {
+            var menuId = RestaurantService.GetLatestMenuId ();
+            return Ok (menuId);
         }
     }
 }

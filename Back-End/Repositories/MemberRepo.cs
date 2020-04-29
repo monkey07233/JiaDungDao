@@ -33,6 +33,16 @@ namespace Back_End.Repositories {
             return result;
         }
 
+        public string VerifyAccount(Member member){
+            try{
+                member.isValid = true;
+                var count = db.SaveChanges ();
+                return (count > 0) ? "Verified" : "fail";
+            }catch(Exception e){
+                return e.Message.ToString();
+            }
+        }
+
         public string EditMemberInformation (Member originMember, UpdateMemberInfo memberAfterEdit) {
             string result = string.Empty;
             try {

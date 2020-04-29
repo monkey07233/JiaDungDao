@@ -25,7 +25,9 @@ namespace Back_End.Services
             if (result != null)
             {
                 return result;
-            }else{
+            }
+            else
+            {
                 return null;
             }
         }
@@ -63,17 +65,19 @@ namespace Back_End.Services
             var oldData = RestaurantRepo.GetRestaurantById(restaurant.RestaurantID);
             if (oldData != null)
             {
-                result = RestaurantRepo.updateRestaurant(oldData,restaurant);
+                result = RestaurantRepo.updateRestaurant(oldData, restaurant);
             }
             return result;
         }
 
-        public string createRestaurant(Restaurant restaurant){
+        public string createRestaurant(Restaurant restaurant)
+        {
             var result = RestaurantRepo.createRestaurant(restaurant);
             return result;
         }
 
-        public int AddMenuItem(Menu newMenuItem){
+        public int AddMenuItem(Menu newMenuItem)
+        {
             return RestaurantRepo.AddMenuItem(newMenuItem);
         }
 
@@ -95,8 +99,19 @@ namespace Back_End.Services
             return result;
         }
 
-        public int GetLatestMenuId(){
+        public int GetLatestMenuId()
+        {
             return RestaurantRepo.GetLatestMenuId();
+        }
+
+        public string uploadMenuImg(int MenuID, string imgUrl)
+        {
+            return RestaurantRepo.uploadMenuImg(MenuID, imgUrl);
+        }
+
+        public string uploadRestaurantImg(int RestaurantID, string imgUrl)
+        {
+            return RestaurantRepo.uploadRestaurantImg(RestaurantID, imgUrl);
         }
     }
 }

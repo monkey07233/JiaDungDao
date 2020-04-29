@@ -9,5 +9,6 @@ namespace Back_End.Interface
          Task<Member> GetMemberByLogin(string m_account,string hash_m_password);
          Member GetMemberByAcc(string m_account);
          string EditMemberInformation (Member originMember, UpdateMemberInfo editMember);
+         string VerifyAccount(Member member);
     }
 }

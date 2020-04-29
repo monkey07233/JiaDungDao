@@ -1,16 +1,23 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Back_End.Interface;
 using Back_End.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 
 namespace Back_End.Services
 {
     public class RestaurantService : IRestaurantService
     {
         private readonly IRestaurantRepo RestaurantRepo;
-        public RestaurantService(IRestaurantRepo restaurantRepo)
+        public static IWebHostEnvironment _environment;
+
+        public RestaurantService(IRestaurantRepo restaurantRepo, IWebHostEnvironment environment)
         {
             this.RestaurantRepo = restaurantRepo;
+            _environment = environment;
         }
         public List<Restaurant> GetAllRestaurant()
         {
@@ -62,7 +69,8 @@ namespace Back_End.Services
         }
 
         public string createRestaurant(Restaurant restaurant){
-            return RestaurantRepo.createRestaurant(restaurant);
+            var result = RestaurantRepo.createRestaurant(restaurant);
+            return result;
         }
 
         public int AddMenuItem(Menu newMenuItem){

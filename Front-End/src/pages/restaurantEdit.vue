@@ -255,7 +255,8 @@ export default {
             this.newMenuItem.m_item = "";
             this.newMenuItem.m_type = "";
             this.newMenuItem.m_price = null;
-            this.newMenuItem.menuImage = null;
+            this.menuImage = null;
+            this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
           });
         });
       });

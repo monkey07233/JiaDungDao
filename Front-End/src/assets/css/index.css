@@ -36,3 +36,6 @@ body{
 .modal-header .close {
     display:none;
   }
+.validate {
+    font-weight: bold;
+}

@@ -22,7 +22,7 @@ namespace Back_End.Controllers {
         [HttpPost]
         public IActionResult Register (Member member) {
             var result = MemberService.Register (member);
-            if (result == "successed" || result == "帳號已存在") {
+            if (result == "successed") {
                 MailService.SendMail(member.m_email,member.m_account);
                 return Ok (result);
             } else {

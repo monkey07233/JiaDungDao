@@ -2,7 +2,10 @@
   <div class="container rounded bg-white mb-4">
     <div class="row">
       <div class="col-6 mt-3 mb-5">
-        <img class="rounded img-fluid" src="../assets/images/restaurant.jpg" />
+        <img
+          class="rounded img-fluid"
+          :src="require('../../../Back-End/File/Restaurant/' + restaurantInfo.restaurant.r_imgUrl)"
+        />
       </div>
       <div class="col-6 mt-3 mb-5">
         <div>
@@ -25,7 +28,12 @@
     <div>
       <b-tabs content-class="mt-3" align="center">
         <template v-for="(item,index) in restaurantInfo.typeAndMenu">
-          <mealsCard :list="item.menu" :tabTitle="item.m_type" :resName="restaurantInfo.restaurant.r_name" :key="index"/>
+          <mealsCard
+            :list="item.menu"
+            :tabTitle="item.m_type"
+            :resName="restaurantInfo.restaurant.r_name"
+            :key="index"
+          />
         </template>
       </b-tabs>
     </div>
@@ -41,14 +49,13 @@ export default {
     mealsCard
   },
   data() {
-    return {
-    };
+    return {};
   },
   computed: mapGetters({
     restaurantInfo: "getResInfo"
   }),
   created() {
-    this.$store.dispatch("getRestaurantInfo",this.$route.params.id);
+    this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
   }
 };
 </script>

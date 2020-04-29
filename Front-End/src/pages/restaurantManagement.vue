@@ -13,7 +13,12 @@
     <div class="row p-3">
       <div class="item col-md-3 col-sm-6" v-for="(res,index) in restaurantList" :key="index">
         <div class="card">
-          <img class="card-img-top" src="../assets/images/restaurant.jpg" />
+          <img
+            class="card-img-top"
+            :src="require('../../../Back-End/File/Restaurant/' + res.r_imgUrl)"
+            width="283.83"
+            height="190.25"
+          />
           <div class="card-body">
             <p class="card-text">
               <font-awesome-icon icon="utensils" />
@@ -45,8 +50,7 @@ import "@/assets/css/index.css";
 import { mapGetters } from "vuex";
 export default {
   data() {
-    return {
-    };
+    return {};
   },
   computed: mapGetters({
     restaurantList: "getResByAcc"

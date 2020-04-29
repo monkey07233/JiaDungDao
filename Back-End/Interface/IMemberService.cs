@@ -13,5 +13,6 @@ namespace Back_End.Interface
          string GetJwtToken (IConfiguration configuration, string MemberId, string m_account);
          Member GetMemberByAcc(string account);
          string EditMemberInformation (UpdateMemberInfo editMember);
+         string VerifyAccount(string account);
     }
 }

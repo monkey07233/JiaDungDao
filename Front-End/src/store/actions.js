@@ -85,7 +85,7 @@ export const register = ({ commit }, newMember) => {
       })
       .catch(function(err) {
         console.log(err);
-        reject();
+        reject(err);
       });
   });
 };

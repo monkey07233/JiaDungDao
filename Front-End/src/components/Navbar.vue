@@ -36,7 +36,7 @@
                     <td class="text-left">{{item.o_item}}</td>
                     <td class="text-center">{{item.o_count}}</td>
                     <td class="text-center" @click="deleteCartItem(item)">
-                      <font-awesome-icon  style="cursor:pointer;" icon="trash-alt"/>
+                      <font-awesome-icon style="cursor:pointer;" icon="trash-alt" />
                     </td>
                   </tr>
                 </tbody>
@@ -52,8 +52,12 @@
               <img class="profile-img" src="../assets/images/user.png" />
               <span>{{memberInfo.m_name}}</span>
             </template>
-            <b-dropdown-item to="/Profile"><font-awesome-icon icon="user"/>&nbsp;會員專區</b-dropdown-item>
-            <b-dropdown-item @click.prevent="logout"><font-awesome-icon icon="sign-out-alt"/>&nbsp;登出</b-dropdown-item>
+            <b-dropdown-item to="/Profile">
+              <font-awesome-icon icon="user" />&nbsp;會員專區
+            </b-dropdown-item>
+            <b-dropdown-item @click.prevent="logout">
+              <font-awesome-icon icon="sign-out-alt" />&nbsp;登出
+            </b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -207,7 +211,7 @@ export default {
       loginInfo: {
         m_account: "",
         m_password: ""
-      },
+      }
     };
   },
   computed: {
@@ -218,7 +222,7 @@ export default {
       tokenInfo: "getTokenInfo",
       memberInfo: "getMemberInfo",
       shoppingCart: "getShoppingCartInfo",
-      shoppingCartNumber:"getShoppingCartTotalNum"
+      shoppingCartNumber: "getShoppingCartTotalNum"
     })
   },
   methods: {
@@ -231,15 +235,16 @@ export default {
       this.$refs["login"].show();
     },
     addMember() {
-      this.$store.dispatch("register", this.newMember).then(res => {
-        this.$bvToast.toast(res, {
-          title: `Registration`,
-          toaster: "b-toaster-top-center",
-          solid: true,
-          autoHideDelay: 1000,
-          appendToast: false
-        });
-        if (res == "successed") {
+      this.$store
+        .dispatch("register", this.newMember)
+        .then(res => {
+          this.$bvToast.toast(res, {
+            title: `Registration`,
+            toaster: "b-toaster-top-center",
+            solid: true,
+            autoHideDelay: 1000,
+            appendToast: false
+          });
           this.newMember.m_name = "";
           this.newMember.m_account = "";
           this.newMember.m_password = "";
@@ -248,8 +253,18 @@ export default {
           this.newMember.m_address = "";
           this.confirmPassword = "";
           this.showLoginModal();
-        }
-      });
+        })
+        .catch(err => {
+          if (err.response.status == 400) {
+            this.$bvToast.toast(err.response.data, {
+              title: `Login Fail`,
+              toaster: "b-toaster-top-center",
+              solid: true,
+              autoHideDelay: 1000,
+              appendToast: false
+            });
+          }
+        });
     },
     login() {
       if (this.tokenInfo.token === "") {
@@ -294,8 +309,8 @@ export default {
       });
       this.$router.push("/");
     },
-    deleteCartItem(item){
-      this.$store.dispatch("deleteItemFromCart",[item]);
+    deleteCartItem(item) {
+      this.$store.dispatch("deleteItemFromCart", [item]);
     }
   },
   created() {
@@ -305,8 +320,8 @@ export default {
       });
     }
     const cart = JSON.parse(localStorage.getItem("shpopingCart"));
-    if(cart!=null){
-      this.$store.dispatch("setCart",cart)
+    if (cart != null) {
+      this.$store.dispatch("setCart", cart);
     }
   }
 };

@@ -94,24 +94,5 @@ namespace Back_End.Services
             var result = RestaurantRepo.updateMenu(menu);
             return result;
         }
-
-        public async Task<string> uploadRestaurantImg(Restaurant restaurant, IFormFile files)
-        {
-            try {
-                if (files != null) {
-                    if (!Directory.Exists (_environment.ContentRootPath + "\\File\\Restaurant\\")) {
-                        Directory.CreateDirectory (_environment.ContentRootPath + "\\File\\Restaurant\\");
-                    }
-                    using (FileStream stream = System.IO.File.Create (_environment.ContentRootPath + "\\File\\Restaurant\\" + restaurant.r_name + "_餐廳封面_" + files.FileName)) {
-                        await files.CopyToAsync (stream);
-                        stream.Flush ();
-                    }
-                    return "新增成功且照片上傳完成";
-                }
-                return "新增成功但照片上傳失敗";
-            } catch (System.Exception e) {
-                return e.Message.ToString ();
-            }
-        }
     }
 }

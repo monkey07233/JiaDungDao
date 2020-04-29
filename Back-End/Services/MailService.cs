@@ -5,15 +5,15 @@ namespace Back_End.Services
 {
     public class MailService : IMailService
     {
-        private readonly string _mailAccount="as851468567";
-        private readonly string _mailPassword="as8514685670";
+        private readonly string _mailAccount="jiadungdao";
+        private readonly string _mailPassword="zzrjgiquewjrfqwp";
 
         public void SendMail(string toMail,string account){
             SmtpClient smtp=new SmtpClient("smtp.gmail.com",587);
             smtp.Credentials=new System.Net.NetworkCredential(_mailAccount,_mailPassword);
             smtp.EnableSsl=true;
             MailMessage mail=new MailMessage();
-            mail.From=new MailAddress("as851468567@gmail.com");
+            mail.From=new MailAddress("jiadungdao@gmail.com");
             mail.To.Add(toMail);
             mail.Subject="呷午餐會員認證";
             mail.Body=GetMailBody(account);

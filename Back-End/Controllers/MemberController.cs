@@ -21,10 +21,9 @@ namespace Back_End.Controllers {
 
         [HttpPost]
         public IActionResult Register (Member member) {
-            MailService.SendMail(member.m_email,member.m_account);
             var result = MemberService.Register (member);
             if (result == "successed" || result == "帳號已存在") {
-                // MailService.SendMail(member.m_email,member.m_account);
+                MailService.SendMail(member.m_email,member.m_account);
                 return Ok (result);
             } else {
                 return BadRequest (result);

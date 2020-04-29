@@ -7,5 +7,6 @@ namespace Back_End.Models {
         public string m_item { get; set; }
         public string m_type { get; set; }
         public int m_price { get; set; }
+        public string m_imgUrl { get; set; }
     }
 }

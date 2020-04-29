@@ -73,6 +73,9 @@ namespace JiaDungDao.Migrations
                     b.Property<int>("RestaurantID")
                         .HasColumnType("int");
 
+                    b.Property<string>("m_imgUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("m_item")
                         .HasColumnType("nvarchar(max)");
 
@@ -151,6 +154,9 @@ namespace JiaDungDao.Migrations
                         .HasMaxLength(50);
 
                     b.Property<string>("r_address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("r_imgUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("r_name")

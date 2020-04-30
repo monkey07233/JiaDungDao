@@ -61,7 +61,7 @@
                 <table>
                   <tr>
                     <td>
-                      <b-form-file placeholder-style='text-align:left' class="upload-file" placeholder="請上傳菜單照片" id="file-default" v-model="menuImage"></b-form-file>
+                      <b-form-file class="upload-file" placeholder="請上傳菜單照片" id="file-default" v-model="menuImage"></b-form-file>
                     </td>
                     <td>
                       <label class="sr-only" for="input-name">菜名</label>

@@ -103,15 +103,5 @@ namespace Back_End.Services
         {
             return RestaurantRepo.GetLatestMenuId();
         }
-
-        public string uploadMenuImg(int MenuID, string imgUrl)
-        {
-            return RestaurantRepo.uploadMenuImg(MenuID, imgUrl);
-        }
-
-        public string uploadRestaurantImg(int RestaurantID, string imgUrl)
-        {
-            return RestaurantRepo.uploadRestaurantImg(RestaurantID, imgUrl);
-        }
     }
 }

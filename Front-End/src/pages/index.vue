@@ -8,7 +8,7 @@
         <div class="card">
           <img
             class="card-img-top"
-            :src="require('../../../Back-End/File/Restaurant/' + res.r_imgUrl)"
+            :src="require('../../../Back-End/File/Restaurant/' + res.restaurantID + '.jpg')"
             width="283.83"
             height="190.25"
           />

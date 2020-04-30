@@ -4,7 +4,7 @@
       <div class="col-6 mt-3 mb-5">
         <img
           class="rounded img-fluid"
-          :src="require('../../../Back-End/File/Restaurant/' + restaurantInfo.restaurant.r_imgUrl)"
+          :src="require('../../../Back-End/File/Restaurant/' + restaurantInfo.restaurant.restaurantID +'.jpg')"
         />
       </div>
       <div class="col-6 mt-3 mb-5">

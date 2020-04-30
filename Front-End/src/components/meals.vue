@@ -7,7 +7,7 @@
             <b-row no-gutters>
               <b-col md="5">
                 <b-card-img
-                  :src="require('../../../Back-End/File/Menu/' + item.m_imgUrl)"
+                  :src="require('../../../Back-End/File/Menu/' + item.menuID + '.jpg')"
                   alt="Image"
                   class="rounded-0"
                   width="148.75"

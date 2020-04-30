@@ -16,34 +16,55 @@
               <b-alert show variant="white">
                 <h2 class="alert-heading mb-2 text-center">編輯餐廳資料</h2>
                 <hr />
-                <p class="mb-2">
-                  <span class="item-text">餐廳照片：</span>
-                  <input type="file" />
-                </p>
-                <p class="mb-2">
-                  <span class="item-text">餐廳名稱：</span>
-                  <input
-                    name="r_name"
-                    required
-                    :value="restaurantInfo.restaurant.r_name"
-                    type="text"
-                  />
-                </p>
-                <p class="mb-2">
-                  <span class="item-text">餐廳地址：</span>
-                  <input
-                    name="r_address"
-                    required
-                    :value="restaurantInfo.restaurant.r_address"
-                    type="text"
-                  />
-                </p>
-                <p class="mb-2">
-                  <span class="item-text">餐廳電話：</span>
-                  <input name="r_tel" required :value="restaurantInfo.restaurant.r_tel" type="text" />
-                </p>
+                <b-row class="mb-2 mt-2 justify-content-center">
+                  <b-col sm="2" class="text-center">
+                    <label>餐廳照片：</label>
+                  </b-col>
+                  <b-col sm="6" class="text-center">
+                    <b-form-file id="restaurantImage" v-model="resImage"></b-form-file>
+                  </b-col>
+                </b-row>
+                <b-row class="mb-2 mt-2 justify-content-center">
+                  <b-col sm="2" class="text-center">
+                    <label>餐廳名稱：</label>
+                  </b-col>
+                  <b-col sm="6">
+                    <b-form-input
+                      name="r_name"
+                      required
+                      :value="restaurantInfo.restaurant.r_name"
+                      type="text"
+                    ></b-form-input>
+                  </b-col>
+                </b-row>
+                <b-row class="mb-2 mt-2 justify-content-center">
+                  <b-col sm="2" class="text-center">
+                    <label>餐廳地址：</label>
+                  </b-col>
+                  <b-col sm="6">
+                    <b-form-input
+                      name="r_address"
+                      required
+                      :value="restaurantInfo.restaurant.r_address"
+                      type="text"
+                    ></b-form-input>
+                  </b-col>
+                </b-row>
+                <b-row class="mb-2 mt-2 justify-content-center">
+                  <b-col sm="2" class="text-center">
+                    <label>餐廳電話：</label>
+                  </b-col>
+                  <b-col sm="6">
+                    <b-form-input
+                      name="r_tel"
+                      required
+                      :value="restaurantInfo.restaurant.r_tel"
+                      type="text"
+                    ></b-form-input>
+                  </b-col>
+                </b-row>
               </b-alert>
-              <div class="text-center">
+              <div class="text-center justify-content-center">
                 <button type="submit" class="btn btn-info">儲存編輯</button>
               </div>
             </b-form>
@@ -202,6 +223,7 @@ export default {
       },
       edit_Index: null,
       menuImage: null,
+      resImage: null,
       formData: new FormData()
     };
   },
@@ -261,12 +283,20 @@ export default {
         m_account: this.tokenInfo.account
       };
       this.$store.dispatch("UpdateRestaurant", restaurant).then(res => {
-        this.$bvToast.toast("更新餐廳資訊成功", {
-          title: `successed`,
-          toaster: "b-toaster-top-center",
-          solid: true,
-          autoHideDelay: 1000,
-          appendToast: false
+      console.log(this.formData);
+        this.formData.append("files", this.resImage);
+        this.formData.append("uploadType", 0);
+        this.formData.append("RestaurantID", restaurant.RestaurantID);
+        console.log(this.resImage);
+        console.log(this.formData);
+        this.$store.dispatch("uploadMenuImage", this.formData).then(res => {          
+          this.$bvToast.toast("更新餐廳資訊成功", {
+            title: `successed`,
+            toaster: "b-toaster-top-center",
+            solid: true,
+            autoHideDelay: 1000,
+            appendToast: false
+          });
         });
         this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
       });

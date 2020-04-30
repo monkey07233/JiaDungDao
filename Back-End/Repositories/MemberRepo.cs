@@ -36,8 +36,8 @@ namespace Back_End.Repositories {
         public string VerifyAccount(Member member){
             try{
                 member.isValid = true;
-                var count = db.SaveChanges ();
-                return (count > 0) ? "Verified" : "fail";
+                db.SaveChanges ();
+                return "Verified";
             }catch(Exception e){
                 return e.Message.ToString();
             }

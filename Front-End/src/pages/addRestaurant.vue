@@ -37,6 +37,9 @@
               required
             ></b-form-input>
           </b-form-group>
+          <b-form-group label="餐廳圖片" label-for="input-3">
+            <b-form-file v-model="resImage" placeholder="請上傳餐廳圖片" required></b-form-file>
+          </b-form-group>
           <b-button type="submit" variant="primary" class="submit-btn">送出</b-button>
         </b-form>
       </div>
@@ -54,7 +57,9 @@ export default {
         r_address: "",
         r_tel: "",
         m_account: ""
-      }
+      },
+      resImage: null,
+      formData: new FormData()
     };
   },
   computed: {
@@ -67,16 +72,22 @@ export default {
     createRestaurant() {
       this.newRestaurant.m_account = this.tokenInfo.account;
       this.$store.dispatch("createRestaurant", this.newRestaurant).then(res => {
-        this.$bvToast.toast("新增餐廳成功", {
-          title: `successed`,
-          toaster: "b-toaster-top-center",
-          solid: true,
-          autoHideDelay: 1000,
-          appendToast: false
+        this.formData.append("files", this.resImage);
+        this.formData.append("uploadType", 0);
+        this.formData.append("RestaurantID", res);
+        this.formData.append("r_name", this.newRestaurant.r_name);
+        this.$store.dispatch("uploadMenuImage", this.formData).then(res2 => {
+          this.$bvToast.toast("新增餐廳成功", {
+            title: `successed`,
+            toaster: "b-toaster-top-center",
+            solid: true,
+            autoHideDelay: 1000,
+            appendToast: false
+          });
+          setTimeout(() => {
+            this.$router.push("/RestaurantManagement");
+          }, 1000);
         });
-        setTimeout(() => {
-          this.$router.push("/RestaurantManagement");
-        }, 1000);
       });
     },
     back() {

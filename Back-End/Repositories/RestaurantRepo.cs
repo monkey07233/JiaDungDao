@@ -154,5 +154,9 @@ namespace Back_End.Repositories
             var menu = db.Menu.OrderByDescending(m => m.MenuID).FirstOrDefault();
             return menu.MenuID;
         }
+        public int GetLatestRestaurantId(){
+            var restaurant=db.Restaurant.OrderByDescending(r=>r.RestaurantID).FirstOrDefault();
+            return restaurant.RestaurantID;
+        }
     }
 }

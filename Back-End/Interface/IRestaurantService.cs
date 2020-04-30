@@ -9,7 +9,7 @@ namespace Back_End.Interface
         List<Restaurant> GetAllRestaurant();
         RestaurantAndMenu GetRestaurantInfoById(int Id);
         string updateRestaurant(Restaurant restaurant);
-        string createRestaurant(Restaurant restaurant);
+        int createRestaurant(Restaurant restaurant);
         int AddMenuItem(Menu newMenuItem);
         bool DeleteMenu(int MenuID);
         bool DeleteRestaurant(int RestaurantID);

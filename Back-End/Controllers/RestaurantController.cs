@@ -53,22 +53,21 @@ namespace Back_End.Controllers {
         [Authorize]
         public IActionResult createRestaurant (Restaurant restaurant) {
             var result = RestaurantService.createRestaurant (restaurant);
-            if (result == "successed") {
-                return Ok (result);
-            } else {
+            if (result == 0) {
                 return BadRequest (result);
+            } else {
+                return Ok (result);
             }
         }
 
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> uploadRestaurantImg ([FromForm] RestaurantInfo restaurantInfo) {
-            var uploadResult = await RestaurantService.uploadRestaurantImg(restaurantInfo);
-            if (uploadResult == "上傳成功")
-            {
-                return Ok(uploadResult);
+            var uploadResult = await RestaurantService.uploadRestaurantImg (restaurantInfo);
+            if (uploadResult == "上傳成功") {
+                return Ok (uploadResult);
             }
-            return BadRequest(uploadResult);
+            return BadRequest (uploadResult);
         }
 
         [HttpPost]
@@ -100,7 +99,7 @@ namespace Back_End.Controllers {
         [HttpGet]
         [Authorize]
         public IActionResult DeleteRestaurant (int RestaurantID) {
-            var deleteRestaurantImgIsSuccess = RestaurantService.DeleteRestaurantAllImg(RestaurantID);
+            var deleteRestaurantImgIsSuccess = RestaurantService.DeleteRestaurantAllImg (RestaurantID);
             var IsSuccess = RestaurantService.DeleteRestaurant (RestaurantID);
             if (IsSuccess && deleteRestaurantImgIsSuccess) {
                 return Ok ("刪除餐廳成功");

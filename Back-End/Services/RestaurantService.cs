@@ -57,9 +57,12 @@ namespace Back_End.Services {
             return result;
         }
 
-        public string createRestaurant (Restaurant restaurant) {
+        public int createRestaurant (Restaurant restaurant) {
             var result = RestaurantRepo.createRestaurant (restaurant);
-            return result;
+            if (result == "successed") {
+                return RestaurantRepo.GetLatestRestaurantId ();
+            }
+            return 0;
         }
 
         public int AddMenuItem (Menu newMenuItem) {
@@ -134,7 +137,7 @@ namespace Back_End.Services {
                         await restaurantInfo.files.CopyToAsync (stream);
                         stream.Flush ();
                     }
-                    return "上傳完成";
+                    return "上傳成功";
                 }
                 return "上傳失敗";
             } catch (System.Exception e) {

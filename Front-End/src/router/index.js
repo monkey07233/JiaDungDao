@@ -4,6 +4,7 @@ import Index from "@/pages/Index";
 import OrderList from "@/pages/OrderList";
 import Profile from "@/pages/profile";
 import Cart from "@/pages/Cart";
+import Validate from "@/pages/Validate";
 import Restaurant from "@/pages/restaurant";
 import RestaurantManagement from "@/pages/RestaurantManagement";
 import AddRestaurant from "@/pages/AddRestaurant";
@@ -22,6 +23,11 @@ export default new Router({
       path: "/",
       name: "Index",
       component: Index
+    },
+    {
+      path: "/Validate",
+      name: "Validate",
+      component: Validate
     },
     {
       path: "/OrderList",

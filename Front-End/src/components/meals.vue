@@ -7,9 +7,11 @@
             <b-row no-gutters>
               <b-col md="5">
                 <b-card-img
-                  src="https://picsum.photos/400/400/?image=20"
+                  :src="require('../../../Back-End/File/Menu/' + item.menuID + '.jpg')"
                   alt="Image"
                   class="rounded-0"
+                  width="148.75"
+                  height="140.67"
                 ></b-card-img>
               </b-col>
               <b-col md="7">

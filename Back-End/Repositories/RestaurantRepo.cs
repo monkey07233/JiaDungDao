@@ -154,35 +154,5 @@ namespace Back_End.Repositories
             var menu = db.Menu.OrderByDescending(m => m.MenuID).FirstOrDefault();
             return menu.MenuID;
         }
-
-        public string uploadMenuImg(int MenuID, string imgUrl)
-        {
-            var menu = db.Menu.Where(m => m.MenuID == MenuID).FirstOrDefault();
-            try
-            {
-                menu.m_imgUrl = imgUrl;
-                db.SaveChanges();
-                return "Url上傳至DB成功";
-            }
-            catch (Exception e)
-            {
-                return e.Message.ToString();
-            }
-        }
-
-        public string uploadRestaurantImg(int RestaurantID, string imgUrl)
-        {
-            var restaurant = db.Restaurant.Where(m => m.RestaurantID == RestaurantID).FirstOrDefault();
-            try
-            {
-                restaurant.r_imgUrl = imgUrl;
-                db.SaveChanges();
-                return "Url上傳至DB成功";
-            }
-            catch (Exception e)
-            {
-                return e.Message.ToString();
-            }
-        }
     }
 }

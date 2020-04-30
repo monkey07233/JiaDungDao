@@ -16,34 +16,55 @@
               <b-alert show variant="white">
                 <h2 class="alert-heading mb-2 text-center">編輯餐廳資料</h2>
                 <hr />
-                <p class="mb-2">
-                  <span class="item-text">餐廳照片：</span>
-                  <input type="file" />
-                </p>
-                <p class="mb-2">
-                  <span class="item-text">餐廳名稱：</span>
-                  <input
-                    name="r_name"
-                    required
-                    :value="restaurantInfo.restaurant.r_name"
-                    type="text"
-                  />
-                </p>
-                <p class="mb-2">
-                  <span class="item-text">餐廳地址：</span>
-                  <input
-                    name="r_address"
-                    required
-                    :value="restaurantInfo.restaurant.r_address"
-                    type="text"
-                  />
-                </p>
-                <p class="mb-2">
-                  <span class="item-text">餐廳電話：</span>
-                  <input name="r_tel" required :value="restaurantInfo.restaurant.r_tel" type="text" />
-                </p>
+                <b-row class="mb-2 mt-2 justify-content-center">
+                  <b-col sm="2" class="text-center">
+                    <label>餐廳照片：</label>
+                  </b-col>
+                  <b-col sm="6" class="text-center">
+                    <b-form-file id="restaurantImage" v-model="resImage"></b-form-file>
+                  </b-col>
+                </b-row>
+                <b-row class="mb-2 mt-2 justify-content-center">
+                  <b-col sm="2" class="text-center">
+                    <label>餐廳名稱：</label>
+                  </b-col>
+                  <b-col sm="6">
+                    <b-form-input
+                      name="r_name"
+                      required
+                      :value="restaurantInfo.restaurant.r_name"
+                      type="text"
+                    ></b-form-input>
+                  </b-col>
+                </b-row>
+                <b-row class="mb-2 mt-2 justify-content-center">
+                  <b-col sm="2" class="text-center">
+                    <label>餐廳地址：</label>
+                  </b-col>
+                  <b-col sm="6">
+                    <b-form-input
+                      name="r_address"
+                      required
+                      :value="restaurantInfo.restaurant.r_address"
+                      type="text"
+                    ></b-form-input>
+                  </b-col>
+                </b-row>
+                <b-row class="mb-2 mt-2 justify-content-center">
+                  <b-col sm="2" class="text-center">
+                    <label>餐廳電話：</label>
+                  </b-col>
+                  <b-col sm="6">
+                    <b-form-input
+                      name="r_tel"
+                      required
+                      :value="restaurantInfo.restaurant.r_tel"
+                      type="text"
+                    ></b-form-input>
+                  </b-col>
+                </b-row>
               </b-alert>
-              <div class="text-center">
+              <div class="text-center justify-content-center">
                 <button type="submit" class="btn btn-info">儲存編輯</button>
               </div>
             </b-form>
@@ -59,13 +80,13 @@
               <h2 class="alert-heading mb-2 text-center">編輯餐廳菜單</h2>
               <b-form inline class="justify-content-center pt-3">
                 <b-form-group class="mr-2">
-                  <b-form-file id="file-default" v-model="menuImage"></b-form-file>
+                  <b-form-file id="file-default" class="mt-2" v-model="menuImage"></b-form-file>
                 </b-form-group>
                 <label class="sr-only" for="input-name">菜名</label>
                 <b-input
                   v-model="newMenuItem.m_item"
                   name="input-name"
-                  class="mb-2 mr-sm-2 mb-sm-0"
+                  class="mb-2 mr-sm-2 mb-sm-0 mb-2 mt-2"
                   placeholder="請輸入菜名"
                   required
                 ></b-input>
@@ -73,7 +94,7 @@
                 <b-input
                   v-model="newMenuItem.m_price"
                   id="input-price"
-                  class="mb-2 mr-sm-2 mb-sm-0"
+                  class="mb-2 mr-sm-2 mb-sm-0 mb-2 mt-2"
                   placeholder="請輸入價錢"
                   required
                 ></b-input>
@@ -81,11 +102,16 @@
                 <b-input
                   v-model="newMenuItem.m_type"
                   id="input-type"
-                  class="mb-2 mr-sm-2 mb-sm-0"
+                  class="mb-2 mr-sm-2 mb-sm-0 mb-2 mt-2"
                   placeholder="請輸入分類"
                   required
                 ></b-input>
-                <b-button type="button" variant="success" @click.prevent="addMenuItem">新增</b-button>
+                <b-button
+                  type="button"
+                  variant="success"
+                  class="mb-2 mt-2"
+                  @click.prevent="addMenuItem"
+                >新增</b-button>
               </b-form>
               <table class="table mt-2">
                 <thead class="thead-light">
@@ -165,6 +191,7 @@ export default {
       },
       edit_Index: null,
       menuImage: null,
+      resImage: null,
       formData: new FormData()
     };
   },
@@ -224,12 +251,17 @@ export default {
         m_account: this.tokenInfo.account
       };
       this.$store.dispatch("UpdateRestaurant", restaurant).then(res => {
-        this.$bvToast.toast("更新餐廳資訊成功", {
-          title: `successed`,
-          toaster: "b-toaster-top-center",
-          solid: true,
-          autoHideDelay: 1000,
-          appendToast: false
+        this.formData.append("files", this.resImage);
+        this.formData.append("uploadType", 0);
+        this.formData.append("RestaurantID", restaurant.RestaurantID);
+        this.$store.dispatch("uploadMenuImage", this.formData).then(res => {
+          this.$bvToast.toast("更新餐廳資訊成功", {
+            title: `successed`,
+            toaster: "b-toaster-top-center",
+            solid: true,
+            autoHideDelay: 1000,
+            appendToast: false
+          });
         });
         this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
       });

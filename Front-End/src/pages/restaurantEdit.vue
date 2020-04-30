@@ -237,29 +237,44 @@ export default {
     addMenuItem() {
       this.newMenuItem.RestaurantID = parseInt(this.newMenuItem.RestaurantID);
       this.newMenuItem.m_price = parseInt(this.newMenuItem.m_price);
-      this.$store.dispatch("addMenuItem", this.newMenuItem).then(res => {
-        this.$store.dispatch("getMenuId").then(res2 => {
-          console.log(res2.data);
-          this.formData.append("files", this.menuImage);
-          this.formData.append("uploadType", 1);
-          this.formData.append("MenuID", res2.data);
-          this.formData.append("m_item", this.newMenuItem.m_item);
-          this.$store.dispatch("uploadMenuImage", this.formData).then(res3 => {
-            this.$bvToast.toast("新增餐點成功", {
-              title: `successed`,
-              toaster: "b-toaster-top-center",
-              solid: true,
-              autoHideDelay: 1000,
-              appendToast: false
-            });
-            this.newMenuItem.m_item = "";
-            this.newMenuItem.m_type = "";
-            this.newMenuItem.m_price = null;
-            this.menuImage = null;
-            this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
+      if (this.menuImage != null) {
+        this.$store.dispatch("addMenuItem", this.newMenuItem).then(res => {
+          this.$store.dispatch("getMenuId").then(res2 => {
+            console.log(res2.data);
+            this.formData.append("files", this.menuImage);
+            this.formData.append("uploadType", 1);
+            this.formData.append("MenuID", res2.data);
+            this.formData.append("m_item", this.newMenuItem.m_item);
+            this.$store
+              .dispatch("uploadMenuImage", this.formData)
+              .then(res3 => {
+                this.$bvToast.toast("新增餐點成功", {
+                  title: `successed`,
+                  toaster: "b-toaster-top-center",
+                  solid: true,
+                  autoHideDelay: 1000,
+                  appendToast: false
+                });
+                this.newMenuItem.m_item = "";
+                this.newMenuItem.m_type = "";
+                this.newMenuItem.m_price = null;
+                this.menuImage = null;
+                this.$store.dispatch(
+                  "getRestaurantInfo",
+                  this.$route.params.id
+                );
+              });
           });
         });
-      });
+      } else {
+        this.$bvToast.toast("請上傳菜單照片", {
+          title: `Message`,
+          toaster: "b-toaster-top-center",
+          solid: true,
+          autoHideDelay: 1000,
+          appendToast: false
+        });
+      }
     },
     back() {
       this.$router.back();

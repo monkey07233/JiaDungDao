@@ -14,10 +14,8 @@ namespace Back_End.Controllers {
     [ApiController]
     public class RestaurantController : ControllerBase {
         private readonly IRestaurantService RestaurantService;
-        public static IWebHostEnvironment _environment;
         public RestaurantController (IRestaurantService restaurantService, IWebHostEnvironment environment) {
             this.RestaurantService = restaurantService;
-            _environment = environment;
         }
 
         [HttpGet]
@@ -55,45 +53,21 @@ namespace Back_End.Controllers {
         [Authorize]
         public IActionResult createRestaurant (Restaurant restaurant) {
             var result = RestaurantService.createRestaurant (restaurant);
-            if (result == "successed") {
-                return Ok (result);
-            } else {
+            if (result == 0) {
                 return BadRequest (result);
+            } else {
+                return Ok (result);
             }
         }
 
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> uploadRestaurantImg ([FromForm] RestaurantInfo restaurantInfo) {
-            try {
-                string root = _environment.ContentRootPath;
-                string rootFile = string.Empty;
-                string imgUrl = string.Empty;
-                if (restaurantInfo.files != null) {
-                    //uploadType 0:餐廳封面 ,  1:菜單圖片 
-                    switch (restaurantInfo.uploadType) {
-                        case 0:
-                            root += "\\File\\Restaurant\\";
-                            rootFile = root + restaurantInfo.RestaurantID + ".jpg";
-                            break;
-                        case 1:
-                            root += "\\File\\Menu\\";
-                            rootFile = root + restaurantInfo.MenuID + ".jpg";
-                            break;
-                    }
-                    if (!Directory.Exists (root)) {
-                        Directory.CreateDirectory (root);
-                    }
-                    using (FileStream stream = System.IO.File.Create (rootFile)) {
-                        await restaurantInfo.files.CopyToAsync (stream);
-                        stream.Flush ();
-                    }
-                    return Ok ("上傳完成");
-                }
-                return BadRequest ("上傳失敗");
-            } catch (System.Exception e) {
-                return BadRequest (e.Message.ToString ());
+            var uploadResult = await RestaurantService.uploadRestaurantImg (restaurantInfo);
+            if (uploadResult == "上傳成功") {
+                return Ok (uploadResult);
             }
+            return BadRequest (uploadResult);
         }
 
         [HttpPost]
@@ -110,7 +84,7 @@ namespace Back_End.Controllers {
         [Authorize]
         public IActionResult DeleteMenu (int MenuID) {
             var IsSuccess = RestaurantService.DeleteMenu (MenuID);
-            var deleteImg = DeleteMenuImg (MenuID);
+            var deleteImg = RestaurantService.DeleteMenuImg (MenuID);
             if (IsSuccess) {
                 if (deleteImg == "刪除照片成功") {
                     return Ok ("刪除菜單成功");
@@ -122,26 +96,12 @@ namespace Back_End.Controllers {
             return BadRequest ("刪除菜單失敗");
         }
 
-        public string DeleteMenuImg (int MenuID) {
-            string path = _environment.ContentRootPath + "\\File\\Menu\\";
-            try {
-                string[] menuImg = Directory.GetFiles (path, MenuID + ".jpg");
-                if (menuImg != null) {
-                    foreach (string img in menuImg) {
-                        System.IO.File.Delete (img);
-                    }
-                }
-                return "刪除照片成功";
-            } catch (System.Exception e) {
-                return e.Message.ToString ();
-            }
-        }
-
         [HttpGet]
         [Authorize]
         public IActionResult DeleteRestaurant (int RestaurantID) {
+            var deleteRestaurantImgIsSuccess = RestaurantService.DeleteRestaurantAllImg (RestaurantID);
             var IsSuccess = RestaurantService.DeleteRestaurant (RestaurantID);
-            if (IsSuccess) {
+            if (IsSuccess && deleteRestaurantImgIsSuccess) {
                 return Ok ("刪除餐廳成功");
             }
             return BadRequest ("刪除餐廳失敗");

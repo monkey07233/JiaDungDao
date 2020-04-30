@@ -13,17 +13,13 @@ export default {
     return {};
   },
   created() {
-    var param = this.$route.fullPath.split("?")[1];
+    var param = this.$route.query.account;
     if (param == undefined || param == null) {
       this.$router.push("Index");
     } else {
-      if (param.split("=")[0] != "account") {
-        this.$router.push("Index");
-      } else {
-        this.$store.dispatch("VerifyAccount", {
-          m_account: param.split("=")[1].toString()
-        });
-      }
+      this.$store.dispatch("VerifyAccount", {
+        m_account: param
+      });
     }
     setTimeout(function() {
       this.location.replace("Index");

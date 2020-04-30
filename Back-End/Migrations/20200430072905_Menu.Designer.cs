@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JiaDungDao.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200429063517_Menu")]
+    [Migration("20200430072905_Menu")]
     partial class Menu
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,9 +74,6 @@ namespace JiaDungDao.Migrations
 
                     b.Property<int>("RestaurantID")
                         .HasColumnType("int");
-
-                    b.Property<string>("m_imgUrl")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("m_item")
                         .HasColumnType("nvarchar(max)");
@@ -156,6 +153,9 @@ namespace JiaDungDao.Migrations
                         .HasMaxLength(50);
 
                     b.Property<string>("r_address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("r_imgUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("r_name")

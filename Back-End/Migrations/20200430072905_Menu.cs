@@ -6,17 +6,18 @@ namespace JiaDungDao.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
+            migrationBuilder.DropColumn(
                 name: "m_imgUrl",
-                table: "Menu",
-                nullable: true);
+                table: "Menu");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
+            migrationBuilder.AddColumn<string>(
                 name: "m_imgUrl",
-                table: "Menu");
+                table: "Menu",
+                type: "nvarchar(max)",
+                nullable: true);
         }
     }
 }

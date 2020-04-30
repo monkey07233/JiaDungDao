@@ -96,7 +96,10 @@
                     <th>分類</th>
                     <th></th>
                     <th></th>
+                    <th></th>
                   </tr>
+                </thead>
+                <tbody>
                   <tr v-for="(item,index) in getMenuItemList()" :key="index">
                     <td>{{index+1}}</td>
                     <template v-if="edit_Index != index">
@@ -110,6 +113,13 @@
                           icon="pencil-alt"
                         />
                       </td>
+                      <td>
+                        <font-awesome-icon
+                          style="cursor:pointer;"
+                          icon="trash-alt"
+                          @click="deleteMenuItem(item.menuID)"
+                        />
+                      </td>
                     </template>
                     <template v-if="edit_Index == index">
                       <td>
@@ -121,7 +131,10 @@
                       <td>
                         <b-input name="type" type="text" required :value="item.m_type"></b-input>
                       </td>
-                      <td class="text-center">
+                      <td>
+                        <b-form-file placeholder="編輯菜單圖片"></b-form-file>
+                      </td>
+                      <td class="text-center table-icon">
                         <font-awesome-icon
                           @click="updateMenu(item)"
                           style="cursor:pointer;"
@@ -133,16 +146,16 @@
                           icon="times"
                         />
                       </td>
+                      <td class="table-icon">
+                        <font-awesome-icon
+                          style="cursor:pointer;"
+                          icon="trash-alt"
+                          @click="deleteMenuItem(item.menuID)"
+                        />
+                      </td>
                     </template>
-                    <td>
-                      <font-awesome-icon
-                        style="cursor:pointer;"
-                        icon="trash-alt"
-                        @click="deleteMenuItem(item.menuID)"
-                      />
-                    </td>
                   </tr>
-                </thead>
+                </tbody>
               </table>
             </b-alert>
           </div>
@@ -151,6 +164,13 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+  .table-icon{
+    width:100px;
+    padding-top:20px;
+  }
+</style>
 
 <script>
 import { mapGetters } from "vuex";

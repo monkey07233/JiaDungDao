@@ -56,36 +56,48 @@
         <div class="col-12 mt-3 mb-5">
           <div>
             <b-alert show variant="white">
-              <h2 class="alert-heading mb-2 text-center">編輯餐廳菜單</h2>
-              <b-form inline class="justify-content-center pt-3">
-                <b-form-group class="mr-2">
-                  <b-form-file id="file-default" v-model="menuImage"></b-form-file>
-                </b-form-group>
-                <label class="sr-only" for="input-name">菜名</label>
-                <b-input
-                  v-model="newMenuItem.m_item"
-                  name="input-name"
-                  class="mb-2 mr-sm-2 mb-sm-0"
-                  placeholder="請輸入菜名"
-                  required
-                ></b-input>
-                <label class="sr-only" for="input-price">價錢</label>
-                <b-input
-                  v-model="newMenuItem.m_price"
-                  id="input-price"
-                  class="mb-2 mr-sm-2 mb-sm-0"
-                  placeholder="請輸入價錢"
-                  required
-                ></b-input>
-                <label class="sr-only" for="input-type">分類</label>
-                <b-input
-                  v-model="newMenuItem.m_type"
-                  id="input-type"
-                  class="mb-2 mr-sm-2 mb-sm-0"
-                  placeholder="請輸入分類"
-                  required
-                ></b-input>
-                <b-button type="button" variant="success" @click.prevent="addMenuItem">新增</b-button>
+              <h2 class="alert-heading mb-2 text-center">編輯餐廳菜單</h2>         
+              <b-form inline class="edit-form justify-content-center pt-3">
+                <table>
+                  <tr>
+                    <td>
+                      <b-form-file placeholder-style='text-align:left' class="upload-file" placeholder="請上傳菜單照片" id="file-default" v-model="menuImage"></b-form-file>
+                    </td>
+                    <td>
+                      <label class="sr-only" for="input-name">菜名</label>
+                      <b-input
+                        v-model="newMenuItem.m_item"
+                        name="input-name"
+                        class="mb-2 mr-sm-2 mb-sm-0"
+                        placeholder="請輸入菜名"
+                        required
+                      ></b-input>
+                    </td>
+                    <td>
+                      <label class="sr-only" for="input-price">價錢</label>
+                      <b-input
+                        v-model="newMenuItem.m_price"
+                        id="input-price"
+                        class="mb-2 mr-sm-2 mb-sm-0"
+                        placeholder="請輸入價錢"
+                        required
+                      ></b-input>
+                    </td>
+                    <td>
+                      <label class="sr-only" for="input-type">分類</label>
+                      <b-input
+                        v-model="newMenuItem.m_type"
+                        id="input-type"
+                        class="mb-2 mr-sm-2 mb-sm-0"
+                        placeholder="請輸入分類"
+                        required
+                      ></b-input>
+                    </td>
+                    <td>
+                      <b-button type="button" variant="success" @click.prevent="addMenuItem">新增</b-button>
+                    </td>
+                  </tr>
+                </table>
               </b-form>
               <table class="table mt-2">
                 <thead class="thead-light">
@@ -169,6 +181,11 @@
   .table-icon{
     width:100px;
     padding-top:20px;
+  }
+  
+  .edit-form input,.edit-form .upload-file{
+    /* width:100%; */
+    font-size:13px;
   }
 </style>
 

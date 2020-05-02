@@ -327,7 +327,7 @@ export const getMenuId = ({ commit, state }) => {
             });
     });
 };
-export const uploadMenuImage = ({ commit, state }, formData) => {
+export const uploadImage = ({ commit, state }, formData) => {
     const config = {
         withCredentials: true,
         headers: {

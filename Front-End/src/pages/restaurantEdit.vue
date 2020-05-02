@@ -269,8 +269,6 @@ export default {
       this.formData.append("files", this.menuImage_update);
       this.formData.append("uploadType", 1);
       this.formData.append("MenuID", item.menuID);
-      console.log("menuImage_update: " + this.menuImage_update);
-      console.log(this.formData);
       this.$store.dispatch("uploadImage", this.formData).then(res => {
         this.formData = new FormData();
       });
@@ -298,6 +296,7 @@ export default {
         console.log(this.resImage);
         console.log(this.formData);
         this.$store.dispatch("uploadImage", this.formData).then(res => {
+          this.formData = new FormData();
           this.$bvToast.toast("更新餐廳資訊成功", {
             title: `successed`,
             toaster: "b-toaster-top-center",
@@ -321,6 +320,7 @@ export default {
             this.formData.append("MenuID", res2.data);
             this.formData.append("m_item", this.newMenuItem.m_item);
             this.$store.dispatch("uploadImage", this.formData).then(res3 => {
+              this.formData = new FormData();
               this.$bvToast.toast("新增餐點成功", {
                 title: `successed`,
                 toaster: "b-toaster-top-center",

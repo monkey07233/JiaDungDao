@@ -84,7 +84,7 @@ export default {
             autoHideDelay: 1000,
             appendToast: false
           });
-          return setTimeout(() => {
+          setTimeout(() => {
             this.$router.push("/RestaurantManagement");
           }, 1000);
         });

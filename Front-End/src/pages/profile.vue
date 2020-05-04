@@ -45,7 +45,7 @@
                   <b-form @submit.prevent="updatePassword">
                     <b-form-group label="輸入舊密碼:" label-for="oldPassword">
                       <b-form-input
-                        v-model="passwordInfo.oldPassword"
+                        v-model="passwordInfo.m_password"
                         id="oldPassword"
                         type="password"
                         required
@@ -55,7 +55,7 @@
 
                     <b-form-group label="輸入新密碼:" label-for="newPassword">
                       <b-form-input
-                        v-model="passwordInfo.newPassword"
+                        v-model="passwordInfo.new_password"
                         id="newPassword"
                         type="password"
                         required
@@ -179,9 +179,9 @@ export default {
     return {
       isShow: true,
       passwordInfo: {
-        account: "",
-        oldPassword: "",
-        newPassword: ""
+        m_account: "",
+        m_password: "",
+        new_password: ""
       },
       confirmPassword: ""
     };

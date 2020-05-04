@@ -81,5 +81,18 @@ namespace Back_End.Services {
             }
             return "查無此會員";
         }
+
+        public string UpdatePassword(UpdateMemberInfo memberInfo){
+            var member = MemberRepo.GetMemberByAcc(memberInfo.m_account);
+            if(member != null){
+                var hash_m_password = HashPassword (memberInfo.m_password);
+                if(hash_m_password == member.m_password){
+                    var hash_new_password = HashPassword(memberInfo.new_password);
+                    return MemberRepo.UpdatePassword(member, hash_new_password);
+                }
+                return "舊密碼輸入錯誤";
+            }
+            return "查無此會員";
+        }
     }
 }

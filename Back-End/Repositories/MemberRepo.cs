@@ -57,5 +57,15 @@ namespace Back_End.Repositories {
             }
             return result;
         }
+
+        public string UpdatePassword(Member member, string newPassword){
+            try{
+                member.m_password = newPassword;
+                db.SaveChanges();
+                return "Update completed!";
+            }catch(Exception e){
+                return e.Message.ToString();
+            }
+        }
     }
 }

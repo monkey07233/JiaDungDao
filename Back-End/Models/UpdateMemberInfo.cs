@@ -8,5 +8,7 @@ namespace Back_End.Models
         public string m_account { get; set; }
         public DateTime m_birthday { get; set; }
         public string m_address { get; set; }
+        public string m_password {get;set;}
+        public string new_password {get;set;}
     }
 }

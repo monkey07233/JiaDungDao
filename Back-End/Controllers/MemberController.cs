@@ -74,5 +74,16 @@ namespace Back_End.Controllers {
                 return BadRequest (result);
             }
         }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult UpdatePassword(UpdateMemberInfo memberInfo){
+            var result = MemberService.UpdatePassword(memberInfo);
+            if(result == "Update completed!"){
+                return Ok(result);
+            }else{
+                return BadRequest(result);
+            }
+        }
     }
 }

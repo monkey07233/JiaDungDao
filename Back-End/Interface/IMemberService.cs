@@ -14,5 +14,6 @@ namespace Back_End.Interface
          Member GetMemberByAcc(string account);
          string EditMemberInformation (UpdateMemberInfo editMember);
          string VerifyAccount(string account);
+         string UpdatePassword(UpdateMemberInfo memberInfo);
     }
 }

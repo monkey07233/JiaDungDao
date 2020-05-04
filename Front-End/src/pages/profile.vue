@@ -1,5 +1,5 @@
 <template>
-  <b-container class="bv-example-row">
+  <b-container class="bv-example-row mb-4">
     <b-row>
       <div class="col-sm-4">
         <b-card>
@@ -13,30 +13,82 @@
           <!-- 會員資料 -->
           <template v-if="isShow" v-bind="MemberInfo">
             <img class="card-img-top" src="../assets/images/restaurant.jpg" />
-            <b-card-body>
-              <b-card-title>{{MemberInfo.m_name}}</b-card-title>
-            </b-card-body>
-            <b-list-group flush>
-              <b-list-group-item>
-                <font-awesome-icon icon="birthday-cake" />
-                &nbsp;生日:{{MemberInfo.m_birthday}}
-              </b-list-group-item>
+            <b-tabs pills justified card>
+              <b-tab button-id="profile" title="個人資料" active no-body>
+                <b-card-body>
+                  <b-card-title>{{MemberInfo.m_name}}</b-card-title>
+                </b-card-body>
+                <b-list-group flush>
+                  <b-list-group-item>
+                    <font-awesome-icon icon="birthday-cake" />
+                    &nbsp;生日:{{MemberInfo.m_birthday}}
+                  </b-list-group-item>
 
-              <b-list-group-item>
-                <font-awesome-icon icon="envelope" />
-                &nbsp;E-mail:{{MemberInfo.m_email}}
-              </b-list-group-item>
+                  <b-list-group-item>
+                    <font-awesome-icon icon="envelope" />
+                    &nbsp;E-mail:{{MemberInfo.m_email}}
+                  </b-list-group-item>
 
-              <b-list-group-item>
-                <font-awesome-icon icon="home" />
-                &nbsp;住址:{{MemberInfo.m_address}}
-              </b-list-group-item>
-            </b-list-group>
-            <b-card-body>
-              <b-button @click="toggle">
-                <font-awesome-icon icon="pencil-alt" />
-              </b-button>
-            </b-card-body>
+                  <b-list-group-item>
+                    <font-awesome-icon icon="home" />
+                    &nbsp;住址:{{MemberInfo.m_address}}
+                  </b-list-group-item>
+                </b-list-group>
+                <b-card-body>
+                  <b-button @click="toggle">
+                    <font-awesome-icon icon="pencil-alt" />
+                  </b-button>
+                </b-card-body>
+              </b-tab>
+              <b-tab title="更換密碼" no-body>
+                <div class="mt-3">
+                  <b-form @submit.prevent="updatePassword">
+                    <b-form-group label="輸入舊密碼:" label-for="oldPassword">
+                      <b-form-input
+                        v-model="passwordInfo.m_password"
+                        id="oldPassword"
+                        type="password"
+                        required
+                        placeholder="請輸入舊密碼"
+                      ></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group label="輸入新密碼:" label-for="newPassword">
+                      <b-form-input
+                        v-model="passwordInfo.new_password"
+                        id="newPassword"
+                        type="password"
+                        required
+                        placeholder="請輸入新密碼"
+                        trim
+                        :state="check_oldAndnew_password"
+                        aria-describedby="check-feedback"
+                      ></b-form-input>
+                      <b-form-invalid-feedback id="check-feedback">不能與舊密碼相同</b-form-invalid-feedback>
+                    </b-form-group>
+                    <b-form-group label="確認新密碼:" label-for="confirm">
+                      <b-form-input
+                        id="confirm"
+                        v-model="confirmPassword"
+                        :state="confirm_password"
+                        aria-describedby="confiem-feedback"
+                        placeholder="確認新密碼"
+                        type="password"
+                        required
+                        trim
+                      ></b-form-input>
+                      <b-form-invalid-feedback id="confiem-feedback">密碼有誤</b-form-invalid-feedback>
+                    </b-form-group>
+
+                    <div class="row justify-content-md-center">
+                      <b-button type="submit" variant="danger" class="justify-content-md-center">
+                        <font-awesome-icon icon="save" />&nbsp;Save
+                      </b-button>
+                    </div>
+                  </b-form>
+                </div>
+              </b-tab>
+            </b-tabs>
           </template>
           <!-- 修改會員資料 -->
           <template v-else>
@@ -97,13 +149,16 @@
             </h5>
             <b-card-body flush>
               <b-list-group-item>
-                <font-awesome-icon icon="store-alt" />&nbsp;店家：{{OrderInfo[0].title.r_name}}
+                <font-awesome-icon icon="store-alt" />
+                &nbsp;店家：{{OrderInfo[0].title.r_name}}
               </b-list-group-item>
               <b-list-group-item>
-                <font-awesome-icon icon="calendar-alt" />&nbsp;訂單時間：{{OrderInfo[0].title.o_createtime}}
+                <font-awesome-icon icon="calendar-alt" />
+                &nbsp;訂單時間：{{OrderInfo[0].title.o_createtime}}
               </b-list-group-item>
               <b-list-group-item>
-                <font-awesome-icon icon="credit-card" />&nbsp;總計：{{OrderInfo[0].title.o_total}}
+                <font-awesome-icon icon="credit-card" />
+                &nbsp;總計：{{OrderInfo[0].title.o_total}}
               </b-list-group-item>
             </b-card-body>
             <b-card-body>
@@ -122,7 +177,13 @@ import { mapGetters } from "vuex";
 export default {
   data: function() {
     return {
-      isShow: true
+      isShow: true,
+      passwordInfo: {
+        m_account: "",
+        m_password: "",
+        new_password: ""
+      },
+      confirmPassword: ""
     };
   },
   computed: {
@@ -130,7 +191,17 @@ export default {
       tokenInfo: "getTokenInfo",
       MemberInfo: "getMemberInfo",
       OrderInfo: "getOrderInfo"
-    })
+    }),
+    confirm_password() {
+      return this.confirmPassword === this.passwordInfo.newPassword
+        ? true
+        : false;
+    },
+    check_oldAndnew_password() {
+      return this.passwordInfo.newPassword != this.passwordInfo.oldPassword
+        ? true
+        : false;
+    }
   },
   methods: {
     toggle: function() {
@@ -158,11 +229,15 @@ export default {
           m_account: this.tokenInfo.account
         });
       });
+    },
+    updatePassword() {
+      this.passwordInfo.account = this.tokenInfo.account;
+      console.log(this.passwordInfo);
     }
   },
   created() {
     this.$store.dispatch("getMemberInfo", {
-      m_account : this.tokenInfo.account
+      m_account: this.tokenInfo.account
     });
     this.$store.dispatch("getOrderInfo", {
       m_account: this.tokenInfo.account

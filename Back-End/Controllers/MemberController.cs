@@ -23,7 +23,7 @@ namespace Back_End.Controllers {
         public IActionResult Register (Member member) {
             var result = MemberService.Register (member);
             if (result == "successed") {
-                MailService.SendMail(member.m_email,member.m_account);
+                MailService.SendMail (member.m_email, member.m_account);
                 return Ok (result);
             } else {
                 return BadRequest (result);
@@ -48,7 +48,7 @@ namespace Back_End.Controllers {
                     var token = MemberService.GetJwtToken (Configuration, result.MemberId.ToString (), result.m_account);
                     return Ok (new { account = result.m_account, token = token, role = result.m_role });
                 }
-                return BadRequest("帳號未通過驗證");
+                return BadRequest ("帳號未通過驗證");
             }
             return BadRequest ("帳號或密碼錯誤");
         }
@@ -77,12 +77,26 @@ namespace Back_End.Controllers {
 
         [HttpPost]
         [Authorize]
-        public IActionResult UpdatePassword(UpdateMemberInfo memberInfo){
-            var result = MemberService.UpdatePassword(memberInfo);
-            if(result == "Update completed!"){
-                return Ok(result);
-            }else{
-                return BadRequest(result);
+        public IActionResult UpdatePassword (UpdateMemberInfo memberInfo) {
+            var result = MemberService.UpdatePassword (memberInfo);
+            if (result == "Update completed!") {
+                return Ok (result);
+            } else {
+                return BadRequest (result);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult SendResetPasswordMail (UpdateMemberInfo resetInfo) {
+            var member = MemberService.GetMemberByAcc (resetInfo.m_account);
+            if (member != null) {
+                bool result = MailService.SendResetPasswordMail (resetInfo.m_email, member.m_account);
+                if (result == true) {
+                    return Ok ("寄送重設密碼連結信成功");
+                }
+                return BadRequest ("寄送重設密碼連結信失敗");
+            } else {
+                return BadRequest ("帳號不存在");
             }
         }
     }

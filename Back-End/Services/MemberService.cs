@@ -15,6 +15,7 @@ namespace Back_End.Services {
 
         public MemberService (IMemberRepo memberRepo) {
             this.MemberRepo = memberRepo;
+
         }
 
         public async Task<Member> GetMemberByLogin (string m_account, string m_password) {

@@ -391,3 +391,20 @@ export const UpdatePassword = ({ commit, state }, passwordInfo) => {
             });
     });
 };
+
+export const SendResetPasswordMail = ({commit}, reset_password) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .post(
+                "https://localhost:5001/api/Member/SendResetPasswordMail",
+                JSON.parse(JSON.stringify(reset_password))
+            )
+            .then(function(res) {
+                resolve(res.data);
+            })
+            .catch(function(err) {
+                console.log(err.response);
+                reject(err);
+            });
+    });
+};

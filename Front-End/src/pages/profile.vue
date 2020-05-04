@@ -193,12 +193,12 @@ export default {
       OrderInfo: "getOrderInfo"
     }),
     confirm_password() {
-      return this.confirmPassword === this.passwordInfo.newPassword
+      return this.confirmPassword === this.passwordInfo.new_password
         ? true
         : false;
     },
     check_oldAndnew_password() {
-      return this.passwordInfo.newPassword != this.passwordInfo.oldPassword
+      return this.passwordInfo.new_password != this.passwordInfo.m_password
         ? true
         : false;
     }
@@ -231,8 +231,37 @@ export default {
       });
     },
     updatePassword() {
-      this.passwordInfo.account = this.tokenInfo.account;
-      console.log(this.passwordInfo);
+      this.passwordInfo.m_account = this.tokenInfo.account;
+      this.$store
+        .dispatch("UpdatePassword", this.passwordInfo)
+        .then(res => {
+          this.$bvToast.toast(res, {
+            title: `更新密碼成功`,
+            toaster: "b-toaster-top-center",
+            solid: true,
+            autoHideDelay: 1000,
+            appendToast: false
+          });
+          this.passwordInfo.m_password = "";
+          this.passwordInfo.new_password = "";
+          this.confirmPassword = "";
+          this.$store.dispatch("logout");
+          localStorage.clear();
+          setTimeout(() => {
+            this.$router.push("/");
+          }, 1000);
+        })
+        .catch(err => {
+          if (err.response.status == 400) {
+            this.$bvToast.toast(err.response.data, {
+              title: `更新密碼失敗`,
+              toaster: "b-toaster-top-center",
+              solid: true,
+              autoHideDelay: 1000,
+              appendToast: false
+            });
+          }
+        });
     }
   },
   created() {

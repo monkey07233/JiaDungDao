@@ -71,13 +71,13 @@
                         id="confirm"
                         v-model="confirmPassword"
                         :state="confirm_password"
-                        aria-describedby="confiem-feedback"
+                        aria-describedby="confirm-feedback"
                         placeholder="確認新密碼"
                         type="password"
                         required
                         trim
                       ></b-form-input>
-                      <b-form-invalid-feedback id="confiem-feedback">密碼有誤</b-form-invalid-feedback>
+                      <b-form-invalid-feedback id="confirm-feedback">密碼有誤</b-form-invalid-feedback>
                     </b-form-group>
 
                     <div class="row justify-content-md-center">

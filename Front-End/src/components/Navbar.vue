@@ -62,6 +62,7 @@
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
+
     <!-- login -->
     <b-modal id="login" ref="login" centered title="Sign In" hide-footer>
       <b-form @submit.prevent="login">
@@ -103,6 +104,7 @@
         <b-link @click="showRegisterModal">註冊</b-link>
       </b-row>
     </b-modal>
+
     <!-- register -->
     <b-modal id="register" ref="register" centered title="Register" hide-footer>
       <b-form @submit.prevent="addMember">
@@ -197,6 +199,42 @@
         <b-link @click="showLoginModal">回到登入頁面</b-link>
       </b-row>
     </b-modal>
+
+    <!-- 輸入帳號信箱 -->
+    <b-modal id="reset_password" ref="reset_password" centered title="重設密碼" hide-footer>
+      <b-form @submit.prevent="resetPassword">
+        <b-row class="mb-2 mt-2 justify-content-center">
+          <b-col sm="2">
+            <label>帳號：</label>
+          </b-col>
+          <b-col sm="6">
+            <b-form-input
+              required
+              size="sm"
+              placeholder="輸入你的帳號"
+              v-model="reset_password.m_account"
+            ></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row class="mb-2 mt-2 justify-content-center">
+          <b-col sm="2">
+            <label>信箱：</label>
+          </b-col>
+          <b-col sm="6">
+            <b-form-input
+              required
+              size="sm"
+              placeholder="輸入你的信箱"
+              type="email"
+              v-model="reset_password.m_email"
+            ></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row class="mb-2 mt-4 justify-content-center">
+          <b-button pill size="sm" type="submit">重設密碼</b-button>
+        </b-row>
+      </b-form>
+    </b-modal>
   </div>
 </template>
 
@@ -217,6 +255,10 @@ export default {
       loginInfo: {
         m_account: "",
         m_password: ""
+      },
+      reset_password: {
+        m_account: "",
+        m_email: ""
       }
     };
   },
@@ -285,6 +327,8 @@ export default {
               autoHideDelay: 1000,
               appendToast: false
             });
+            this.loginInfo.m_account = "";
+            this.loginInfo.m_password = "";
             this.$refs["login"].hide();
             this.$store.dispatch("getMemberInfo", {
               m_account: this.tokenInfo.account
@@ -319,6 +363,10 @@ export default {
       this.$store.dispatch("deleteItemFromCart", [item]);
     },
     forgetPassword() {
+      this.$refs["login"].hide();
+      this.$refs["reset_password"].show();
+    },
+    resetPassword() {
       this.$bvToast.toast("已寄送重設密碼信件，請至信箱查看", {
         title: `重設密碼`,
         toaster: "b-toaster-top-center",

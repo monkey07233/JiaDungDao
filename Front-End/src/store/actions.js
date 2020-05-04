@@ -408,3 +408,20 @@ export const SendResetPasswordMail = ({commit}, reset_password) => {
             });
     });
 };
+
+export const ResetPassword = ({ commit }, password) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .post(
+                "https://localhost:5001/api/Member/ResetPassword",
+                JSON.parse(JSON.stringify(password))
+            )
+            .then(function(res) {
+                resolve(res.data);
+            })
+            .catch(function(err) {
+                console.log(err);
+                reject(err);
+            });
+    });
+};

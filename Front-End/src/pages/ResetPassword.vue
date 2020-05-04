@@ -7,11 +7,11 @@
     </div>
     <hr />
     <div class="row">
-      <b-form class="col-12" @submit.prevent>
+      <b-form class="col-12" @submit.prevent="ResetPassword">
         <b-form-group label="新密碼:" label-for="input-1">
           <b-form-input
             id="input-1"
-            type="text"
+            type="password"
             v-model="password.new_password"
             placeholder="請輸入新密碼"
             required
@@ -20,7 +20,7 @@
         <b-form-group label="確認密碼:" label-for="input-2">
           <b-form-input
             id="input-2"
-            type="text"
+            type="password"
             v-model="confirmPassword"
             placeholder="請輸入新密碼"
             required
@@ -39,6 +39,8 @@
 </template>
 
 <script>
+import "@/assets/css/index.css";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -52,6 +54,42 @@ export default {
   computed: {
     confirm_password() {
       return this.confirmPassword === this.password.new_password ? true : false;
+    }
+  },
+  methods: {
+    ResetPassword() {
+      this.password.m_account = this.$route.query.account;
+      this.$store
+        .dispatch("ResetPassword", this.password)
+        .then(res => {
+          this.$bvToast.toast("重設密碼成功，請重新登入", {
+            title: `重設密碼成功`,
+            toaster: "b-toaster-top-center",
+            solid: true,
+            autoHideDelay: 2000,
+            appendToast: false
+          });
+          setTimeout(() => {
+            this.$router.push("/");
+          }, 2000);
+        })
+        .catch(err => {
+          if (err.response.status == 400) {
+            this.$bvToast.toast(err.response.data, {
+              title: `重設密碼失敗`,
+              toaster: "b-toaster-top-center",
+              solid: true,
+              autoHideDelay: 2000,
+              appendToast: false
+            });
+          }
+        });
+    }
+  },
+  created() {
+    var param = this.$route.query.account;
+    if (param == undefined || param == null) {
+      this.$router.push("Index");
     }
   }
 };

@@ -77,7 +77,7 @@
                         required
                         trim
                       ></b-form-input>
-                      <b-form-invalid-feedback id="confirm-feedback">密碼有誤</b-form-invalid-feedback>
+                      <b-form-invalid-feedback id="confirm-feedback">與新密碼不相符</b-form-invalid-feedback>
                     </b-form-group>
 
                     <div class="row justify-content-md-center">

@@ -91,6 +91,12 @@
           <b-button pill size="sm" type="submit">登入</b-button>
         </b-row>
       </b-form>
+      <div class="row justify-content-center">
+        <b-alert show variant="info">
+          忘記吃銀杏了嗎?
+          <b-link @click="forgetPassword" class="alert-link">重設密碼</b-link>
+        </b-alert>
+      </div>
       <hr />
       <b-row class="mb-2 mt-2 justify-content-center">
         還不是會員嗎？
@@ -311,6 +317,15 @@ export default {
     },
     deleteCartItem(item) {
       this.$store.dispatch("deleteItemFromCart", [item]);
+    },
+    forgetPassword() {
+      this.$bvToast.toast("已寄送重設密碼信件，請至信箱查看", {
+        title: `重設密碼`,
+        toaster: "b-toaster-top-center",
+        solid: true,
+        autoHideDelay: 1000,
+        appendToast: false
+      });
     }
   },
   created() {

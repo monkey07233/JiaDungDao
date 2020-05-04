@@ -10,6 +10,6 @@ namespace Back_End.Interface
          Member GetMemberByAcc(string m_account);
          string EditMemberInformation (Member originMember, UpdateMemberInfo editMember);
          string VerifyAccount(Member member);
-         string UpdatePassword(Member member, string newPassword);
+         bool UpdatePassword(Member member, string newPassword);
     }
 }

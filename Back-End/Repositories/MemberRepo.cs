@@ -58,13 +58,13 @@ namespace Back_End.Repositories {
             return result;
         }
 
-        public string UpdatePassword(Member member, string newPassword){
+        public bool UpdatePassword(Member member, string newPassword){
             try{
                 member.m_password = newPassword;
                 db.SaveChanges();
-                return "Update completed!";
+                return true;
             }catch(Exception e){
-                return e.Message.ToString();
+                return false;
             }
         }
     }

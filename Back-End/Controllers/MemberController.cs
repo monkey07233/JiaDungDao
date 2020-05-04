@@ -79,10 +79,20 @@ namespace Back_End.Controllers {
         [Authorize]
         public IActionResult UpdatePassword (UpdateMemberInfo memberInfo) {
             var result = MemberService.UpdatePassword (memberInfo);
-            if (result == "Update completed!") {
-                return Ok (result);
+            if (result == true) {
+                return Ok ("更換密碼成功");
             } else {
-                return BadRequest (result);
+                return BadRequest ("更換密碼失敗");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult ResetPassword (UpdateMemberInfo memberInfo) {
+            var result = MemberService.ResetPassword (memberInfo);
+            if (result == true) {
+                return Ok ("重設密碼成功");
+            } else {
+                return BadRequest ("重設密碼失敗");
             }
         }
 

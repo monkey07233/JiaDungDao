@@ -62,12 +62,12 @@ namespace Back_End.Services {
             return MemberRepo.Register (member);
         }
 
-        public string VerifyAccount(string account){
+        public string VerifyAccount (string account) {
             var member = MemberRepo.GetMemberByAcc (account);
-            if(member == null){
+            if (member == null) {
                 return "查無此會員";
             }
-            return MemberRepo.VerifyAccount(member);
+            return MemberRepo.VerifyAccount (member);
         }
 
         public Member GetMemberByAcc (string account) {
@@ -83,17 +83,26 @@ namespace Back_End.Services {
             return "查無此會員";
         }
 
-        public string UpdatePassword(UpdateMemberInfo memberInfo){
-            var member = MemberRepo.GetMemberByAcc(memberInfo.m_account);
-            if(member != null){
-                var hash_m_password = HashPassword (memberInfo.m_password);
-                if(hash_m_password == member.m_password){
-                    var hash_new_password = HashPassword(memberInfo.new_password);
-                    return MemberRepo.UpdatePassword(member, hash_new_password);
-                }
-                return "舊密碼輸入錯誤";
+        public bool ResetPassword (UpdateMemberInfo memberInfo) {
+            var member = MemberRepo.GetMemberByAcc (memberInfo.m_account);
+            if (member != null) {
+                var hash_new_password = HashPassword (memberInfo.new_password);
+                return MemberRepo.UpdatePassword (member, hash_new_password);;
             }
-            return "查無此會員";
+            return false;
+        }
+
+        public bool UpdatePassword (UpdateMemberInfo memberInfo) {
+            var member = MemberRepo.GetMemberByAcc (memberInfo.m_account);
+            if (member != null) {
+                var hash_m_password = HashPassword (memberInfo.m_password);
+                if (hash_m_password == member.m_password) {
+                    var hash_new_password = HashPassword (memberInfo.new_password);
+                    return MemberRepo.UpdatePassword (member, hash_new_password);
+                }
+                return false;
+            }
+            return false;
         }
     }
 }

@@ -43,6 +43,7 @@ export default {
   data() {
     return {
       password: {
+        m_account: "",
         new_password: ""
       },
       confirmPassword: ""

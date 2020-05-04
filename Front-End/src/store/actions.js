@@ -367,3 +367,27 @@ export const VerifyAccount = ({ state }, m_account) => {
             });
     });
 };
+
+export const UpdatePassword = ({ commit, state }, passwordInfo) => {
+    const config = {
+        withCredentials: true,
+        headers: {
+            Authorization: "Bearer " + state.tokenInfo.token
+        }
+    };
+    return new Promise((resolve, reject) => {
+        axios
+            .post(
+                "https://localhost:5001/api/Member/UpdatePassword",
+                JSON.parse(JSON.stringify(passwordInfo)),
+                config
+            )
+            .then(function(res) {
+                resolve(res.data);
+            })
+            .catch(function(err) {
+                console.log(err.response);
+                reject(err);
+            });
+    });
+};

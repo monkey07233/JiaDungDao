@@ -243,8 +243,13 @@ export default {
             appendToast: false
           });
           this.passwordInfo.m_password = "";
-          this.passwordInfo.new_password= "";
+          this.passwordInfo.new_password = "";
           this.confirmPassword = "";
+          this.$store.dispatch("logout");
+          localStorage.clear();
+          setTimeout(() => {
+            this.$router.push("/");
+          }, 1000);
         })
         .catch(err => {
           if (err.response.status == 400) {

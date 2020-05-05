@@ -113,28 +113,31 @@ namespace Back_End.Services {
             }
         }
 
-        public async Task<string> uploadRestaurantImg (RestaurantInfo restaurantInfo) {
+        public async Task<string> UploadImg (UploadInfo uploadInfo) {
             try {
                 string root = _environment.ContentRootPath;
                 string rootFile = string.Empty;
                 string imgUrl = string.Empty;
-                if (restaurantInfo.files != null) {
-                    //uploadType 0:餐廳封面 ,  1:菜單圖片 
-                    switch (restaurantInfo.uploadType) {
+                if (uploadInfo.files != null) {
+                    //uploadType 0:餐廳封面 ,  1:菜單圖片 , 2:使用者大頭貼 
+                    switch (uploadInfo.uploadType) {
                         case 0:
                             root += "\\File\\Restaurant\\";
-                            rootFile = root + restaurantInfo.RestaurantID + ".jpg";
                             break;
                         case 1:
                             root += "\\File\\Menu\\";
-                            rootFile = root + restaurantInfo.MenuID + ".jpg";
+                            break;
+                        case 2:
+                            root += "\\File\\UserImg\\";
                             break;
                     }
+                    rootFile = root + uploadInfo.id + ".jpg";
+
                     if (!Directory.Exists (root)) {
                         Directory.CreateDirectory (root);
                     }
                     using (FileStream stream = System.IO.File.Create (rootFile)) {
-                        await restaurantInfo.files.CopyToAsync (stream);
+                        await uploadInfo.files.CopyToAsync (stream);
                         stream.Flush ();
                     }
                     return "上傳成功";
@@ -144,7 +147,7 @@ namespace Back_End.Services {
                 return e.Message.ToString ();
             }
         }
-
+      
         public string DeleteMenuImg (int MenuID) {
             string path = _environment.ContentRootPath + "\\File\\Menu\\";
             try {

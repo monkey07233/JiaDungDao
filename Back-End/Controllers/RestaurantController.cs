@@ -62,8 +62,8 @@ namespace Back_End.Controllers {
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> uploadRestaurantImg ([FromForm] RestaurantInfo restaurantInfo) {
-            var uploadResult = await RestaurantService.uploadRestaurantImg (restaurantInfo);
+        public async Task<IActionResult> uploadRestaurantImg ([FromForm] UploadInfo restaurantInfo) {
+            var uploadResult = await RestaurantService.UploadImg (restaurantInfo);
             if (uploadResult == "上傳成功") {
                 return Ok (uploadResult);
             }

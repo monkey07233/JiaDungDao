@@ -16,7 +16,7 @@ namespace Back_End.Interface
         bool DeleteRestaurantAllImg(int RestaurantID);
         string updateMenu(Menu menu);
         int GetLatestMenuId();
-        Task<string> uploadRestaurantImg(RestaurantInfo restaurantInfo);
+        Task<string> UploadImg(UploadInfo uploadInfo);
         string DeleteMenuImg(int MenuID);
     }
 }

@@ -316,7 +316,7 @@ export default {
             console.log(res2.data);
             this.formData.append("files", this.menuImage);
             this.formData.append("uploadType", 1);
-            this.formData.append("MenuID", res2.data);
+            this.formData.append("id", res2.data);
             this.formData.append("m_item", this.newMenuItem.m_item);
             this.$store.dispatch("uploadImage", this.formData).then(res3 => {
               this.formData = new FormData();

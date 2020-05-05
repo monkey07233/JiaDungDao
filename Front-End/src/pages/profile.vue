@@ -16,7 +16,7 @@
               <img class="card-img-top" src="../assets/images/restaurant.jpg" />
               <div id="mask" class="card-img-top">
                 <label>
-                  <input type="file" />
+                  <b-form-file id="profileImage" v-model="uploadImage" plain></b-form-file>
                   <font-awesome-icon icon="camera" />
                 </label>
               </div>
@@ -270,6 +270,21 @@ export default {
             });
           }
         });
+    },
+    uploadImage() {
+      this.formData.append("files", this.profileImage);
+      this.formData.append("uploadType", 2);
+      this.formData.append("ID", this.passwordInfo.m_account);
+      this.$store.dispatch("uploadImage", this.formData).then(res => {
+        this.formData = new FormData();
+        this.$bvToast.toast("照片更換成功", {
+          title: `successed`,
+          toaster: "b-toaster-top-center",
+          solid: true,
+          autoHideDelay: 1000,
+          appendToast: false
+        });
+      });
     }
   },
   created() {

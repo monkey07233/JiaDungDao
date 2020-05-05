@@ -22,7 +22,7 @@
             style="border-left: 1px solid rgba(0, 0, 0, 0.125);border-right: 1px solid rgba(0, 0, 0, 0.125);"
           >
             <b-card-body style="border: 0px;">
-              <span v-for="orderdetail in order.orderDetail">
+              <span v-for="(orderdetail,index) in order.orderDetail" :key="index">
                 <b-list-group-item style="border-bottom: 0px;">品名：{{orderdetail.o_item}}</b-list-group-item>
                 <b-list-group-item style="border-bottom: 0px;">數量：{{orderdetail.o_count}}</b-list-group-item>
                 <b-list-group-item style="border-top: 0px;">小計：{{orderdetail.o_price * orderdetail.o_count}}</b-list-group-item>

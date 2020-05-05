@@ -10,6 +10,7 @@ import RestaurantManagement from "@/pages/RestaurantManagement";
 import AddRestaurant from "@/pages/AddRestaurant";
 import store from "../store";
 import RestaurantEdit from "@/pages/RestaurantEdit";
+import ResetPassword from "@/pages/ResetPassword";
 Vue.use(Router);
 
 export default new Router({
@@ -28,6 +29,11 @@ export default new Router({
       path: "/Validate",
       name: "Validate",
       component: Validate
+    },
+    {
+      path: "/ResetPassword",
+      name: "ResetPassword",
+      component: ResetPassword
     },
     {
       path: "/OrderList",

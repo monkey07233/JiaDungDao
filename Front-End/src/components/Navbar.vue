@@ -202,7 +202,7 @@
 
     <!-- 輸入帳號信箱 -->
     <b-modal id="reset_password" ref="reset_password" centered title="重設密碼" hide-footer>
-      <b-form @submit.prevent="resetPassword">
+      <b-form @submit.prevent="SendResetPasswordMail">
         <b-row class="mb-2 mt-2 justify-content-center">
           <b-col sm="2">
             <label>帳號：</label>
@@ -366,14 +366,32 @@ export default {
       this.$refs["login"].hide();
       this.$refs["reset_password"].show();
     },
-    resetPassword() {
-      this.$bvToast.toast("已寄送重設密碼信件，請至信箱查看", {
-        title: `重設密碼`,
-        toaster: "b-toaster-top-center",
-        solid: true,
-        autoHideDelay: 1000,
-        appendToast: false
-      });
+    SendResetPasswordMail() {
+      this.$store
+        .dispatch("SendResetPasswordMail", this.reset_password)
+        .then(res => {
+          this.reset_password.m_account = "";
+          this.reset_password.m_email = "";
+          this.$refs["reset_password"].hide();
+          this.$bvToast.toast("已寄送重設密碼信件，請至信箱查看", {
+            title: `寄送重設密碼連結信成功`,
+            toaster: "b-toaster-top-center",
+            solid: true,
+            autoHideDelay: 2000,
+            appendToast: false
+          });
+        })
+        .catch(err => {
+          if (err.response.status == 400) {
+            this.$bvToast.toast(err.response.data, {
+              title: `寄送重設密碼連結信失敗`,
+              toaster: "b-toaster-top-center",
+              solid: true,
+              autoHideDelay: 2000,
+              appendToast: false
+            });
+          }
+        });
     }
   },
   created() {

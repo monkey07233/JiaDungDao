@@ -16,7 +16,7 @@
               <img class="card-img-top" src="../assets/images/restaurant.jpg" />
               <div id="mask" class="card-img-top">
                 <label>
-                  <b-form-file id="profileImage" v-model="uploadImage" plain></b-form-file>
+                  <b-form-file id="profileImage" @change="uploadImage" plain></b-form-file>
                   <font-awesome-icon icon="camera" />
                 </label>
               </div>
@@ -191,7 +191,8 @@ export default {
         m_password: "",
         new_password: ""
       },
-      confirmPassword: ""
+      confirmPassword: "",
+       formData: new FormData()
     };
   },
   computed: {
@@ -271,11 +272,12 @@ export default {
           }
         });
     },
-    uploadImage() {
-      this.formData.append("files", this.profileImage);
+    uploadImage(e) {
+      this.formData.append("files", e.target.files[0]);
       this.formData.append("uploadType", 2);
-      this.formData.append("ID", this.passwordInfo.m_account);
+      this.formData.append("id", this.MemberInfo.memberId);
       this.$store.dispatch("uploadImage", this.formData).then(res => {
+        console.log(res);
         this.formData = new FormData();
         this.$bvToast.toast("照片更換成功", {
           title: `successed`,

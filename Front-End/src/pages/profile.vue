@@ -149,7 +149,7 @@
         </b-card>
       </div>
       <!-- 訂單資料 -->
-      <div class="col-sm-6">
+      <div v-if="OrderInfo[0]!=null" class="col-sm-6">
         <b-card>
           <template v-bind="OrderInfo">
             <h5 class="text-center">

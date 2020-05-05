@@ -291,7 +291,7 @@ export default {
       this.$store.dispatch("UpdateRestaurant", restaurant).then(res => {
         this.formData.append("files", this.resImage);
         this.formData.append("uploadType", 0);
-        this.formData.append("RestaurantID", restaurant.RestaurantID);
+        this.formData.append("id", restaurant.RestaurantID);
         this.$store.dispatch("uploadImage", this.formData).then(res => {
           this.formData = new FormData();
           this.$bvToast.toast("更新餐廳資訊成功", {
@@ -313,7 +313,7 @@ export default {
           this.$store.dispatch("getMenuId").then(res2 => {
             this.formData.append("files", this.menuImage);
             this.formData.append("uploadType", 1);
-            this.formData.append("MenuID", res2.data);
+            this.formData.append("id", res2.data);
             this.formData.append("m_item", this.newMenuItem.m_item);
             this.$store.dispatch("uploadImage", this.formData).then(res3 => {
               this.formData = new FormData();

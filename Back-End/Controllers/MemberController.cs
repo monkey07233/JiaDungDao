@@ -12,11 +12,14 @@ namespace Back_End.Controllers {
         private readonly IMemberService MemberService;
         private readonly IConfiguration Configuration;
         private readonly IMailService MailService;
+        private readonly IRestaurantService RestaurantService;
 
-        public MemberController (IMemberService memberService, IConfiguration configuration, IMailService mailService) {
+
+        public MemberController (IMemberService memberService, IConfiguration configuration, IMailService mailService,IRestaurantService restaurantService) {
             this.MemberService = memberService;
             this.Configuration = configuration;
             this.MailService = mailService;
+            this.RestaurantService=restaurantService;
         }
 
         [HttpPost]
@@ -108,6 +111,15 @@ namespace Back_End.Controllers {
             } else {
                 return BadRequest ("帳號不存在");
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadUserImg([FromForm]UploadInfo uploadInfo){
+            var uploadResult = await RestaurantService.UploadImg (uploadInfo);
+            if (uploadResult == "上傳成功") {
+                return Ok (uploadResult);
+            }
+            return BadRequest (uploadResult);
         }
     }
 }

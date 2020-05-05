@@ -1,9 +1,9 @@
 <template>
   <div style="width:80%" class="mx-auto mt-3">
-    <b-table-simple small hover outlined v-for="(order,indexs) in orderInfo" :key="indexs">
+    <b-table-simple small hover outlined v-for="(order,indexs) in OrderInfo" :key="indexs">
       <b-thead class="thead-light">
         <b-tr class="text-center">
-          <b-td colspan="5">{{order.title.OrderId}}</b-td>
+          <b-td colspan="5">{{order.title.orderId}}</b-td>
         </b-tr>
         <b-tr class="text-left">
           <b-td colspan="2">
@@ -44,66 +44,27 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   data() {
-    return {
-      orderInfo: [
-        {
-          title: {
-            OrderId: 1,
-            RestaurantID: 2,
-            o_createtime: "2020-05-05",
-            r_name: "麥當勞",
-            m_account: "helen.huang",
-            o_total: 999
-          },
-          orderDetail: [
-            {
-              OrderDetailId: 1,
-              OrderId: 1,
-              o_item: "冰炫風",
-              o_count: 3,
-              o_price: 66
-            },
-            {
-              OrderDetailId: 1,
-              OrderId: 2,
-              o_item: "薯條",
-              o_count: 1,
-              o_price: 55
-            }
-          ]
-        },
-        {
-          title: {
-            OrderId: 2,
-            RestaurantID: 2,
-            o_createtime: "2020-05-05",
-            r_name: "麥當勞",
-            m_account: "helen.huang",
-            o_total: 111
-          },
-          orderDetail: [
-            {
-              OrderDetailId: 1,
-              OrderId: 2,
-              o_item: "薯條",
-              o_count: 1,
-              o_price: 55
-            }
-          ]
-        }
-      ]
-    };
+    return {};
   },
-  methods:{
-      getMenuTotalCount(menuList){
-          let sum = 0;
-          menuList.forEach(menu => {
-              sum += menu.o_count;
-          });
-          return sum;
-      }
+  computed: {
+    ...mapGetters({
+      OrderInfo: "getOrderInfo",
+    })
+  },
+  methods: {
+    getMenuTotalCount(menuList) {
+      let sum = 0;
+      menuList.forEach(menu => {
+        sum += menu.o_count;
+      });
+      return sum;
+    }
+  },
+  created() {
+    this.$store.dispatch("getOrderInfoByResId", this.$route.params.id);
   }
 };
 </script>

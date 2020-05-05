@@ -289,10 +289,9 @@ export default {
         m_account: this.tokenInfo.account
       };
       this.$store.dispatch("UpdateRestaurant", restaurant).then(res => {
-        console.log(this.formData);
         this.formData.append("files", this.resImage);
         this.formData.append("uploadType", 0);
-        this.formData.append("RestaurantID", restaurant.RestaurantID);
+        this.formData.append("id", restaurant.RestaurantID);
         console.log(this.resImage);
         console.log(this.formData);
         this.$store.dispatch("uploadImage", this.formData).then(res => {

@@ -9,7 +9,7 @@ import Restaurant from "@/pages/restaurant";
 import RestaurantManagement from "@/pages/RestaurantManagement";
 import AddRestaurant from "@/pages/AddRestaurant";
 import store from "../store";
-import RestaurantEdit from "@/pages/RestaurantEdit";
+import RestaurantDetail from "@/pages/RestaurantDetail";
 import ResetPassword from "@/pages/ResetPassword";
 Vue.use(Router);
 
@@ -70,9 +70,9 @@ export default new Router({
       }
     },
     {
-      path: "/RestaurantEdit/:id",
-      name: "RestaurantEdit",
-      component: RestaurantEdit,
+      path: "/RestaurantDetail/:id",
+      name: "RestaurantDetail",
+      component: RestaurantDetail,
       meta: { requiresAuth: true }
     },
     {

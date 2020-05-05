@@ -286,8 +286,6 @@ export default {
         this.formData.append("files", this.resImage);
         this.formData.append("uploadType", 0);
         this.formData.append("id", restaurant.RestaurantID);
-        console.log(this.resImage);
-        console.log(this.formData);
         this.$store.dispatch("uploadImage", this.formData).then(res => {
           this.formData = new FormData();
           this.$bvToast.toast("更新餐廳資訊成功", {
@@ -307,7 +305,6 @@ export default {
       if (this.menuImage != null) {
         this.$store.dispatch("addMenuItem", this.newMenuItem).then(res => {
           this.$store.dispatch("getMenuId").then(res2 => {
-            console.log(res2.data);
             this.formData.append("files", this.menuImage);
             this.formData.append("uploadType", 1);
             this.formData.append("id", res2.data);

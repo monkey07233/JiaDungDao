@@ -12,7 +12,15 @@
           </template>
           <!-- 會員資料 -->
           <template v-if="isShow" v-bind="MemberInfo">
-            <img class="card-img-top" src="../assets/images/restaurant.jpg" />
+            <div id="image">
+              <img class="card-img-top" src="../assets/images/restaurant.jpg" />
+              <div id="mask" class="card-img-top">
+                <label>
+                  <input type="file" />
+                  <font-awesome-icon icon="camera" />
+                </label>
+              </div>
+            </div>
             <b-tabs pills justified card>
               <b-tab button-id="profile" title="個人資料" active no-body>
                 <b-card-body>
@@ -172,7 +180,7 @@
 </template>
 
 <script>
-import "@/assets/css/index.css";
+import "@/assets/css/profile.css";
 import { mapGetters } from "vuex";
 export default {
   data: function() {

@@ -104,5 +104,11 @@ namespace Back_End.Services {
             }
             return false;
         }
+
+        public bool updateMemberImgUrl(int Id)
+        {
+            var result = MemberRepo.updateMemberImgUrl(Id);
+            return result;
+        }
     }
 }

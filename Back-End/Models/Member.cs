@@ -1,31 +1,37 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Back_End.Models
-{
-    public class Member
-    {
+namespace Back_End.Models {
+    public class Member {
         [Key]
-        public int MemberId{get;set;}
-        
+        public int MemberId { get; set; }
+
         [Required]
-        [MaxLength(50)]
-        public string m_name{get;set;}
+        [MaxLength (50)]
+        public string m_name { get; set; }
+
         [Required]
-        [MaxLength(250)]
-        public string m_email{get;set;}
+        [MaxLength (250)]
+        public string m_email { get; set; }
+
         [Required]
-        [MaxLength(50)]
-        public string m_account{get;set;}
+        [MaxLength (50)]
+        public string m_account { get; set; }
+
         [Required]
-        public string m_password{get;set;}
+        public string m_password { get; set; }
+
         [Required]
-        public DateTime m_birthday{get;set;}
+        public DateTime m_birthday { get; set; }
+
         [Required]
-        public string m_address{get;set;}
+        public string m_address { get; set; }
+
         [Required]
-        public int m_role{get;set;}
+        public int m_role { get; set; }
+
         [Required]
-        public bool isValid{get;set;}
+        public bool isValid { get; set; }
+        public string m_imgUrl { get; set; }
     }
 }

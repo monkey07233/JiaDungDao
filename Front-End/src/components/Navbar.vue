@@ -49,7 +49,8 @@
           </b-nav-item-dropdown>
           <b-nav-item-dropdown right v-if="tokenInfo.token!==''">
             <template v-slot:button-content>
-              <img class="profile-img" src="../assets/images/user.png" />
+              <img v-if="memberInfo.m_imgUrl === ''" class="profile-img" src="../assets/images/user.png" />
+              <img v-else class="profile-img" :src="require('../../../Back-End/File/UserImg/' + memberInfo.MemberId + '.png')" />
               <span>{{memberInfo.m_name}}</span>
             </template>
             <b-dropdown-item to="/Profile">

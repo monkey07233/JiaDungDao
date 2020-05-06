@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container pb-4">
     <div class="rounded bg-white p-3">
       <div class="row p-3 justify-content-md-center">
         <h2 class="font-weight-bold">

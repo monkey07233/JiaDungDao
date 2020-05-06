@@ -16,5 +16,6 @@ namespace Back_End.Interface
          string VerifyAccount(string account);
          bool UpdatePassword(UpdateMemberInfo memberInfo);
          bool ResetPassword(UpdateMemberInfo memberInfo);
+         bool updateMemberImgUrl(int Id);
     }
 }

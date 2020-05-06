@@ -14,12 +14,11 @@ namespace Back_End.Controllers {
         private readonly IMailService MailService;
         private readonly IRestaurantService RestaurantService;
 
-
-        public MemberController (IMemberService memberService, IConfiguration configuration, IMailService mailService,IRestaurantService restaurantService) {
+        public MemberController (IMemberService memberService, IConfiguration configuration, IMailService mailService, IRestaurantService restaurantService) {
             this.MemberService = memberService;
             this.Configuration = configuration;
             this.MailService = mailService;
-            this.RestaurantService=restaurantService;
+            this.RestaurantService = restaurantService;
         }
 
         [HttpPost]
@@ -114,10 +113,14 @@ namespace Back_End.Controllers {
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadUserImg([FromForm]UploadInfo uploadInfo){
+        public async Task<IActionResult> UploadUserImg ([FromForm] UploadInfo uploadInfo) {
             var uploadResult = await RestaurantService.UploadImg (uploadInfo);
+            var updateMemberImgUrl = MemberService.updateMemberImgUrl (uploadInfo.id);
             if (uploadResult == "上傳成功") {
-                return Ok (uploadResult);
+                if (updateMemberImgUrl) {
+                    return Ok (uploadResult);
+                }
+                return BadRequest ("路徑未更新");
             }
             return BadRequest (uploadResult);
         }

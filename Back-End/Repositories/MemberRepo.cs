@@ -67,5 +67,13 @@ namespace Back_End.Repositories {
                 return false;
             }
         }
+
+        public bool updateMemberImgUrl(int Id)
+        {
+            var updateMember = db.Member.Where(m => m.MemberId == Id).FirstOrDefault();
+            updateMember.m_imgUrl = "../../../Back-End/File/UserImg/" + Id + ".jpg";
+            db.SaveChanges();
+            return true;
+        }
     }
 }

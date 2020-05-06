@@ -41,7 +41,12 @@
                       <font-awesome-icon icon="users-cog" />
                       <label>權限：一般使用者</label>
                     </div>
-                    <b-button v-b-modal.userApplication size="sm" variant="warning" class="ml-auto font-weight-bold">申請餐廳管理者</b-button>
+                    <b-button
+                      v-b-modal.userApplication
+                      size="sm"
+                      variant="warning"
+                      class="ml-auto font-weight-bold"
+                    >申請餐廳管理者</b-button>
                   </b-list-group-item>
                   <b-list-group-item>
                     <font-awesome-icon icon="birthday-cake" />
@@ -307,8 +312,11 @@ export default {
       this.formData.append("files", e.target.files[0]);
       this.formData.append("uploadType", 2);
       this.formData.append("id", this.MemberInfo.memberId);
-      this.$store.dispatch("uploadImage", this.formData).then(res => {
+      this.$store.dispatch("uploadUserImage", this.formData).then(res => {
         console.log(res);
+        this.$store.dispatch("getMemberInfo", {
+          m_account: this.tokenInfo.account
+        });
         this.formData = new FormData();
         this.$bvToast.toast("照片更換成功", {
           title: `successed`,

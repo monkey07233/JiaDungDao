@@ -122,5 +122,10 @@ namespace Back_End.Services {
             var result = MemberRepo.GetAllMember ();
             return result;
         }
+
+        public bool VerifyApplication(bool pass,string account)
+        {
+            return MemberRepo.VerifyApplication(pass,account);
+        }
     }
 }

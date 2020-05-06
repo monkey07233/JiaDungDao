@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Back_End.Interface;
@@ -95,6 +96,31 @@ namespace Back_End.Repositories {
         }
         public Application GetApplyByAcc (string account) {
             return db.Application.Where (a => a.m_account == account).FirstOrDefault ();
+        }
+
+        public bool VerifyApplication(bool pass,string account)
+        {
+            try{
+                var updateMember=db.Member.Where(m=>m.m_account==account).FirstOrDefault();
+                var application=(from a in db.Application
+                                where a.m_account==account
+                                orderby a.ApplicationID descending
+                                select a).FirstOrDefault();
+                if(pass){   //審核通過
+                    updateMember.m_role=1;
+                    application.status=true;
+                }
+                else
+                    application.status=false;
+                db.SaveChanges();
+                return true;
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine("更新角色權限失敗");
+                Debug.WriteLine(e.ToString());
+                return false;
+            }
         }
     }
 }

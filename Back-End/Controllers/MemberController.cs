@@ -124,5 +124,25 @@ namespace Back_End.Controllers {
             }
             return BadRequest (uploadResult);
         }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult ApplyResAdmin (Application apply) {
+            var result = MemberService.ApplyResAdmin (apply);
+            if (result)
+                return Ok ("申請成功，待審核");
+            else
+                return BadRequest ("申請失敗");
+        }
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetAllMember(){
+            var result = MemberService.GetAllMember();
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return BadRequest("找不到會員");
+        }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -105,9 +106,16 @@ namespace Back_End.Services {
             return false;
         }
 
-        public bool updateMemberImgUrl(int Id)
-        {
-            var result = MemberRepo.updateMemberImgUrl(Id);
+        public bool updateMemberImgUrl (int Id) {
+            var result = MemberRepo.updateMemberImgUrl (Id);
+            return result;
+        }
+
+        public bool ApplyResAdmin (Application apply) {
+            return MemberRepo.ApplyResAdmin (apply);
+        }
+        public List<Member> GetAllMember () {
+            var result = MemberRepo.GetAllMember ();
             return result;
         }
     }

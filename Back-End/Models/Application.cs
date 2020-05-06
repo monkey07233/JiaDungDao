@@ -8,7 +8,6 @@ namespace Back_End.Models {
         [Required]
         [MaxLength (300)]
         public string reason { get; set; }
-        [Required]
-        public bool status { get; set; }
+        public bool? status { get; set; }
     }
 }

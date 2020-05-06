@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Back_End.Models;
 
@@ -12,5 +13,7 @@ namespace Back_End.Interface
          string VerifyAccount(Member member);
          bool UpdatePassword(Member member, string newPassword);
          bool updateMemberImgUrl(int Id);
+         bool ApplyResAdmin (Application apply);
+         List<Member> GetAllMember();
     }
 }

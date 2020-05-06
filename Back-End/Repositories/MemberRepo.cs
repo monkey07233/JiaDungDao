@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Back_End.Interface;
@@ -33,13 +34,13 @@ namespace Back_End.Repositories {
             return result;
         }
 
-        public string VerifyAccount(Member member){
-            try{
+        public string VerifyAccount (Member member) {
+            try {
                 member.isValid = true;
                 db.SaveChanges ();
                 return "Verified";
-            }catch(Exception e){
-                return e.Message.ToString();
+            } catch (Exception e) {
+                return e.Message.ToString ();
             }
         }
 
@@ -50,7 +51,7 @@ namespace Back_End.Repositories {
                 originMember.m_address = memberAfterEdit.m_address;
                 originMember.m_birthday = memberAfterEdit.m_birthday;
                 originMember.m_email = memberAfterEdit.m_email;
-                db.SaveChanges();
+                db.SaveChanges ();
                 result = "Update completed!";
             } catch (Exception e) {
                 result = e.Message.ToString ();
@@ -58,22 +59,39 @@ namespace Back_End.Repositories {
             return result;
         }
 
-        public bool UpdatePassword(Member member, string newPassword){
-            try{
+        public bool UpdatePassword (Member member, string newPassword) {
+            try {
                 member.m_password = newPassword;
-                db.SaveChanges();
+                db.SaveChanges ();
                 return true;
-            }catch(Exception e){
+            } catch (Exception e) {
                 return false;
             }
         }
 
-        public bool updateMemberImgUrl(int Id)
-        {
-            var updateMember = db.Member.Where(m => m.MemberId == Id).FirstOrDefault();
+        public bool updateMemberImgUrl (int Id) {
+            var updateMember = db.Member.Where (m => m.MemberId == Id).FirstOrDefault ();
             updateMember.m_imgUrl = "../../../Back-End/File/UserImg/" + Id + ".jpg";
-            db.SaveChanges();
+            db.SaveChanges ();
             return true;
+        }
+
+        public bool ApplyResAdmin (Application apply) {
+            try {
+                db.Application.Add (apply);
+                db.SaveChanges ();
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        public List<Member> GetAllMember () {
+            try {
+                var allMember = db.Member.Where (m => m.m_role != 2).OrderBy (m => m.MemberId).ToList ();
+                return allMember;
+            } catch (System.Exception) {
+                return null;
+            }
         }
     }
 }

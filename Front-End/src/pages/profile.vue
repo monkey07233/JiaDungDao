@@ -13,7 +13,16 @@
           <!-- 會員資料 -->
           <template v-if="isShow" v-bind="MemberInfo">
             <div id="image">
-              <img class="card-img-top" src="../assets/images/restaurant.jpg" />
+              <img
+                v-if="MemberInfo.m_imgUrl === null"
+                class="img-fluid"
+                src="../assets/images/user.png"
+              />
+              <img
+                class="img-fluid"
+                v-if="MemberInfo.m_imgUrl !== null"
+                :src="require('../../../Back-End/File/UserImg/' + MemberInfo.memberId + '.jpg')"
+              />
               <div id="mask" class="card-img-top">
                 <label>
                   <b-form-file id="profileImage" @change="uploadImage" plain></b-form-file>

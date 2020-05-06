@@ -70,6 +70,9 @@ namespace JiaDungDao.Migrations
                         .HasColumnType("nvarchar(250)")
                         .HasMaxLength(250);
 
+                    b.Property<string>("m_imgUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("m_name")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")

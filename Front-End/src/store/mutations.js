@@ -23,10 +23,12 @@ export const state = {
     role: 0
   },
   memberInfo: {
+    MemberId: "",
     m_name: "",
     m_birthday: "",
     m_email: "",
-    m_address: ""
+    m_address: "",
+    m_imgUrl: ""
   },
   restaurantInfo: {
     restaurant: {

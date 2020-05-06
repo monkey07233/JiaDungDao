@@ -20,7 +20,7 @@ namespace Back_End.Interface
          bool updateMemberImgUrl(int Id);
          bool ApplyResAdmin(Application apply);
          List<Member> GetAllMember();
-         bool VerifyApplication(bool pass,string account);
+         bool VerifyApplication(bool pass,int applicationId);
 
     }
 }

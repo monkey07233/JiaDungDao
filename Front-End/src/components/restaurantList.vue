@@ -16,7 +16,9 @@
           <b-td>{{res.r_name}}</b-td>
           <b-td>{{res.r_address}}</b-td>
           <b-td>{{res.r_tel}}</b-td>
-          <b-td></b-td>
+          <b-td>
+            <font-awesome-icon style="cursor:pointer;color:gray" icon="trash-alt"/>
+          </b-td>
         </b-tr>
       </b-tbody>
     </b-table-simple>

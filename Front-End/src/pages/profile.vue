@@ -1,7 +1,7 @@
 <template>
   <b-container class="bv-example-row mb-4">
     <b-row>
-      <div class="col-sm-5">
+      <div class="col-sm-10 col-md-5">
         <b-card>
           <template v-if="!isShow">
             <b-card-body>
@@ -33,22 +33,29 @@
             <b-tabs pills justified card>
               <b-tab button-id="profile" title="個人資料" active no-body>
                 <b-card-body>
-                  <b-card-title>{{MemberInfo.m_name}}</b-card-title>
+                  <b-card-title class="font-weight-bold text-center">{{MemberInfo.m_name}}</b-card-title>
                 </b-card-body>
                 <b-list-group flush>
+                  <b-list-group-item class="d-flex">
+                    <div align-v="center">
+                      <font-awesome-icon icon="users-cog" />
+                      <label>權限：一般使用者</label>
+                    </div>
+                    <b-button v-b-modal.userApplication size="sm" variant="warning" class="ml-auto font-weight-bold">申請餐廳管理者</b-button>
+                  </b-list-group-item>
                   <b-list-group-item>
                     <font-awesome-icon icon="birthday-cake" />
-                    &nbsp;生日:{{MemberInfo.m_birthday}}
+                    &nbsp;生日：{{MemberInfo.m_birthday}}
                   </b-list-group-item>
 
                   <b-list-group-item>
                     <font-awesome-icon icon="envelope" />
-                    &nbsp;E-mail:{{MemberInfo.m_email}}
+                    &nbsp;E-mail：{{MemberInfo.m_email}}
                   </b-list-group-item>
 
                   <b-list-group-item>
                     <font-awesome-icon icon="home" />
-                    &nbsp;住址:{{MemberInfo.m_address}}
+                    住址：{{MemberInfo.m_address}}
                   </b-list-group-item>
                 </b-list-group>
                 <b-card-body>
@@ -106,6 +113,21 @@
                 </div>
               </b-tab>
             </b-tabs>
+            <b-modal id="userApplication" centered title="申請成為餐廳管理者" hide-footer>
+              <b-form>
+                <b-row class="mt-2">
+                  <b-col sm="4">
+                    <label for="textarea-default">請填寫申請原因：</label>
+                  </b-col>
+                  <b-col sm="8">
+                    <b-form-textarea id="textarea-default" placeholder="在此輸入文字..."></b-form-textarea>
+                  </b-col>
+                </b-row>
+                <b-row class="mb-2 mt-4 justify-content-center">
+                  <b-button pill type="submit" variant="info">送出</b-button>
+                </b-row>
+              </b-form>
+            </b-modal>
           </template>
           <!-- 修改會員資料 -->
           <template v-else>
@@ -201,7 +223,7 @@ export default {
         new_password: ""
       },
       confirmPassword: "",
-       formData: new FormData()
+      formData: new FormData()
     };
   },
   computed: {

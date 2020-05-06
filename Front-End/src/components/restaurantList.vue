@@ -11,21 +11,28 @@
         </b-tr>
       </b-thead>
       <b-tbody>
-        <b-tr>
-          <b-td>1</b-td>
-          <b-td>1111</b-td>
-          <b-td>1111</b-td>
-          <b-td>1111</b-td>
-          <b-td>1111</b-td>
-        </b-tr>
-        <b-tr>
-          <b-td>2</b-td>
-          <b-td>1111</b-td>
-          <b-td>1111</b-td>
-          <b-td>1111</b-td>
-          <b-td>1111</b-td>
+        <b-tr v-for="(res, index) in restaurantList" :key="index">
+          <b-td>{{index + 1}}</b-td>
+          <b-td>{{res.r_name}}</b-td>
+          <b-td>{{res.r_address}}</b-td>
+          <b-td>{{res.r_tel}}</b-td>
+          <b-td></b-td>
         </b-tr>
       </b-tbody>
     </b-table-simple>
   </div>
 </template>
+
+<script>
+import { mapGetters } from "vuex";
+export default {
+  computed: {
+    ...mapGetters({
+      restaurantList: "getResList"
+    })
+  },
+  created() {
+    this.$store.dispatch("getRestaurantList");
+  }
+};
+</script>

@@ -17,7 +17,11 @@
           <b-td>{{res.r_address}}</b-td>
           <b-td>{{res.r_tel}}</b-td>
           <b-td>
-            <font-awesome-icon style="cursor:pointer;color:gray" icon="trash-alt"/>
+            <font-awesome-icon
+              @click="deleteRestaurant(res.restaurantID)"
+              style="cursor:pointer;color:gray"
+              icon="trash-alt"
+            />
           </b-td>
         </b-tr>
       </b-tbody>
@@ -32,6 +36,21 @@ export default {
     ...mapGetters({
       restaurantList: "getResList"
     })
+  },
+  methods: {
+    deleteRestaurant(ResID) {
+      console.log(ResID);
+      this.$store.dispatch("deleteRestaurant", ResID).then(res => {
+        this.$bvToast.toast("成功刪除餐廳", {
+          title: `successed`,
+          toaster: "b-toaster-top-center",
+          solid: true,
+          autoHideDelay: 1000,
+          appendToast: false
+        });
+        this.$store.dispatch("getRestaurantList");
+      });
+    }
   },
   created() {
     this.$store.dispatch("getRestaurantList");

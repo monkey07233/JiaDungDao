@@ -7,6 +7,9 @@
         <b-navbar-nav v-if="tokenInfo.role!=0">
           <b-nav-item to="/RestaurantManagement">餐廳管理</b-nav-item>
         </b-navbar-nav>
+        <b-navbar-nav v-if="tokenInfo.account === 'admin'">
+          <b-nav-item to="/systemManagement">系統管理</b-nav-item>
+        </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
           <!-- 登入前 -->
           <b-nav-item v-b-modal.login v-b-tooltip.hover title="Sign In" v-if="tokenInfo.token===''">

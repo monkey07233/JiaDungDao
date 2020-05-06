@@ -15,8 +15,8 @@
 }
 #mask label {
   position: absolute;
-  top: 75px;
-  left: 135px;
+  top: 42%;
+  left: 42%;
   cursor: pointer;
 }
 #mask input {

@@ -14,13 +14,16 @@ namespace Back_End.Services
 
         public List<OrderInfo> GetOrderInfo(string m_account)
         {
-            var result = OrderRepo.GetOrderInfo(m_account);
-            return result;
+            return OrderRepo.GetOrderInfo(m_account);
         }
 
         public string createOrder(OrderInfo orderInfo)
         {
             return OrderRepo.createOrder(orderInfo);
+        }
+
+        public List<OrderInfo> GetOrderInfoByResId(int restaurantId){
+            return OrderRepo.GetOrderInfoByResId(restaurantId);
         }
     }
 }

@@ -16,7 +16,7 @@
               <img class="card-img-top" src="../assets/images/restaurant.jpg" />
               <div id="mask" class="card-img-top">
                 <label>
-                  <input type="file" />
+                  <b-form-file id="profileImage" @change="uploadImage" plain></b-form-file>
                   <font-awesome-icon icon="camera" />
                 </label>
               </div>
@@ -149,7 +149,7 @@
         </b-card>
       </div>
       <!-- 訂單資料 -->
-      <div class="col-sm-6">
+      <div v-if="OrderInfo[0]!=null" class="col-sm-6">
         <b-card>
           <template v-bind="OrderInfo">
             <h5 class="text-center">
@@ -191,7 +191,8 @@ export default {
         m_password: "",
         new_password: ""
       },
-      confirmPassword: ""
+      confirmPassword: "",
+       formData: new FormData()
     };
   },
   computed: {
@@ -270,6 +271,22 @@ export default {
             });
           }
         });
+    },
+    uploadImage(e) {
+      this.formData.append("files", e.target.files[0]);
+      this.formData.append("uploadType", 2);
+      this.formData.append("id", this.MemberInfo.memberId);
+      this.$store.dispatch("uploadImage", this.formData).then(res => {
+        console.log(res);
+        this.formData = new FormData();
+        this.$bvToast.toast("照片更換成功", {
+          title: `successed`,
+          toaster: "b-toaster-top-center",
+          solid: true,
+          autoHideDelay: 1000,
+          appendToast: false
+        });
+      });
     }
   },
   created() {

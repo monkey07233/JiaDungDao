@@ -30,6 +30,19 @@ namespace Back_End.Repositories
             return result;
         }
 
+        public List<OrderInfo> GetOrderInfoByResId(int restaurantId){
+            List<OrderInfo> result = new List<OrderInfo>();
+            var orderTitleResult = db.OrderTitle.Where(o => o.RestaurantID == restaurantId).OrderByDescending(o => o.OrderId).ToList();
+            foreach (var title in orderTitleResult)
+            {
+                OrderInfo tmp = new OrderInfo();
+                var orderResult = db.Order.Where(o => o.OrderId == title.OrderId).OrderBy(o => o.OrderDetailId).ToList();
+                tmp.title = title;
+                tmp.orderDetail = orderResult;
+                result.Add(tmp);
+            }
+            return result;
+        }
 
         public string createOrder(OrderInfo orderInfo)
         {

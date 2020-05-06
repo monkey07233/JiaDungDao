@@ -74,7 +74,7 @@ export default {
       this.$store.dispatch("createRestaurant", this.newRestaurant).then(res => {
         this.formData.append("files", this.resImage);
         this.formData.append("uploadType", 0);
-        this.formData.append("RestaurantID", res);
+        this.formData.append("id", res);
         this.formData.append("r_name", this.newRestaurant.r_name);
         this.$store.dispatch("uploadImage", this.formData).then(res2 => {
           this.$bvToast.toast("新增餐廳成功", {

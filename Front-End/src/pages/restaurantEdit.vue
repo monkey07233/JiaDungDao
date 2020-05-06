@@ -1,13 +1,5 @@
 <template>
-  <div class="container">
-    <div class="d-flex">
-      <b-button class="mb-4 font-weight-bold" @click="back" variant="warning">回到上一頁</b-button>
-      <b-button
-        class="mb-4 ml-auto"
-        @click="deleteRestaurant(newMenuItem.RestaurantID)"
-        variant="danger"
-      >刪除此餐廳</b-button>
-    </div>
+  <div>
     <div class="rounded bg-white mb-4">
       <div class="row">
         <div class="col-12 mt-3 mb-5">
@@ -72,6 +64,7 @@
         </div>
       </div>
     </div>
+    <hr>
     <div class="rounded bg-white mb-4">
       <div class="row">
         <div class="col-12 mt-3 mb-5">
@@ -107,6 +100,7 @@
                         class="mb-2 mr-sm-2 mb-sm-0"
                         placeholder="請輸入價錢"
                         required
+                        type="number"
                       ></b-input>
                     </td>
                     <td>
@@ -289,12 +283,9 @@ export default {
         m_account: this.tokenInfo.account
       };
       this.$store.dispatch("UpdateRestaurant", restaurant).then(res => {
-        console.log(this.formData);
         this.formData.append("files", this.resImage);
         this.formData.append("uploadType", 0);
-        this.formData.append("RestaurantID", restaurant.RestaurantID);
-        console.log(this.resImage);
-        console.log(this.formData);
+        this.formData.append("id", restaurant.RestaurantID);
         this.$store.dispatch("uploadImage", this.formData).then(res => {
           this.formData = new FormData();
           this.$bvToast.toast("更新餐廳資訊成功", {
@@ -314,10 +305,9 @@ export default {
       if (this.menuImage != null) {
         this.$store.dispatch("addMenuItem", this.newMenuItem).then(res => {
           this.$store.dispatch("getMenuId").then(res2 => {
-            console.log(res2.data);
             this.formData.append("files", this.menuImage);
             this.formData.append("uploadType", 1);
-            this.formData.append("MenuID", res2.data);
+            this.formData.append("id", res2.data);
             this.formData.append("m_item", this.newMenuItem.m_item);
             this.$store.dispatch("uploadImage", this.formData).then(res3 => {
               this.formData = new FormData();
@@ -346,9 +336,6 @@ export default {
         });
       }
     },
-    back() {
-      this.$router.back();
-    },
     deleteMenuItem(menuID) {
       this.$store.dispatch("deleteMenuItem", menuID).then(res => {
         this.$bvToast.toast("刪除餐點成功", {
@@ -361,20 +348,6 @@ export default {
         this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
       });
     },
-    deleteRestaurant(ResID) {
-      this.$store.dispatch("deleteRestaurant", ResID).then(res => {
-        this.$bvToast.toast("成功刪除餐廳", {
-          title: `successed`,
-          toaster: "b-toaster-top-center",
-          solid: true,
-          autoHideDelay: 1000,
-          appendToast: false
-        });
-        setTimeout(() => {
-          this.$router.push("/RestaurantManagement");
-        }, 1500);
-      });
-    }
   }
 };
 </script>

@@ -106,15 +106,16 @@ namespace Back_End.Services {
             return false;
         }
 
-        public bool updateMemberImgUrl(int Id)
-        {
-            var result = MemberRepo.updateMemberImgUrl(Id);
+        public bool updateMemberImgUrl (int Id) {
+            var result = MemberRepo.updateMemberImgUrl (Id);
             return result;
         }
 
-        public List<Member> GetAllMember()
-        {
-            var result = MemberRepo.GetAllMember();
+        public bool ApplyResAdmin (Application apply) {
+            return MemberRepo.ApplyResAdmin (apply);
+        }
+        public List<Member> GetAllMember () {
+            var result = MemberRepo.GetAllMember ();
             return result;
         }
     }

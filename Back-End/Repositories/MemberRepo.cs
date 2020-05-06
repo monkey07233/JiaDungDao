@@ -76,6 +76,15 @@ namespace Back_End.Repositories {
             return true;
         }
 
+        public bool ApplyResAdmin (Application apply) {
+            try {
+                db.Application.Add (apply);
+                db.SaveChanges ();
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
+        }
         public List<Member> GetAllMember () {
             try {
                 var allMember = db.Member.Where (m => m.m_role != 2).OrderBy (m => m.MemberId).ToList ();

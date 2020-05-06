@@ -18,6 +18,7 @@ namespace Back_End.Interface
          bool UpdatePassword(UpdateMemberInfo memberInfo);
          bool ResetPassword(UpdateMemberInfo memberInfo);
          bool updateMemberImgUrl(int Id);
+         bool ApplyResAdmin(Application apply);
          List<Member> GetAllMember();
     }
 }

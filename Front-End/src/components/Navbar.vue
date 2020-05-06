@@ -211,7 +211,7 @@
     </b-modal>
 
     <!-- 輸入帳號信箱 -->
-    <b-modal id="reset_password" ref="reset_password" centered title="重設密碼" hide-footer>
+    <b-modal id="resetPassword" ref="resetPassword" centered title="重設密碼" hide-footer>
       <b-form @submit.prevent="SendResetPasswordMail">
         <b-row class="mb-2 mt-2 justify-content-center">
           <b-col sm="2">
@@ -244,6 +244,10 @@
           <b-button pill size="sm" type="submit">重設密碼</b-button>
         </b-row>
       </b-form>
+      <hr />
+      <b-row class="mb-2 mt-2 justify-content-center">
+        <b-link @click="showLoginModal">回到登入頁面</b-link>
+      </b-row>
     </b-modal>
   </div>
 </template>
@@ -286,10 +290,12 @@ export default {
   methods: {
     showRegisterModal() {
       this.$refs["login"].hide();
+      this.$refs["resetPassword"].hide();
       this.$refs["register"].show();
     },
     showLoginModal() {
       this.$refs["register"].hide();
+      this.$refs["resetPassword"].hide();
       this.$refs["login"].show();
     },
     addMember() {
@@ -374,7 +380,8 @@ export default {
     },
     forgetPassword() {
       this.$refs["login"].hide();
-      this.$refs["reset_password"].show();
+      this.$refs["register"].hide();
+      this.$refs["resetPassword"].show();
     },
     SendResetPasswordMail() {
       this.$store
@@ -382,7 +389,7 @@ export default {
         .then(res => {
           this.reset_password.m_account = "";
           this.reset_password.m_email = "";
-          this.$refs["reset_password"].hide();
+          this.$refs["resetPassword"].hide();
           this.$bvToast.toast("已寄送重設密碼信件，請至信箱查看", {
             title: `寄送重設密碼連結信成功`,
             toaster: "b-toaster-top-center",

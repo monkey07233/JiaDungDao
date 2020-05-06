@@ -165,5 +165,16 @@ namespace Back_End.Controllers {
             }
             return BadRequest("封鎖失敗");
         }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetAllApplication(){
+            var result = MemberService.GetAllApplication();
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return BadRequest("尚未有申請者");
+        }
     }
 }

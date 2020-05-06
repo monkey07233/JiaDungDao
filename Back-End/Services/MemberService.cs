@@ -135,5 +135,9 @@ namespace Back_End.Services {
             }
             return false;
         }
+        public List<Application> GetAllApplication () {
+            var result = MemberRepo.GetAllApplication ();
+            return result;
+        }
     }
 }

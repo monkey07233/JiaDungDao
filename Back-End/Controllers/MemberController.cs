@@ -124,5 +124,15 @@ namespace Back_End.Controllers {
             }
             return BadRequest (uploadResult);
         }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult ApplyResAdmin (Application apply) {
+            var result = MemberService.ApplyResAdmin (apply);
+            if (result)
+                return Ok ("申請成功，待審核");
+            else
+                return BadRequest ("申請失敗");
+        }
     }
 }

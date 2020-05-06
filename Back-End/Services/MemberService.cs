@@ -110,5 +110,9 @@ namespace Back_End.Services {
             var result = MemberRepo.updateMemberImgUrl(Id);
             return result;
         }
+
+        public bool ApplyResAdmin(Application apply){
+            return MemberRepo.ApplyResAdmin(apply);
+        }
     }
 }

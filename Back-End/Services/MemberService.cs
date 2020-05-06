@@ -123,9 +123,17 @@ namespace Back_End.Services {
             return result;
         }
 
-        public bool VerifyApplication(bool pass,string account)
-        {
-            return MemberRepo.VerifyApplication(pass,account);
+        public bool VerifyApplication (bool pass, string account) {
+            return MemberRepo.VerifyApplication (pass, account);
+        }
+
+        public bool BlockMember (string m_account) {
+            var blockMember = MemberRepo.GetMemberByAcc (m_account);
+            if (blockMember != null) {
+                var result = MemberRepo.BlockMember (blockMember);
+                return result;
+            }
+            return false;
         }
     }
 }

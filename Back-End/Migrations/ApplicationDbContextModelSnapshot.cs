@@ -35,7 +35,7 @@ namespace JiaDungDao.Migrations
                         .HasColumnType("nvarchar(300)")
                         .HasMaxLength(300);
 
-                    b.Property<bool>("status")
+                    b.Property<bool?>("status")
                         .HasColumnType("bit");
 
                     b.HasKey("ApplicationID");
@@ -49,6 +49,9 @@ namespace JiaDungDao.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("isBlock")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("isValid")
                         .HasColumnType("bit");

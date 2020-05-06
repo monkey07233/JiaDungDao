@@ -154,5 +154,16 @@ namespace Back_End.Controllers {
             else
                 return BadRequest("審核餐廳管理者申請失敗");
         }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult BlockMember(string m_account){
+            var result = MemberService.BlockMember(m_account);
+            if (result)
+            {
+                return Ok("封鎖成功");
+            }
+            return BadRequest("封鎖失敗");
+        }
     }
 }

@@ -122,5 +122,12 @@ namespace Back_End.Repositories {
                 return false;
             }
         }
+
+        public bool BlockMember(Member blockMember)
+        {
+            blockMember.isBlock = true;
+            db.SaveChanges();
+            return true;
+        }
     }
 }

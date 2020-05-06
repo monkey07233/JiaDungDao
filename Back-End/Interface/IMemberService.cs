@@ -21,6 +21,6 @@ namespace Back_End.Interface
          bool ApplyResAdmin(Application apply);
          List<Member> GetAllMember();
          bool VerifyApplication(bool pass,string account);
-
+         bool BlockMember(string m_account);
     }
 }

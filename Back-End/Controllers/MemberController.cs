@@ -124,5 +124,16 @@ namespace Back_End.Controllers {
             }
             return BadRequest (uploadResult);
         }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetAllMember(){
+            var result = MemberService.GetAllMember();
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return BadRequest("找不到會員");
+        }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Back_End.Interface;
@@ -82,6 +83,14 @@ namespace Back_End.Repositories {
                 return true;
             } catch (Exception e) {
                 return false;
+            }
+        }
+        public List<Member> GetAllMember () {
+            try {
+                var allMember = db.Member.Where (m => m.m_role != 2).OrderBy (m => m.MemberId).ToList ();
+                return allMember;
+            } catch (System.Exception) {
+                return null;
             }
         }
     }

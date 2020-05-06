@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Back_End.Models;
 using Microsoft.Extensions.Configuration;
@@ -18,5 +19,6 @@ namespace Back_End.Interface
          bool ResetPassword(UpdateMemberInfo memberInfo);
          bool updateMemberImgUrl(int Id);
          bool ApplyResAdmin(Application apply);
+         List<Member> GetAllMember();
     }
 }

@@ -134,5 +134,15 @@ namespace Back_End.Controllers {
             else
                 return BadRequest ("申請失敗");
         }
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetAllMember(){
+            var result = MemberService.GetAllMember();
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return BadRequest("找不到會員");
+        }
     }
 }

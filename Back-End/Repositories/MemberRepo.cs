@@ -93,5 +93,8 @@ namespace Back_End.Repositories {
                 return null;
             }
         }
+        public Application GetApplyByAcc (string account) {
+            return db.Application.Where (a => a.m_account == account).FirstOrDefault ();
+        }
     }
 }

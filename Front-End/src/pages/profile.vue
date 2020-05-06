@@ -39,13 +39,14 @@
                   <b-list-group-item class="d-flex">
                     <div align-v="center">
                       <font-awesome-icon icon="users-cog" />
-                      <label>權限：一般使用者</label>
+                      <label>權限：{{MemberInfo.m_role==0?"一般使用者":MemberInfo.m_role==1?"餐廳管理者":"admin"}}</label>
                     </div>
                     <b-button
                       v-b-modal.userApplication
                       size="sm"
                       variant="warning"
                       class="ml-auto font-weight-bold"
+                      v-if="MemberInfo.m_role==0"
                     >申請餐廳管理者</b-button>
                   </b-list-group-item>
                   <b-list-group-item>
@@ -118,14 +119,20 @@
                 </div>
               </b-tab>
             </b-tabs>
-            <b-modal id="userApplication" centered title="申請成為餐廳管理者" hide-footer>
-              <b-form>
+            <b-modal
+              id="userApplication"
+              ref="userApplication"
+              centered
+              title="申請成為餐廳管理者"
+              hide-footer
+            >
+              <b-form @submit.prevent="applyResAdmin">
                 <b-row class="mt-2">
                   <b-col sm="4">
                     <label for="textarea-default">請填寫申請原因：</label>
                   </b-col>
                   <b-col sm="8">
-                    <b-form-textarea id="textarea-default" placeholder="在此輸入文字..."></b-form-textarea>
+                    <b-form-textarea id="textarea-default" placeholder="在此輸入文字..." v-model="reason"></b-form-textarea>
                   </b-col>
                 </b-row>
                 <b-row class="mb-2 mt-4 justify-content-center">
@@ -228,7 +235,8 @@ export default {
         new_password: ""
       },
       confirmPassword: "",
-      formData: new FormData()
+      formData: new FormData(),
+      reason: ""
     };
   },
   computed: {
@@ -326,6 +334,43 @@ export default {
           appendToast: false
         });
       });
+    },
+    applyResAdmin() {
+      if (this.reason == "") {
+        this.$bvToast.toast("申請原因不得為空", {
+          title: `error`,
+          toaster: "b-toaster-top-center",
+          solid: true,
+          autoHideDelay: 1000,
+          appendToast: false
+        });
+      } else {
+        this.$store
+          .dispatch("applyResAdmin", {
+            m_account: this.MemberInfo.m_account,
+            reason: this.reason
+          })
+          .then(res => {
+            this.$bvToast.toast(res, {
+              title: `successed`,
+              toaster: "b-toaster-top-center",
+              solid: true,
+              autoHideDelay: 1000,
+              appendToast: false
+            });
+            this.$refs["userApplication"].hide();
+          })
+          .catch(error => {
+            this.$bvToast.toast("申請失敗", {
+              title: `error`,
+              toaster: "b-toaster-top-center",
+              solid: true,
+              autoHideDelay: 1000,
+              appendToast: false
+            });
+            this.$refs["userApplication"].hide();
+          });
+      }
     }
   },
   created() {

@@ -144,11 +144,11 @@ namespace Back_End.Controllers {
             }
             return BadRequest("找不到會員");
         }
-        
+
         [HttpPost]
-        public IActionResult VerifyApplication(bool pass,string account)
+        public IActionResult VerifyApplication(bool pass,int appicationId)
         {
-            bool result=MemberService.VerifyApplication(pass,account);
+            bool result=MemberService.VerifyApplication(pass,appicationId);
             if(result)
                 return Ok("審核餐廳管理者申請成功");
             else

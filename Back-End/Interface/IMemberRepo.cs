@@ -16,7 +16,7 @@ namespace Back_End.Interface
          bool ApplyResAdmin (Application apply);
          List<Member> GetAllMember();
          Application GetApplyByAcc (string account);
-         bool VerifyApplication(bool pass,string account);
+         bool VerifyApplication(bool pass,int applicationId);
 
     }
 }

@@ -98,19 +98,17 @@ namespace Back_End.Repositories {
             return db.Application.Where (a => a.m_account == account).FirstOrDefault ();
         }
         
-        public bool VerifyApplication(bool pass,string account)
+        public bool VerifyApplication(bool pass,int appicationId)
         {
             try{
-                var updateMember=db.Member.Where(m=>m.m_account==account).FirstOrDefault();
-                var application=db.Application.Where(a=>a.m_account==account).Single();
+                var application=db.Application.Where(a=>a.ApplicationID==appicationId).FirstOrDefault();
+                var updateMember=db.Member.Where(m=>m.m_account==application.m_account).FirstOrDefault();
                 if(pass){   //審核通過
                     updateMember.m_role=1;
                     application.status=true;
                 }
-                else{
-                    updateMember.m_role=0;
+                else
                     application.status=false;
-                }
                 db.SaveChanges();
                 return true;
             }

@@ -4,10 +4,10 @@
       <b-navbar-brand to="/">JiaDungDao</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav v-if="tokenInfo.role!=0">
+        <b-navbar-nav v-if="tokenInfo.role === 1">
           <b-nav-item to="/RestaurantManagement">餐廳管理</b-nav-item>
         </b-navbar-nav>
-        <b-navbar-nav v-if="tokenInfo.account === 'admin'">
+        <b-navbar-nav v-if="tokenInfo.role === 2">
           <b-nav-item to="/systemManagement">系統管理</b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">

@@ -146,9 +146,9 @@ namespace Back_End.Controllers {
         }
 
         [HttpPost]
-        public IActionResult VerifyApplication(bool pass,int appicationId)
+        public IActionResult VerifyApplication(bool pass,string account)
         {
-            bool result=MemberService.VerifyApplication(pass,appicationId);
+            bool result=MemberService.VerifyApplication(pass,account);
             if(result)
                 return Ok("審核餐廳管理者申請成功");
             else

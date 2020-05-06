@@ -123,9 +123,9 @@ namespace Back_End.Services {
             return result;
         }
 
-        public bool VerifyApplication(bool pass,int appicationId)
+        public bool VerifyApplication(bool pass,string account)
         {
-            return MemberRepo.VerifyApplication(pass,appicationId);
+            return MemberRepo.VerifyApplication(pass,account);
         }
     }
 }

@@ -11,6 +11,7 @@ import AddRestaurant from "@/pages/AddRestaurant";
 import store from "../store";
 import RestaurantDetail from "@/pages/RestaurantDetail";
 import ResetPassword from "@/pages/ResetPassword";
+import systemManagement from "@/pages/systemManagement"
 Vue.use(Router);
 
 export default new Router({
@@ -79,6 +80,12 @@ export default new Router({
       path: "/AddRestaurant",
       name: "AddRestaurant",
       component: AddRestaurant
+    },
+    {
+      path: "/systemManagement",
+      name: "systemManagement",
+      component: systemManagement,
+      meta: { requiresAuth: true }
     }
   ]
 });

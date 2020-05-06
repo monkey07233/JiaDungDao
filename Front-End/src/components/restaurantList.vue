@@ -1,0 +1,31 @@
+<template>
+  <div class="row mt-5 ml-2 mr-2">
+    <b-table-simple striped hover outlined>
+      <b-thead>
+        <b-tr>
+          <b-th>#</b-th>
+          <b-th>店名</b-th>
+          <b-th>地址</b-th>
+          <b-th>電話</b-th>
+          <b-th>刪除</b-th>
+        </b-tr>
+      </b-thead>
+      <b-tbody>
+        <b-tr>
+          <b-td>1</b-td>
+          <b-td>1111</b-td>
+          <b-td>1111</b-td>
+          <b-td>1111</b-td>
+          <b-td>1111</b-td>
+        </b-tr>
+        <b-tr>
+          <b-td>2</b-td>
+          <b-td>1111</b-td>
+          <b-td>1111</b-td>
+          <b-td>1111</b-td>
+          <b-td>1111</b-td>
+        </b-tr>
+      </b-tbody>
+    </b-table-simple>
+  </div>
+</template>

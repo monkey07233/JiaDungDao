@@ -9,5 +9,6 @@ namespace JiaDungDao.Connection {
         public DbSet<Menu> Menu { get; set; }
         public DbSet<Order> Order { get; set; }
         public DbSet<OrderTitle> OrderTitle { get; set; }
+        public DbSet<Application> Application { get; set; }
     }
 }

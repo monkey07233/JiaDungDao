@@ -7,5 +7,6 @@ namespace Back_End.Interface
     {
         List<OrderInfo> GetOrderInfo(string m_account);
         string createOrder(OrderInfo orderInfo);
+        List<OrderInfo> GetOrderInfoByResId(int restaurantId);
     }
 }

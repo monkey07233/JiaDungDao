@@ -15,5 +15,6 @@ namespace Back_End.Interface
          bool updateMemberImgUrl(int Id);
          bool ApplyResAdmin (Application apply);
          List<Member> GetAllMember();
+         Application GetApplyByAcc (string account);
     }
 }

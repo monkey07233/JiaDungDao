@@ -112,7 +112,11 @@ namespace Back_End.Services {
         }
 
         public bool ApplyResAdmin (Application apply) {
-            return MemberRepo.ApplyResAdmin (apply);
+            var application = MemberRepo.GetApplyByAcc (apply.m_account);
+            if (application == null)
+                return MemberRepo.ApplyResAdmin (apply);
+            else
+                return false;
         }
         public List<Member> GetAllMember () {
             var result = MemberRepo.GetAllMember ();

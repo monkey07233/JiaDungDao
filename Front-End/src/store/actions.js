@@ -373,6 +373,30 @@ export const uploadImage = ({ commit, state }, formData) => {
     });
 };
 
+export const uploadUserImage = ({ commit, state }, formData) => {
+    const config = {
+        withCredentials: true,
+        headers: {
+            Authorization: "Bearer " + state.tokenInfo.token
+        }
+    };
+    return new Promise((resolve, reject) => {
+        axios
+            .post(
+                "https://localhost:5001/api/Member/UploadUserImg",
+                formData,
+                config
+            )
+            .then(function(res) {
+                resolve(res.data);
+            })
+            .catch(function(err) {
+                console.log(err);
+                reject();
+            });
+    });
+};
+
 export const VerifyAccount = ({ state }, m_account) => {
     return new Promise((resolve, reject) => {
         axios

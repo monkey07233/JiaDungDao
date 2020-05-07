@@ -505,3 +505,20 @@ export const getAllApplication = ({ commit, state }) => {
             console.log(err);
         });
 };
+
+export const getAllMember = ({ commit, state }) => {
+    const config = {
+        withCredentials: true,
+        headers: {
+            Authorization: "Bearer " + state.tokenInfo.token
+        }
+    };
+    axios
+        .get("https://localhost:5001/api/Member/GetAllMember", config)
+        .then(function (res) {         
+            commit(types.GET_MEMBERLIST, res.data);
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+};

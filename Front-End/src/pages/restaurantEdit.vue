@@ -230,12 +230,12 @@ export default {
   },
   computed: {
     ...mapGetters({
-      restaurantInfo: "getResInfo",
-      tokenInfo: "getTokenInfo"
+      restaurantInfo: "restaurant/getResInfo",
+      tokenInfo: "member/getTokenInfo"
     })
   },
   created() {
-    this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
+    this.$store.dispatch("restaurant/getRestaurantInfo", this.$route.params.id);
   },
   methods: {
     getMenuItemList() {
@@ -250,7 +250,7 @@ export default {
     updateMenu(item) {
       this.edit_Index = null;
       this.$store
-        .dispatch("updateMenu", {
+        .dispatch("menu/updateMenu", {
           MenuID: item.menuID,
           RestaurantID: item.restaurantID,
           m_item: document.querySelector("input[name=item]").value,
@@ -258,12 +258,12 @@ export default {
           m_type: document.querySelector("input[name=type]").value
         })
         .then(res => {
-          this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
+          this.$store.dispatch("restaurant/getRestaurantInfo", this.$route.params.id);
         });
       this.formData.append("files", this.menuImage_update);
       this.formData.append("uploadType", 1);
       this.formData.append("MenuID", item.menuID);
-      this.$store.dispatch("uploadImage", this.formData).then(res => {
+      this.$store.dispatch("member/uploadImage", this.formData).then(res => {
         this.formData = new FormData();
       });
       this.$bvToast.toast("更新菜單資訊成功", {
@@ -282,11 +282,11 @@ export default {
         r_tel: this.$refs.form.r_tel.value,
         m_account: this.tokenInfo.account
       };
-      this.$store.dispatch("UpdateRestaurant", restaurant).then(res => {
+      this.$store.dispatch("restaurant/UpdateRestaurant", restaurant).then(res => {
         this.formData.append("files", this.resImage);
         this.formData.append("uploadType", 0);
         this.formData.append("id", restaurant.RestaurantID);
-        this.$store.dispatch("uploadImage", this.formData).then(res => {
+        this.$store.dispatch("member/uploadImage", this.formData).then(res => {
           this.formData = new FormData();
           this.$bvToast.toast("更新餐廳資訊成功", {
             title: `successed`,
@@ -296,20 +296,20 @@ export default {
             appendToast: false
           });
         });
-        this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
+        this.$store.dispatch("restaurant/getRestaurantInfo", this.$route.params.id);
       });
     },
     addMenuItem() {
       this.newMenuItem.RestaurantID = parseInt(this.newMenuItem.RestaurantID);
       this.newMenuItem.m_price = parseInt(this.newMenuItem.m_price);
       if (this.menuImage != null) {
-        this.$store.dispatch("addMenuItem", this.newMenuItem).then(res => {
-          this.$store.dispatch("getMenuId").then(res2 => {
+        this.$store.dispatch("menu/addMenuItem", this.newMenuItem).then(res => {
+          this.$store.dispatch("menu/getMenuId").then(res2 => {
             this.formData.append("files", this.menuImage);
             this.formData.append("uploadType", 1);
             this.formData.append("id", res2.data);
             this.formData.append("m_item", this.newMenuItem.m_item);
-            this.$store.dispatch("uploadImage", this.formData).then(res3 => {
+            this.$store.dispatch("member/uploadImage", this.formData).then(res3 => {
               this.formData = new FormData();
               this.$bvToast.toast("新增餐點成功", {
                 title: `successed`,
@@ -322,7 +322,7 @@ export default {
               this.newMenuItem.m_type = "";
               this.newMenuItem.m_price = null;
               this.menuImage = null;
-              this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
+              this.$store.dispatch("restaurant/getRestaurantInfo", this.$route.params.id);
             });
           });
         });
@@ -337,7 +337,7 @@ export default {
       }
     },
     deleteMenuItem(menuID) {
-      this.$store.dispatch("deleteMenuItem", menuID).then(res => {
+      this.$store.dispatch("menu/deleteMenuItem", menuID).then(res => {
         this.$bvToast.toast("刪除餐點成功", {
           title: `successed`,
           toaster: "b-toaster-top-center",
@@ -345,7 +345,7 @@ export default {
           autoHideDelay: 1000,
           appendToast: false
         });
-        this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
+        this.$store.dispatch("restaurant/getRestaurantInfo", this.$route.params.id);
       });
     },
   }

@@ -1,0 +1,268 @@
+import * as types from "../mutations_type.js";
+import axios from "axios";
+
+export default {
+    namespaced: true,
+
+    state: {
+        memberInfo: {
+            MemberId: "",
+            m_name: "",
+            m_birthday: "",
+            m_email: "",
+            m_address: "",
+            m_imgUrl: ""
+        }
+    },
+
+    getters: {
+        getMemberInfo(state) {
+            return state.memberInfo;
+        },
+
+        getTokenInfo(state) {
+            return state.tokenInfo;
+        },
+    },
+
+    mutations: {
+        [types.SAVE_TOKEN](state, data) {
+            state.tokenInfo = data;
+        },
+        [types.CLEAR_TOKEN](state) {
+            state.tokenInfo.token = "";
+            state.tokenInfo.account = "";
+            state.tokenInfo.role = 0;
+        },
+        [types.GET_MEMBERINFO](state, data) {
+            state.memberInfo = data;
+            var birthday = data.m_birthday.split("T");
+            state.memberInfo.m_birthday = birthday[0];
+        },
+    },
+
+    actions: {
+        getMemberInfo({ commit, state }, memberInfo) {
+            const config = {
+                withCredentials: true,
+                headers: {
+                    Authorization: "Bearer " + state.tokenInfo.token
+                }
+            };
+            return new Promise((resolve, reject) => {
+                axios
+                    .post(
+                        "https://localhost:5001/api/Member/GetMemberInformation",
+                        memberInfo,
+                        config
+                    )
+                    .then(function(res) {
+                        commit(types.GET_MEMBERINFO, res.data);
+                    })
+                    .catch(function(err) {
+                        console.log(err);
+                        if (err.response.status == 401) {
+                            localStorage.removeItem("tokenInfo");
+                            commit(types.CLEAR_TOKEN);
+                        }
+                        reject();
+                    });
+            });
+        },
+
+        register({ commit }, newMember) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .post("https://localhost:5001/api/Member/Register", newMember)
+                    .then(function(res) {
+                        resolve(res.data);
+                    })
+                    .catch(function(err) {
+                        console.log(err);
+                        reject(err);
+                    });
+            });
+        },
+
+        login({ commit }, loginInfo) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .post("https://localhost:5001/api/Member/Login", loginInfo)
+                    .then(function(res) {
+                        resolve(res.data);
+                        commit(types.SAVE_TOKEN, res.data);
+                    })
+                    .catch(function(err) {
+                        reject(err);
+                    });
+            });
+        },
+
+        checkToken({ commit }, tokenInfo) {
+            commit(types.SAVE_TOKEN, tokenInfo);
+        },
+
+        logout({ commit }) {
+            commit(types.CLEAR_TOKEN);
+        },
+
+        UpdateProfile({ commit, state }, profileAfterEdit) {
+            const config = {
+                withCredentials: true,
+                headers: {
+                    Authorization: "Bearer " + state.tokenInfo.token
+                }
+            };
+            return new Promise((resolve, reject) => {
+                axios
+                    .post(
+                        "https://localhost:5001/api/Member/EditMemberInformation",
+                        profileAfterEdit,
+                        config
+                    )
+                    .then(function(res) {
+                        resolve(res.data);
+                    })
+                    .catch(function(err) {
+                        console.log(err);
+                        reject();
+                    });
+            });
+        },
+        uploadImage({ commit, state }, formData) {
+            const config = {
+                withCredentials: true,
+                headers: {
+                    Authorization: "Bearer " + state.tokenInfo.token
+                }
+            };
+            return new Promise((resolve, reject) => {
+                axios
+                    .post(
+                        "https://localhost:5001/api/Restaurant/uploadRestaurantImg",
+                        formData,
+                        config
+                    )
+                    .then(function(res) {
+                        resolve(res.data);
+                    })
+                    .catch(function(err) {
+                        console.log(err);
+                        reject();
+                    });
+            });
+        },
+
+        uploadUserImage({ commit, state }, formData) {
+            const config = {
+                withCredentials: true,
+                headers: {
+                    Authorization: "Bearer " + state.tokenInfo.token
+                }
+            };
+            return new Promise((resolve, reject) => {
+                axios
+                    .post("https://localhost:5001/api/Member/UploadUserImg", formData, config)
+                    .then(function(res) {
+                        resolve(res.data);
+                    })
+                    .catch(function(err) {
+                        console.log(err);
+                        reject();
+                    });
+            });
+        },
+
+        VerifyAccount({ state }, m_account) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .post("https://localhost:5001/api/Member/VerifyAccount", m_account)
+                    .then(function(res) {
+                        resolve(res.data);
+                    })
+                    .catch(function(err) {
+                        console.log(err);
+                        reject();
+                    });
+            });
+        },
+
+        UpdatePassword({ commit, state }, passwordInfo) {
+            const config = {
+                withCredentials: true,
+                headers: {
+                    Authorization: "Bearer " + state.tokenInfo.token
+                }
+            };
+            return new Promise((resolve, reject) => {
+                axios
+                    .post(
+                        "https://localhost:5001/api/Member/UpdatePassword",
+                        JSON.parse(JSON.stringify(passwordInfo)),
+                        config
+                    )
+                    .then(function(res) {
+                        resolve(res.data);
+                    })
+                    .catch(function(err) {
+                        console.log(err.response);
+                        reject(err);
+                    });
+            });
+        },
+
+        SendResetPasswordMail({ commit }, reset_password) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .post(
+                        "https://localhost:5001/api/Member/SendResetPasswordMail",
+                        JSON.parse(JSON.stringify(reset_password))
+                    )
+                    .then(function(res) {
+                        resolve(res.data);
+                    })
+                    .catch(function(err) {
+                        console.log(err.response);
+                        reject(err);
+                    });
+            });
+        },
+
+        ResetPassword({ commit }, password) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .post(
+                        "https://localhost:5001/api/Member/ResetPassword",
+                        JSON.parse(JSON.stringify(password))
+                    )
+                    .then(function(res) {
+                        resolve(res.data);
+                    })
+                    .catch(function(err) {
+                        console.log(err);
+                        reject(err);
+                    });
+            });
+        },
+
+        applyResAdmin({ commit, state }, apply) {
+            const config = {
+                withCredentials: true,
+                headers: {
+                    Authorization: "Bearer " + state.tokenInfo.token
+                }
+            };
+            return new Promise((resolve, reject) => {
+                axios
+                    .post("https://localhost:5001/api/Member/ApplyResAdmin", apply, config)
+                    .then(function(res) {
+                        resolve(res.data);
+                    })
+                    .catch(function(err) {
+                        console.log(err);
+                        reject(err);
+                    });
+            });
+        }
+    }
+}

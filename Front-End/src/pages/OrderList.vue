@@ -49,8 +49,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      tokenInfo: "getTokenInfo",
-      OrderInfo: "getOrderInfo"
+      tokenInfo: "member/getTokenInfo",
+      OrderInfo: "order/getOrderInfo"
     })
   },
   methods: {
@@ -59,7 +59,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("getOrderInfo", {
+    this.$store.dispatch("order/getOrderInfo", {
       m_account: this.tokenInfo.account
     });
   }

@@ -96,8 +96,8 @@ import axios from "axios";
 export default {
   computed: {
     ...mapGetters({
-      shoppingCart: "getShoppingCartInfo",
-      tokenInfo: "getTokenInfo"
+      shoppingCart: "shoppingcart/getShoppingCartInfo",
+      tokenInfo: "member/getTokenInfo"
     }),
     GroupBy() {
       const result = {};
@@ -113,13 +113,13 @@ export default {
   },
   methods: {
     addItemToShoppingCart(item) {
-      this.$store.dispatch("addItemToShoppingCart", item);
+      this.$store.dispatch("shoppingcart/addItemToShoppingCart", item);
     },
     minusItemToShoppingCart: function(item) {
-      this.$store.dispatch("minusItemToShoppingCart", item);
+      this.$store.dispatch("shoppingcart/minusItemToShoppingCart", item);
     },
     deleteCartItem(item) {
-      this.$store.dispatch("deleteItemFromCart", [item]);
+      this.$store.dispatch("shoppingcart/deleteItemFromCart", [item]);
     },
     calculateOrderSubtotal(resName) {
       let sum = 0;
@@ -153,8 +153,8 @@ export default {
           deleteItems.push(list);
         }
       });
-      this.$store.dispatch("createOrder", orderInfo).then(res =>{
-        this.$store.dispatch("deleteItemFromCart", deleteItems);
+      this.$store.dispatch("order/createOrder", orderInfo).then(res =>{
+        this.$store.dispatch("shoppingcart/deleteItemFromCart", deleteItems);
         this.$bvToast.toast("訂單已成立，可至會員專區→訂單查詢查看訂單", {
           title: `successed`,
           toaster: "b-toaster-top-center",

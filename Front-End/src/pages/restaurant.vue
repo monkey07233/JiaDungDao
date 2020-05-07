@@ -52,10 +52,10 @@ export default {
     return {};
   },
   computed: mapGetters({
-    restaurantInfo: "getResInfo"
+    restaurantInfo: "restaurant/getResInfo"
   }),
   created() {
-    this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
+    this.$store.dispatch("restaurant/getRestaurantInfo", this.$route.params.id);
   }
 };
 </script>

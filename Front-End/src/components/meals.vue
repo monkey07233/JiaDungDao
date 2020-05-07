@@ -33,7 +33,7 @@ import { mapGetters } from "vuex";
 export default {
   computed: {
     ...mapGetters({
-      tokenInfo: "getTokenInfo"
+      tokenInfo: "member/getTokenInfo"
     })
   },
   data() {
@@ -53,7 +53,7 @@ export default {
         o_price: item.m_price,
         o_count: 1
       };
-      this.$store.dispatch("addItemToShoppingCart", order).then(res => {
+      this.$store.dispatch("shoppingcart/addItemToShoppingCart", order).then(res => {
         this.$bvToast.toast("餐點已加入購物車", {
           title: `successed`,
           toaster: "b-toaster-top-center",

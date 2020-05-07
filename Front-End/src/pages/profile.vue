@@ -241,9 +241,9 @@ export default {
   },
   computed: {
     ...mapGetters({
-      tokenInfo: "getTokenInfo",
-      MemberInfo: "getMemberInfo",
-      OrderInfo: "getOrderInfo"
+      tokenInfo: "member/getTokenInfo",
+      MemberInfo: "member/getMemberInfo",
+      OrderInfo: "order/getOrderInfo"
     }),
     confirm_password() {
       return this.confirmPassword === this.passwordInfo.new_password
@@ -269,7 +269,7 @@ export default {
         m_email: this.$refs.form.email.value,
         m_address: this.$refs.form.address.value
       };
-      this.$store.dispatch("UpdateProfile", updateProfile).then(res => {
+      this.$store.dispatch("member/UpdateProfile", updateProfile).then(res => {
         this.isShow = !this.isShow;
         this.$bvToast.toast(res, {
           title: `Update Personal Information`,
@@ -278,7 +278,7 @@ export default {
           autoHideDelay: 1000,
           appendToast: false
         });
-        this.$store.dispatch("getMemberInfo", {
+        this.$store.dispatch("member/getMemberInfo", {
           m_account: this.tokenInfo.account
         });
       });
@@ -286,7 +286,7 @@ export default {
     updatePassword() {
       this.passwordInfo.m_account = this.tokenInfo.account;
       this.$store
-        .dispatch("UpdatePassword", this.passwordInfo)
+        .dispatch("member/UpdatePassword", this.passwordInfo)
         .then(res => {
           this.$bvToast.toast(res, {
             title: `更新密碼成功`,
@@ -298,7 +298,7 @@ export default {
           this.passwordInfo.m_password = "";
           this.passwordInfo.new_password = "";
           this.confirmPassword = "";
-          this.$store.dispatch("logout");
+          this.$store.dispatch("member/logout");
           localStorage.clear();
           setTimeout(() => {
             this.$router.push("/");
@@ -320,9 +320,9 @@ export default {
       this.formData.append("files", e.target.files[0]);
       this.formData.append("uploadType", 2);
       this.formData.append("id", this.MemberInfo.memberId);
-      this.$store.dispatch("uploadUserImage", this.formData).then(res => {
+      this.$store.dispatch("member/uploadUserImage", this.formData).then(res => {
         console.log(res);
-        this.$store.dispatch("getMemberInfo", {
+        this.$store.dispatch("member/getMemberInfo", {
           m_account: this.tokenInfo.account
         });
         this.formData = new FormData();
@@ -346,7 +346,7 @@ export default {
         });
       } else {
         this.$store
-          .dispatch("applyResAdmin", {
+          .dispatch("member/applyResAdmin", {
             m_account: this.MemberInfo.m_account,
             reason: this.reason
           })
@@ -374,10 +374,10 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("getMemberInfo", {
+    this.$store.dispatch("member/getMemberInfo", {
       m_account: this.tokenInfo.account
     });
-    this.$store.dispatch("getOrderInfo", {
+    this.$store.dispatch("order/getOrderInfo", {
       m_account: this.tokenInfo.account
     });
   }

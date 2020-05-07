@@ -21,7 +21,7 @@ export default {
   created() {
     const tokenInfo = JSON.parse(localStorage.getItem("tokenInfo"));
     if (tokenInfo != null) {
-      this.$store.dispatch("checkToken", tokenInfo);
+      this.$store.dispatch("member/checkToken", tokenInfo);
     }
   }
 };

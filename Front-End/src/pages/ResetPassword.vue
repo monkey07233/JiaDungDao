@@ -60,7 +60,7 @@ export default {
     ResetPassword() {
       this.password.m_account = this.$route.query.account;
       this.$store
-        .dispatch("ResetPassword", this.password)
+        .dispatch("member/ResetPassword", this.password)
         .then(res => {
           this.$bvToast.toast("重設密碼成功，請重新登入", {
             title: `重設密碼成功`,

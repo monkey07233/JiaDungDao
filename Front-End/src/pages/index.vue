@@ -49,7 +49,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      restaurantList: "getResList"
+      restaurantList: "restaurant/getResList"
     }),
     filterData() {
       const filter = this.search;
@@ -61,7 +61,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("getRestaurantList");
+    this.$store.dispatch("restaurant/getRestaurantList");
   }
 };
 </script>

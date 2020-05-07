@@ -284,10 +284,10 @@ export default {
       return this.confirmPassword == this.newMember.m_password;
     },
     ...mapGetters({
-      tokenInfo: "getTokenInfo",
-      memberInfo: "getMemberInfo",
-      shoppingCart: "getShoppingCartInfo",
-      shoppingCartNumber: "getShoppingCartTotalNum"
+      tokenInfo: "member/getTokenInfo",
+      memberInfo: "member/getMemberInfo",
+      shoppingCart: "shoppingcart/getShoppingCartInfo",
+      shoppingCartNumber: "shoppingcart/getShoppingCartTotalNum"
     })
   },
   methods: {
@@ -303,7 +303,7 @@ export default {
     },
     addMember() {
       this.$store
-        .dispatch("register", this.newMember)
+        .dispatch("member/register", this.newMember)
         .then(res => {
           this.$bvToast.toast(res, {
             title: `Registration`,
@@ -336,7 +336,7 @@ export default {
     login() {
       if (this.tokenInfo.token === "") {
         this.$store
-          .dispatch("login", this.loginInfo)
+          .dispatch("member/login", this.loginInfo)
           .then(res => {
             localStorage.setItem("tokenInfo", JSON.stringify(res));
             this.$bvToast.toast("登入成功", {
@@ -349,7 +349,7 @@ export default {
             this.loginInfo.m_account = "";
             this.loginInfo.m_password = "";
             this.$refs["login"].hide();
-            this.$store.dispatch("getMemberInfo", {
+            this.$store.dispatch("member/getMemberInfo", {
               m_account: this.tokenInfo.account
             });
           })
@@ -367,7 +367,7 @@ export default {
       }
     },
     logout() {
-      this.$store.dispatch("logout");
+      this.$store.dispatch("member/logout");
       localStorage.clear();
       this.$bvToast.toast("登出成功", {
         title: `Logout`,
@@ -379,7 +379,7 @@ export default {
       this.$router.push("/");
     },
     deleteCartItem(item) {
-      this.$store.dispatch("deleteItemFromCart", [item]);
+      this.$store.dispatch("shoppingcart/deleteItemFromCart", [item]);
     },
     forgetPassword() {
       this.$refs["login"].hide();
@@ -388,7 +388,7 @@ export default {
     },
     SendResetPasswordMail() {
       this.$store
-        .dispatch("SendResetPasswordMail", this.reset_password)
+        .dispatch("member/SendResetPasswordMail", this.reset_password)
         .then(res => {
           this.reset_password.m_account = "";
           this.reset_password.m_email = "";
@@ -416,13 +416,13 @@ export default {
   },
   created() {
     if (this.tokenInfo.token != "") {
-      this.$store.dispatch("getMemberInfo", {
+      this.$store.dispatch("member/getMemberInfo", {
         m_account: this.tokenInfo.account
       });
     }
     const cart = JSON.parse(localStorage.getItem("shpopingCart"));
     if (cart != null) {
-      this.$store.dispatch("setCart", cart);
+      this.$store.dispatch("shoppingcart/setCart", cart);
     }
   }
 };

@@ -129,5 +129,13 @@ namespace Back_End.Repositories {
             db.SaveChanges();
             return true;
         }
+
+        public List<Application> GetAllApplication () {
+            try {
+                return db.Application.ToList();
+            } catch (System.Exception) {
+                return null;
+            }
+        }
     }
 }

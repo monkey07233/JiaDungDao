@@ -22,5 +22,6 @@ namespace Back_End.Interface
          List<Member> GetAllMember();
          bool VerifyApplication(bool pass,string account);
          bool BlockMember(string m_account);
+         List<Application> GetAllApplication();
     }
 }

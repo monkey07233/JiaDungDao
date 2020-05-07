@@ -16,5 +16,6 @@ namespace Back_End.Interface {
         Application GetApplyByAcc (string account);
         bool VerifyApplication (bool pass, string account);
         bool BlockMember (Member blockMember);
+         List<Application> GetAllApplication();
     }
 }

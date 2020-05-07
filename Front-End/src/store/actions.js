@@ -506,6 +506,31 @@ export const getAllApplication = ({ commit, state }) => {
         });
 };
 
+export const verifyApplication = ({ commit, state }, application) => {
+    const config = {
+        withCredentials: true,
+        headers: {
+            Authorization: "Bearer " + state.tokenInfo.token
+        }
+    };
+    return new Promise((resolve, reject) => {
+        axios
+            .post(
+                "https://localhost:5001/api/Member/VerifyApplication?pass=" +
+                application.pass +
+                "&account=" +
+                application.account,
+                config
+            )
+            .then(function (res) {
+                resolve(res.data);
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    });
+};
+
 export const getAllMember = ({ commit, state }) => {
     const config = {
         withCredentials: true,
@@ -515,7 +540,7 @@ export const getAllMember = ({ commit, state }) => {
     };
     axios
         .get("https://localhost:5001/api/Member/GetAllMember", config)
-        .then(function (res) {         
+        .then(function (res) {
             commit(types.GET_MEMBERLIST, res.data);
         })
         .catch(function (err) {

@@ -15,15 +15,19 @@
       </b-thead>
       <b-tbody>
         <b-tr v-for="(member , index) in memberList" :key="index">
-          <b-td>{{member.memberId}}</b-td>
-          <b-td>{{member.m_account}}</b-td>
-          <b-td>{{member.m_name}}</b-td>
-          <b-td>{{member.m_email}}</b-td>
-          <b-td>{{member.m_birthday}}</b-td>
-          <b-td>{{member.m_address}}</b-td>
-          <b-td>{{member.m_role}}</b-td>
-          <b-td>{{member.isblock}}</b-td>
-        </b-tr>      
+          <b-td class="align-middle">{{member.memberId}}</b-td>
+          <b-td class="align-middle">{{member.m_account}}</b-td>
+          <b-td class="align-middle">{{member.m_name}}</b-td>
+          <b-td class="align-middle">{{member.m_email}}</b-td>
+          <b-td class="align-middle">{{member.m_birthday}}</b-td>
+          <b-td class="align-middle">{{member.m_address}}</b-td>
+          <b-td class="align-middle">{{member.m_role}}</b-td>
+          <b-td>
+            <b-button variant="danger">
+              <font-awesome-icon icon="ban" style="margin-right:0.5em;" />封鎖
+            </b-button>
+          </b-td>
+        </b-tr>
       </b-tbody>
     </b-table-simple>
   </div>
@@ -31,15 +35,14 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-    computed: {
+  computed: {
     ...mapGetters({
       memberList: "getMemberList"
     })
   },
-  methods: {
-  },
+  methods: {},
   created() {
-    this.$store.dispatch("getAllMember");   
+    this.$store.dispatch("getAllMember");
   }
-}
+};
 </script>

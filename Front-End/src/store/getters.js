@@ -39,3 +39,6 @@ export const getOrderInfo = state => {
 export const getAppList = state => {
     return state.applicationList;
 }
+export const getMemberList = state => {
+    return state.memberList;
+}

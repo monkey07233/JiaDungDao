@@ -17,10 +17,18 @@
           <b-td>{{app.reason}}</b-td>
           <b-td>{{app.status==null? "未審核":app.status==1?"通過":"駁回"}}</b-td>
           <b-td>
-            <b-button variant="success">
+            <b-button
+              variant="success"
+              v-if="app.status==null"
+              @click="verifyApplication(true,app.m_account)"
+            >
               <font-awesome-icon icon="check" style="margin-right:0.5em;" />通過
             </b-button>
-            <b-button variant="danger">
+            <b-button
+              variant="danger"
+              v-if="app.status==null"
+              @click="verifyApplication(false,app.m_account)"
+            >
               <font-awesome-icon icon="times" style="margin-right:0.5em;" />失敗
             </b-button>
           </b-td>
@@ -40,6 +48,25 @@ export default {
   },
   created() {
     this.$store.dispatch("getAllApplication");
+  },
+  methods: {
+    verifyApplication(pass, account) {
+      this.$store
+        .dispatch("verifyApplication", {
+          pass: pass,
+          account: account
+        })
+        .then(res => {
+          this.$bvToast.toast(res, {
+            title: `successed`,
+            toaster: "b-toaster-top-center",
+            solid: true,
+            autoHideDelay: 1000,
+            appendToast: false
+          });
+          this.$store.dispatch("getAllApplication");
+        });
+    }
   }
 };
 </script>

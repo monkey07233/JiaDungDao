@@ -36,7 +36,7 @@ export default {
             const config = {
                 withCredentials: true,
                 headers: {
-                    Authorization: "Bearer " + state.tokenInfo.token
+                    Authorization: "Bearer " + JSON.parse(localStorage.tokenInfo).token
                 }
             };
             return new Promise((resolve, reject) => {
@@ -52,10 +52,11 @@ export default {
             });
         },
         getOrderInfo({ commit, state }, order) {
+            console.log(JSON.parse(localStorage.tokenInfo).token)
             const config = {
                 withCredentials: true,
                 headers: {
-                    Authorization: "Bearer " + state.tokenInfo.token
+                    Authorization: "Bearer " + JSON.parse(localStorage.tokenInfo).token
                 }
             };
             console.log(config);
@@ -77,7 +78,7 @@ export default {
             const config = {
                 withCredentials: true,
                 headers: {
-                    Authorization: "Bearer " + state.tokenInfo.token
+                    Authorization: "Bearer " + JSON.parse(localStorage.tokenInfo).token
                 }
             };
             return new Promise((resolve, reject) => {

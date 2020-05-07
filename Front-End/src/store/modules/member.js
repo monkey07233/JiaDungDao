@@ -3,8 +3,12 @@ import axios from "axios";
 
 export default {
     namespaced: true,
-
     state: {
+        tokenInfo: {
+            account: "",
+            token: "",
+            role: 0
+        },
         memberInfo: {
             MemberId: "",
             m_name: "",
@@ -12,7 +16,9 @@ export default {
             m_email: "",
             m_address: "",
             m_imgUrl: ""
-        }
+        },
+        applicationList: [],
+        memberList: []
     },
 
     getters: {
@@ -32,7 +38,7 @@ export default {
     },
 
     mutations: {
-        [types.SAVE_TOKEN](state, data) {
+        [types.SAVE_TOKEN]: (state, data) => {
             state.tokenInfo = data;
         },
         [types.CLEAR_TOKEN](state) {
@@ -135,30 +141,6 @@ export default {
                     });
             });
         },
-        uploadImage({ commit, state }, formData) {
-            const config = {
-                withCredentials: true,
-                headers: {
-                    Authorization: "Bearer " + state.tokenInfo.token
-                }
-            };
-            return new Promise((resolve, reject) => {
-                axios
-                    .post(
-                        "https://localhost:5001/api/Restaurant/uploadRestaurantImg",
-                        formData,
-                        config
-                    )
-                    .then(function(res) {
-                        resolve(res.data);
-                    })
-                    .catch(function(err) {
-                        console.log(err);
-                        reject();
-                    });
-            });
-        },
-
         uploadUserImage({ commit, state }, formData) {
             const config = {
                 withCredentials: true,

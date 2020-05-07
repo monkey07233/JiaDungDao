@@ -21,7 +21,7 @@ export default {
             const config = {
                 withCredentials: true,
                 headers: {
-                    Authorization: "Bearer " + state.tokenInfo.token
+                    Authorization: "Bearer " + JSON.parse(localStorage.tokenInfo).token
                 }
             };
             return new Promise((resolve, reject) => {
@@ -45,7 +45,7 @@ export default {
             const config = {
                 withCredentials: true,
                 headers: {
-                    Authorization: "Bearer " + state.tokenInfo.token
+                    Authorization: "Bearer " + JSON.parse(localStorage.tokenInfo).token
                 }
             };
             return new Promise((resolve, reject) => {
@@ -68,7 +68,7 @@ export default {
             const config = {
                 withCredentials: true,
                 headers: {
-                    Authorization: "Bearer " + state.tokenInfo.token
+                    Authorization: "Bearer " + JSON.parse(localStorage.tokenInfo).token
                 }
             };
             return new Promise((resolve, reject) => {
@@ -87,7 +87,7 @@ export default {
             const config = {
                 withCredentials: true,
                 headers: {
-                    Authorization: "Bearer " + state.tokenInfo.token
+                    Authorization: "Bearer " + JSON.parse(localStorage.tokenInfo).token
                 }
             };
             return new Promise((resolve, reject) => {

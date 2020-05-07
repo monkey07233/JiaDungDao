@@ -15,11 +15,11 @@ export const state = {
     //     shoppingCartItems: [],
     // },
     // restaurantList: [],
-    tokenInfo: {
-        account: "",
-        token: "",
-        role: 0
-    },
+    // tokenInfo: {
+    //     account: "",
+    //     token: "",
+    //     role: 0
+    // },
     // memberInfo: {
     //     MemberId: "",
     //     m_name: "",

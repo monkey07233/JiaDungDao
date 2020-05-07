@@ -320,20 +320,22 @@ export default {
       this.formData.append("files", e.target.files[0]);
       this.formData.append("uploadType", 2);
       this.formData.append("id", this.MemberInfo.memberId);
-      this.$store.dispatch("member/uploadUserImage", this.formData).then(res => {
-        console.log(res);
-        this.$store.dispatch("member/getMemberInfo", {
-          m_account: this.tokenInfo.account
+      this.$store
+        .dispatch("member/uploadUserImage", this.formData)
+        .then(res => {
+          console.log(res);
+          this.$store.dispatch("member/getMemberInfo", {
+            m_account: this.tokenInfo.account
+          });
+          this.formData = new FormData();
+          this.$bvToast.toast("照片更換成功", {
+            title: `successed`,
+            toaster: "b-toaster-top-center",
+            solid: true,
+            autoHideDelay: 1000,
+            appendToast: false
+          });
         });
-        this.formData = new FormData();
-        this.$bvToast.toast("照片更換成功", {
-          title: `successed`,
-          toaster: "b-toaster-top-center",
-          solid: true,
-          autoHideDelay: 1000,
-          appendToast: false
-        });
-      });
     },
     applyResAdmin() {
       if (this.reason == "") {
@@ -382,7 +384,7 @@ export default {
         return images("./" + Url + ".jpg");
       }
       return "../assets/images/user.png";
-    },
+    }
   },
   created() {
     this.$store.dispatch("member/getMemberInfo", {

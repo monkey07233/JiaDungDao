@@ -25,7 +25,7 @@ export default {
             return state.restaurantInfo;
         },
         getResByAcc(state, getters) {
-            return state.restaurantList.filter(res => res.m_account === getters.getTokenInfo.account);
+            return state.restaurantList.filter(res => res.m_account === JSON.parse(localStorage.tokenInfo).account);
         }
     },
 
@@ -39,7 +39,7 @@ export default {
     },
 
     actions: {
-        getRestaurantList({ commit }) {
+        getRestaurantList({ commit, state }) {
             axios
                 .get("https://localhost:5001/api/Restaurant/GetAllRestaurant")
                 .then(function(res) {
@@ -66,7 +66,7 @@ export default {
             const config = {
                 withCredentials: true,
                 headers: {
-                    Authorization: "Bearer " + state.tokenInfo.token
+                    Authorization: "Bearer " + JSON.parse(localStorage.tokenInfo).token
                 }
             };
             return new Promise((resolve, reject) => {
@@ -85,11 +85,34 @@ export default {
                     });
             });
         },
+        uploadImage({ commit, state }, formData) {
+            const config = {
+                withCredentials: true,
+                headers: {
+                    Authorization: "Bearer " + JSON.parse(localStorage.tokenInfo).token
+                }
+            };
+            return new Promise((resolve, reject) => {
+                axios
+                    .post(
+                        "https://localhost:5001/api/Restaurant/uploadRestaurantImg",
+                        formData,
+                        config
+                    )
+                    .then(function(res) {
+                        resolve(res.data);
+                    })
+                    .catch(function(err) {
+                        console.log(err);
+                        reject();
+                    });
+            });
+        },
         UpdateRestaurant({ commit, state }, restaurant) {
             const config = {
                 withCredentials: true,
                 headers: {
-                    Authorization: "Bearer " + state.tokenInfo.token
+                    Authorization: "Bearer " + JSON.parse(localStorage.tokenInfo).token
                 }
             };
             return new Promise((resolve, reject) => {
@@ -112,7 +135,7 @@ export default {
             const config = {
                 withCredentials: true,
                 headers: {
-                    Authorization: "Bearer " + state.tokenInfo.token
+                    Authorization: "Bearer " + JSON.parse(localStorage.tokenInfo).token
                 }
             };
             return new Promise((resolve, reject) => {

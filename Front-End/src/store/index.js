@@ -1,9 +1,5 @@
 import Vue from "vue";
 import Vuex from "vuex";
-// import { state, mutations } from "./mutations.js";
-// import * as getters from "./getters.js";
-// import * as actions from "./actions.js";
-import * as state from "./state.js";
 import restaurant from "./modules/restaurant";
 import menu from "./modules/menu";
 import shoppingcart from "./modules/shoppingcart";
@@ -20,7 +16,7 @@ export default new Vuex.Store({
         order,
         member
     },
-    state,
+    state: {},
     mutations: {},
     getters: {},
     actions: {},

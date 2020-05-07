@@ -64,8 +64,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      tokenInfo: "getTokenInfo",
-      MemberInfo: "getMemberInfo"
+      tokenInfo: "member/getTokenInfo",
+      MemberInfo: "member/getMemberInfo"
     })
   },
   methods: {
@@ -76,7 +76,7 @@ export default {
         this.formData.append("uploadType", 0);
         this.formData.append("id", res);
         this.formData.append("r_name", this.newRestaurant.r_name);
-        this.$store.dispatch("member/uploadImage", this.formData).then(res2 => {
+        this.$store.dispatch("restaurant/uploadImage", this.formData).then(res2 => {
           this.$bvToast.toast("新增餐廳成功", {
             title: `successed`,
             toaster: "b-toaster-top-center",

@@ -4,10 +4,10 @@ import axios from "axios";
 export const getRestaurantList = ({ commit }) => {
     axios
         .get("https://localhost:5001/api/Restaurant/GetAllRestaurant")
-        .then(function(res) {
+        .then(function (res) {
             commit(types.GET_RESLIST, res.data);
         })
-        .catch(function(err) {
+        .catch(function (err) {
             console.log(err);
         });
 };
@@ -15,10 +15,10 @@ export const getRestaurantList = ({ commit }) => {
 export const getRestaurantInfo = ({ commit }, id) => {
     axios
         .get("https://localhost:5001/api/Restaurant/GetRestaurantInfoById?id=" + id)
-        .then(function(res) {
+        .then(function (res) {
             commit(types.GET_RESINFO, res.data);
         })
-        .catch(function(err) {
+        .catch(function (err) {
             console.log(err);
         });
 };
@@ -38,10 +38,10 @@ export const createRestaurant = ({ commit, state }, newRestaurant) => {
                 newRestaurant,
                 config
             )
-            .then(function(res) {
+            .then(function (res) {
                 resolve(res.data);
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err);
                 reject();
             });
@@ -62,10 +62,10 @@ export const getMemberInfo = ({ commit, state }, memberInfo) => {
                 memberInfo,
                 config
             )
-            .then(function(res) {
+            .then(function (res) {
                 commit(types.GET_MEMBERINFO, res.data);
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err);
                 if (err.response.status == 401) {
                     localStorage.removeItem("tokenInfo");
@@ -80,10 +80,10 @@ export const register = ({ commit }, newMember) => {
     return new Promise((resolve, reject) => {
         axios
             .post("https://localhost:5001/api/Member/Register", newMember)
-            .then(function(res) {
+            .then(function (res) {
                 resolve(res.data);
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err);
                 reject(err);
             });
@@ -94,11 +94,11 @@ export const login = ({ commit }, loginInfo) => {
     return new Promise((resolve, reject) => {
         axios
             .post("https://localhost:5001/api/Member/Login", loginInfo)
-            .then(function(res) {
+            .then(function (res) {
                 resolve(res.data);
                 commit(types.SAVE_TOKEN, res.data);
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 reject(err);
             });
     });
@@ -126,10 +126,10 @@ export const UpdateProfile = ({ commit, state }, profileAfterEdit) => {
                 profileAfterEdit,
                 config
             )
-            .then(function(res) {
+            .then(function (res) {
                 resolve(res.data);
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err);
                 reject();
             });
@@ -168,10 +168,10 @@ export const addMenuItem = ({ commit, state }, newMenuItem) => {
                 JSON.parse(JSON.stringify(newMenuItem)),
                 config
             )
-            .then(function() {
+            .then(function () {
                 resolve();
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err);
                 reject();
             });
@@ -191,10 +191,10 @@ export const deleteMenuItem = ({ commit, state }, menuID) => {
                 "https://localhost:5001/api/Restaurant/DeleteMenu?MenuID=" + menuID,
                 config
             )
-            .then(function() {
+            .then(function () {
                 resolve();
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err);
                 reject();
             });
@@ -215,10 +215,10 @@ export const UpdateRestaurant = ({ commit, state }, restaurant) => {
                 restaurant,
                 config
             )
-            .then(function(res) {
+            .then(function (res) {
                 resolve(res.data);
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err);
                 reject();
             });
@@ -235,10 +235,10 @@ export const updateMenu = ({ commit, state }, menu) => {
     return new Promise((resolve, reject) => {
         axios
             .post("https://localhost:5001/api/Restaurant/updateMenu", menu, config)
-            .then(function(res) {
+            .then(function (res) {
                 resolve(res.data);
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err);
                 reject();
             });
@@ -255,10 +255,10 @@ export const createOrder = ({ commit, state }, orderInfo) => {
     return new Promise((resolve, reject) => {
         axios
             .post("https://localhost:5001/api/Order/createOrder", orderInfo, config)
-            .then(function(res) {
+            .then(function (res) {
                 resolve(res.data);
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err);
                 reject();
             });
@@ -274,11 +274,11 @@ export const getOrderInfo = ({ commit, state }, order) => {
     return new Promise((resolve, reject) => {
         axios
             .post("https://localhost:5001/api/Order/GetOrderInfo", order, config)
-            .then(function(res) {
+            .then(function (res) {
                 commit(types.GET_ORDER, res.data);
                 resolve(res.data);
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err);
                 reject();
             });
@@ -299,11 +299,11 @@ export const getOrderInfoByResId = ({ commit, state }, ResId) => {
                 ResId,
                 config
             )
-            .then(function(res) {
+            .then(function (res) {
                 commit(types.GET_ORDER, res.data);
                 resolve(res.data);
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err);
                 reject();
             });
@@ -324,10 +324,10 @@ export const deleteRestaurant = ({ commit, state }, restaurantID) => {
                 restaurantID,
                 config
             )
-            .then(function(res) {
+            .then(function (res) {
                 resolve(res.data);
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err);
                 reject();
             });
@@ -344,10 +344,10 @@ export const getMenuId = ({ commit, state }) => {
     return new Promise((resolve, reject) => {
         axios
             .get("https://localhost:5001/api/Restaurant/GetLatestMenuId", config)
-            .then(function(res) {
+            .then(function (res) {
                 resolve(res);
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err);
                 reject();
             });
@@ -367,10 +367,10 @@ export const uploadImage = ({ commit, state }, formData) => {
                 formData,
                 config
             )
-            .then(function(res) {
+            .then(function (res) {
                 resolve(res.data);
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err);
                 reject();
             });
@@ -387,10 +387,10 @@ export const uploadUserImage = ({ commit, state }, formData) => {
     return new Promise((resolve, reject) => {
         axios
             .post("https://localhost:5001/api/Member/UploadUserImg", formData, config)
-            .then(function(res) {
+            .then(function (res) {
                 resolve(res.data);
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err);
                 reject();
             });
@@ -401,10 +401,10 @@ export const VerifyAccount = ({ state }, m_account) => {
     return new Promise((resolve, reject) => {
         axios
             .post("https://localhost:5001/api/Member/VerifyAccount", m_account)
-            .then(function(res) {
+            .then(function (res) {
                 resolve(res.data);
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err);
                 reject();
             });
@@ -425,10 +425,10 @@ export const UpdatePassword = ({ commit, state }, passwordInfo) => {
                 JSON.parse(JSON.stringify(passwordInfo)),
                 config
             )
-            .then(function(res) {
+            .then(function (res) {
                 resolve(res.data);
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err.response);
                 reject(err);
             });
@@ -442,10 +442,10 @@ export const SendResetPasswordMail = ({ commit }, reset_password) => {
                 "https://localhost:5001/api/Member/SendResetPasswordMail",
                 JSON.parse(JSON.stringify(reset_password))
             )
-            .then(function(res) {
+            .then(function (res) {
                 resolve(res.data);
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err.response);
                 reject(err);
             });
@@ -459,10 +459,10 @@ export const ResetPassword = ({ commit }, password) => {
                 "https://localhost:5001/api/Member/ResetPassword",
                 JSON.parse(JSON.stringify(password))
             )
-            .then(function(res) {
+            .then(function (res) {
                 resolve(res.data);
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err);
                 reject(err);
             });
@@ -479,12 +479,29 @@ export const applyResAdmin = ({ commit, state }, apply) => {
     return new Promise((resolve, reject) => {
         axios
             .post("https://localhost:5001/api/Member/ApplyResAdmin", apply, config)
-            .then(function(res) {
+            .then(function (res) {
                 resolve(res.data);
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log(err);
                 reject(err);
             });
     });
+};
+
+export const getAllApplication = ({ commit, state }) => {
+    const config = {
+        withCredentials: true,
+        headers: {
+            Authorization: "Bearer " + state.tokenInfo.token
+        }
+    };
+    axios
+        .get("https://localhost:5001/api/Member/GetAllApplication", config)
+        .then(function (res) {
+            commit(types.GET_APPLIST, res.data);
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
 };

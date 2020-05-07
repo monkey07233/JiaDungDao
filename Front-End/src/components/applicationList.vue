@@ -12,19 +12,11 @@
         </b-tr>
       </b-thead>
       <b-tbody>
-        <b-tr>
-          <b-td>1</b-td>
-          <b-td>1111</b-td>
-          <b-td>1111</b-td>
-          <b-td>1111</b-td>
-          <b-td>1111</b-td>
-          <b-td>1111</b-td>
-        </b-tr>
-        <b-tr>
-          <b-td>2</b-td>
-          <b-td>1111</b-td>
-          <b-td>1111</b-td>
-          <b-td>1111</b-td>
+        <b-tr v-for="(app , index) in applicationList" :key="index">
+          <b-td>{{index+1}}</b-td>
+          <b-td>{{app.m_account}}</b-td>
+          <b-td>{{app.reason}}</b-td>
+          <b-td>{{app.status==null? "未審核":app.status==1?"通過":"駁回"}}</b-td>
           <b-td>1111</b-td>
           <b-td>1111</b-td>
         </b-tr>
@@ -32,3 +24,17 @@
     </b-table-simple>
   </div>
 </template>
+
+<script>
+import { mapGetters } from "vuex";
+export default {
+  computed: {
+    ...mapGetters({
+      applicationList: "getAppList"
+    })
+  },
+  created() {
+    this.$store.dispatch("getAllApplication");
+  }
+};
+</script>

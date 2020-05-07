@@ -35,3 +35,7 @@ export const getShoppingCartTotalNum = (state, getters) => {
 export const getOrderInfo = state => {
     return state.OrderInfo;
 };
+
+export const getAppList = state => {
+    return state.applicationList;
+}

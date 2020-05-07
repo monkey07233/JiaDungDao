@@ -22,7 +22,11 @@
           <b-td>1111</b-td>
           <b-td>1111</b-td>
           <b-td>1111</b-td>
-          <b-td>1111</b-td>
+          <b-td>
+            <b-button variant="danger">
+              <font-awesome-icon icon="ban" style="margin-right:0.5em;"/>封鎖
+            </b-button>
+          </b-td>
         </b-tr>
         <b-tr>
           <b-td>2</b-td>
@@ -32,7 +36,11 @@
           <b-td>1111</b-td>
           <b-td>1111</b-td>
           <b-td>1111</b-td>
-          <b-td>1111</b-td>
+          <b-td>
+            <b-button variant="danger">
+              <font-awesome-icon icon="ban" style="margin-right:0.5em;"/>封鎖
+            </b-button>
+          </b-td>
         </b-tr>
       </b-tbody>
     </b-table-simple>

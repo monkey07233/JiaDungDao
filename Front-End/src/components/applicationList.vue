@@ -22,14 +22,14 @@
               v-if="app.status==null"
               @click="verifyApplication(true,app.m_account)"
             >
-              <font-awesome-icon icon="check" />通過
+              <font-awesome-icon icon="check" style="margin-right:0.5em;" />通過
             </b-button>
             <b-button
               variant="danger"
               v-if="app.status==null"
               @click="verifyApplication(false,app.m_account)"
             >
-              <font-awesome-icon icon="times" />失敗
+              <font-awesome-icon icon="times" style="margin-right:0.5em;" />失敗
             </b-button>
           </b-td>
         </b-tr>

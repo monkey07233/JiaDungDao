@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Back_End.Models;
 
 namespace Back_End.Interface
@@ -7,6 +8,6 @@ namespace Back_End.Interface
     {
         List<OrderInfo> GetOrderInfo(string m_account);
         List<OrderInfo> GetOrderInfoByResId(int restaurantId);
-        string createOrder(OrderInfo orderInfo);
+        Task<bool> CreateOrder(OrderInfo orderInfo);
     }
 }

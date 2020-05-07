@@ -7,16 +7,17 @@ namespace Back_End.Interface
     public interface IRestaurantRepo
     {
         List<Restaurant> GetAllRestaurant();
-        Restaurant GetRestaurantById(int Id);
-        List<string> GetAllMenuTypeById(int Id);
-        List<Menu> GetAllMenuById(int Id);
-        string updateRestaurant(Restaurant oldData,Restaurant restaurant);
-        string createRestaurant(Restaurant restaurant);
-        int AddMenuItem(Menu newMenuItem);
-        bool DeleteMenu(int MenuID);
-        bool DeleteRestaurant(int RestaurantID);
-        string updateMenu(Menu menu);
+        Restaurant GetRestaurantById(int id);
+        List<string> GetAllMenuTypeById(int id);
+        List<Menu> GetAllMenuById(int id);
+        bool UpdateRestaurant(Restaurant oldData,Restaurant restaurant);
+        bool CreateRestaurant(Restaurant restaurant);
+        bool AddMenuItem(Menu newMenuItem);
+        bool DeleteMenu(int menuID);
+        Task<bool> DeleteRestaurant(int restaurantID);
+        bool UpdateMenu(Menu menu);
         int GetLatestMenuId ();
         int GetLatestRestaurantId();
+        Menu GetMenuByName(int restaurantID,string m_item);
     }
 }

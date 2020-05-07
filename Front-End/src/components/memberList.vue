@@ -23,8 +23,11 @@
           <b-td class="align-middle">{{member.m_address}}</b-td>
           <b-td class="align-middle">{{member.m_role}}</b-td>
           <b-td>
-            <b-button variant="danger">
+            <b-button v-if="!member.isBlock" variant="danger" @click="blockMember(member.m_account)">
               <font-awesome-icon icon="ban" style="margin-right:0.5em;" />封鎖
+            </b-button>
+             <b-button v-else>
+              <font-awesome-icon icon="ban" style="margin-right:0.5em;" />取消封鎖
             </b-button>
           </b-td>
         </b-tr>
@@ -35,12 +38,21 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
+   data() {
+    return {
+
+    }
+  },
   computed: {
     ...mapGetters({
       memberList: "getMemberList"
     })
   },
-  methods: {},
+  methods: {
+    blockMember(account){
+      this.$store.dispatch("blockMember",account);
+    }
+  },
   created() {
     this.$store.dispatch("getAllMember");
   }

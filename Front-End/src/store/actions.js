@@ -547,3 +547,20 @@ export const getAllMember = ({ commit, state }) => {
             console.log(err);
         });
 };
+
+export const blockMember = ({ commit, state },account) => {
+    const config = {
+        withCredentials: true,
+        headers: {
+            Authorization: "Bearer " + state.tokenInfo.token
+        }
+    };
+    axios
+        .get("https://localhost:5001/api/Member/blockMember?m_account="+account, config)
+        .then(function (res) {
+            console.log(res.data);
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+};

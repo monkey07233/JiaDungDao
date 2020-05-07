@@ -13,12 +13,14 @@ export default {
     return {};
   },
   created() {
-    var param = this.$route.query.account;
-    if (param == undefined || param == null) {
+    var paramAccount = this.$route.query.account;
+    var paramValidateCode = this.$route.query.validateCode;
+    if (paramAccount == undefined || paramAccount == null || paramValidateCode == undefined || paramValidateCode == null) {
       this.$router.push("Index");
     } else {
       this.$store.dispatch("member/VerifyAccount", {
-        m_account: param
+        m_account: paramAccount,
+        validateCode: paramValidateCode
       });
     }
     setTimeout(function() {

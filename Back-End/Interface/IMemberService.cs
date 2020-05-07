@@ -13,15 +13,16 @@ namespace Back_End.Interface
          string HashPassword(string password);
          string GetJwtToken (IConfiguration configuration, string MemberId, string m_account);
          Member GetMemberByAcc(string account);
-         string EditMemberInformation (UpdateMemberInfo editMember);
-         string VerifyAccount(string account);
-         bool UpdatePassword(UpdateMemberInfo memberInfo);
-         bool ResetPassword(UpdateMemberInfo memberInfo);
+         string EditMemberInformation (MemberInfo editMember);
+         string VerifyAccount(string account,string validateCode);
+         bool UpdatePassword(MemberInfo memberInfo);
+         bool ResetPassword(MemberInfo memberInfo);
          bool updateMemberImgUrl(int Id);
          bool ApplyResAdmin(Application apply);
          List<Member> GetAllMember();
          bool VerifyApplication(bool pass,string account);
          bool BlockMember(string m_account);
          List<Application> GetAllApplication();
+         string CreateValidateCode ();
     }
 }

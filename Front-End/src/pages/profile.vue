@@ -21,7 +21,7 @@
               <img
                 class="img-fluid"
                 v-if="MemberInfo.m_imgUrl !== null"
-                :src="require('../../../Back-End/File/UserImg/' + MemberInfo.memberId + '.jpg')"
+                :src="getImgUrl(MemberInfo.memberId)"
               />
               <div id="mask" class="card-img-top">
                 <label>
@@ -371,7 +371,18 @@ export default {
             this.$refs["userApplication"].hide();
           });
       }
-    }
+    },
+    getImgUrl(Url) {
+      if (Url != undefined) {
+        var images = require.context(
+          "../../../Back-End/File/UserImg/",
+          false,
+          /\.jpg$/
+        );
+        return images("./" + Url + ".jpg");
+      }
+      return "../assets/images/user.png";
+    },
   },
   created() {
     this.$store.dispatch("getMemberInfo", {

@@ -27,20 +27,18 @@ namespace Back_End.Repositories {
         }
 
         public string Register (Member member) {
-            string result = string.Empty;
             try {
                 db.Member.Add (member);
                 db.SaveChanges ();
-                result = "successed";
+                return "successed";
             } catch (Exception e) {
-                result = e.Message.ToString ();
+                return e.Message.ToString ();
             }
-            return result;
         }
 
         public string VerifyAccount (Member member) {
             try {
-                member.isValid = true;
+                member.validateCode = "";
                 db.SaveChanges ();
                 return "Verified";
             } catch (Exception e) {
@@ -48,19 +46,17 @@ namespace Back_End.Repositories {
             }
         }
 
-        public string EditMemberInformation (Member originMember, UpdateMemberInfo memberAfterEdit) {
-            string result = string.Empty;
+        public string EditMemberInformation (Member originMember, MemberInfo memberAfterEdit) {
             try {
                 originMember.m_name = memberAfterEdit.m_name;
                 originMember.m_address = memberAfterEdit.m_address;
                 originMember.m_birthday = memberAfterEdit.m_birthday;
                 originMember.m_email = memberAfterEdit.m_email;
                 db.SaveChanges ();
-                result = "Update completed!";
+                return "Update completed!";
             } catch (Exception e) {
-                result = e.Message.ToString ();
+                return e.Message.ToString ();
             }
-            return result;
         }
 
         public bool UpdatePassword (Member member, string newPassword) {
@@ -98,13 +94,12 @@ namespace Back_End.Repositories {
             }
         }
         public Application GetApplyByAcc (string account) {
-            return db.Application.Where (a => a.m_account == account).FirstOrDefault ();
+            return db.Application.Where (a => a.m_account == account && a.status != false).FirstOrDefault ();
         }
 
-        public bool VerifyApplication (bool pass, string account) {
+        public bool VerifyApplication (bool pass, string account, Member updateMember) {
             try {
-                var updateMember = db.Member.Where (m => m.m_account == account).FirstOrDefault ();
-                var application = (from a in db.Application where a.m_account == account orderby a.ApplicationID descending select a).FirstOrDefault ();
+                var application = GetApplyByAcc (account);
                 if (pass) { //審核通過
                     updateMember.m_role = 1;
                     application.status = true;
@@ -120,9 +115,14 @@ namespace Back_End.Repositories {
         }
 
         public bool BlockMember (Member blockMember) {
-            blockMember.isBlock = true;
-            db.SaveChanges ();
-            return true;
+            try {
+                blockMember.isBlock = true;
+                db.SaveChanges ();
+                return true;
+            } catch (System.Exception) {
+                return false;
+            }
+
         }
 
         public List<Application> GetAllApplication () {

@@ -34,5 +34,6 @@ namespace Back_End.Models {
         public bool isValid { get; set; }
         public string m_imgUrl { get; set; }
         public bool isBlock { get; set; }
+        public string validateCode { get; set; }
     }
 }

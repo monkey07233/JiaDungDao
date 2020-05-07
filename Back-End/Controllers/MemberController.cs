@@ -47,8 +47,11 @@ namespace Back_End.Controllers {
             var result = await MemberService.GetMemberByLogin (memberInfo.m_account, memberInfo.m_password);
             if (result != null) {
                 if (result.isValid == true) {
-                    var token = MemberService.GetJwtToken (Configuration, result.MemberId.ToString (), result.m_account);
-                    return Ok (new { account = result.m_account, token = token, role = result.m_role });
+                    if (result.isBlock != true) {
+                        var token = MemberService.GetJwtToken (Configuration, result.MemberId.ToString (), result.m_account);
+                        return Ok (new { account = result.m_account, token = token, role = result.m_role });
+                    }
+                    return BadRequest("帳號已被封鎖");
                 }
                 return BadRequest ("帳號未通過驗證");
             }
@@ -134,47 +137,44 @@ namespace Back_End.Controllers {
             else
                 return BadRequest ("申請失敗");
         }
+
         [HttpGet]
         [Authorize]
-        public IActionResult GetAllMember(){
-            var result = MemberService.GetAllMember();
-            if (result != null)
-            {
-                return Ok(result);
+        public IActionResult GetAllMember () {
+            var result = MemberService.GetAllMember ();
+            if (result != null) {
+                return Ok (result);
             }
-            return BadRequest("找不到會員");
+            return BadRequest ("找不到會員");
         }
 
         [HttpPost]
-        public IActionResult VerifyApplication(bool pass,string account)
-        {
-            bool result=MemberService.VerifyApplication(pass,account);
-            if(result)
-                return Ok("審核餐廳管理者申請成功");
-            else
-                return BadRequest("審核餐廳管理者申請失敗");
-        }
-
-        [HttpGet]
-        [Authorize]
-        public IActionResult BlockMember(string m_account){
-            var result = MemberService.BlockMember(m_account);
+        public IActionResult VerifyApplication (bool pass, string account) {
+            bool result = MemberService.VerifyApplication (pass, account);
             if (result)
-            {
-                return Ok("封鎖成功");
-            }
-            return BadRequest("封鎖失敗");
+                return Ok ("審核餐廳管理者申請成功");
+            else
+                return BadRequest ("審核餐廳管理者申請失敗");
         }
 
         [HttpGet]
         [Authorize]
-        public IActionResult GetAllApplication(){
-            var result = MemberService.GetAllApplication();
-            if (result != null)
-            {
-                return Ok(result);
+        public IActionResult BlockMember (string m_account) {
+            var result = MemberService.BlockMember (m_account);
+            if (result) {
+                return Ok ("封鎖成功");
             }
-            return BadRequest("尚未有申請者");
+            return BadRequest ("封鎖失敗");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetAllApplication () {
+            var result = MemberService.GetAllApplication ();
+            if (result != null) {
+                return Ok (result);
+            }
+            return BadRequest ("尚未有申請者");
         }
     }
 }

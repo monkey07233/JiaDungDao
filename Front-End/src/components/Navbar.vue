@@ -53,14 +53,14 @@
           <b-nav-item-dropdown right v-if="tokenInfo.token!==''">
             <template v-slot:button-content style="display: inline-block;">
               <img
-                v-if="memberInfo.m_imgUrl === null"
+                v-if="memberInfo == undefined || memberInfo.m_imgUrl == null || memberInfo.m_imgUrl == undefined"
                 class="profile-img"
                 src="../assets/images/user.png"
               />
               <img
-                v-if="memberInfo.m_imgUrl !== null"
+                v-if="memberInfo != undefined && memberInfo.m_imgUrl != null && memberInfo.m_imgUrl != undefined"
                 class="profile-img"
-                :src="require('../../../Back-End/File/UserImg/' + memberInfo.memberId + '.jpg')"
+                :src="getImgUrl(memberInfo.memberId)"
               />
 
               <span>{{memberInfo.m_name}}</span>
@@ -291,6 +291,17 @@ export default {
     })
   },
   methods: {
+    getImgUrl(Url) {
+      if (Url != undefined) {
+        var images = require.context(
+          "../../../Back-End/File/UserImg/",
+          false,
+          /\.jpg$/
+        );
+        return images("./" + Url + ".jpg");
+      }
+      return "../assets/images/user.png";
+    },
     showRegisterModal() {
       this.$refs["login"].hide();
       this.$refs["resetPassword"].hide();

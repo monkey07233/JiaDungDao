@@ -23,6 +23,12 @@ export default {
         getTokenInfo(state) {
             return state.tokenInfo;
         },
+        getAppList(state) {
+            return state.applicationList;
+        },
+        getMemberList(state) {
+            return state.memberList;
+        }
     },
 
     mutations: {
@@ -263,6 +269,40 @@ export default {
                         reject(err);
                     });
             });
+        },
+        getAllMember({ commit, state }) {
+            const config = {
+                withCredentials: true,
+                headers: {
+                    Authorization: "Bearer " + state.tokenInfo.token
+                }
+            };
+            axios
+                .get("https://localhost:5001/api/Member/GetAllMember", config)
+                .then(function(res) {
+                    commit(types.GET_MEMBERLIST, res.data);
+                })
+                .catch(function(err) {
+                    console.log(err);
+                });
+        },
+
+        blockMember({ commit, state }, account) {
+            const config = {
+                withCredentials: true,
+                headers: {
+                    Authorization: "Bearer " + state.tokenInfo.token
+                }
+            };
+            axios
+                .get("https://localhost:5001/api/Member/blockMember?m_account=" + account, config)
+                .then(function(res) {
+                    console.log(res.data);
+                })
+                .catch(function(err) {
+                    console.log(err);
+                });
         }
+
     }
 }

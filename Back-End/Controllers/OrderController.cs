@@ -14,7 +14,7 @@ namespace Back_End.Controllers {
 
         [HttpPost]
         [Authorize]
-        public IActionResult GetOrderInfo (LoginMemberInfo memberInfo) {
+        public IActionResult GetOrderInfo (MemberInfo memberInfo) {
             var result = OrderService.GetOrderInfo (memberInfo.m_account);
             if (result != null) {
                 return Ok (result);

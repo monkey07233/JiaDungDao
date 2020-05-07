@@ -88,6 +88,9 @@ namespace JiaDungDao.Migrations
                     b.Property<int>("m_role")
                         .HasColumnType("int");
 
+                    b.Property<string>("validateCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("MemberId");
 
                     b.ToTable("Member");

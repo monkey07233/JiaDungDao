@@ -8,14 +8,14 @@ namespace Back_End.Interface {
         Task<Member> GetMemberByLogin (string m_account, string hash_m_password);
         Member GetMemberByAcc (string m_account);
         Member GetMemberByEmail (string email);
-        string EditMemberInformation (Member originMember, UpdateMemberInfo editMember);
+        string EditMemberInformation (Member originMember, MemberInfo editMember);
         string VerifyAccount (Member member);
         bool UpdatePassword (Member member, string newPassword);
         bool updateMemberImgUrl (int Id);
         bool ApplyResAdmin (Application apply);
         List<Member> GetAllMember ();
         Application GetApplyByAcc (string account);
-        bool VerifyApplication (bool pass, string account);
+        bool VerifyApplication (bool pass, string account,Member updateMember);
         bool BlockMember (Member blockMember);
          List<Application> GetAllApplication();
     }

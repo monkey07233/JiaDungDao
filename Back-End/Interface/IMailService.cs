@@ -2,7 +2,7 @@ namespace Back_End.Interface
 {
     public interface IMailService
     {
-        void SendMail(string toMail,string account);
-        bool SendResetPasswordMail(string toMail,string account);
+        bool SendMail(string toMail,string account,string subject,string body);
+        string GetMailBody(string account,string bodyType, string validateCode = "");
     }
 }

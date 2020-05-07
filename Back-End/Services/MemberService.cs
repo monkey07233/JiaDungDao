@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -12,16 +13,16 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Back_End.Services {
     public class MemberService : IMemberService {
-        private readonly IMemberRepo MemberRepo;
+        private readonly IMemberRepo _memberRepo;
 
         public MemberService (IMemberRepo memberRepo) {
-            this.MemberRepo = memberRepo;
+            this._memberRepo = memberRepo;
 
         }
 
         public async Task<Member> GetMemberByLogin (string m_account, string m_password) {
             var hash_m_password = HashPassword (m_password);
-            var result = await MemberRepo.GetMemberByLogin (m_account, hash_m_password);
+            var result = await _memberRepo.GetMemberByLogin (m_account, hash_m_password);
             return result;
         }
 
@@ -55,55 +56,57 @@ namespace Back_End.Services {
         }
 
         public string Register (Member member) {
-            var getMember = MemberRepo.GetMemberByAcc (member.m_account);
+            var getMember = _memberRepo.GetMemberByAcc (member.m_account);
             if (getMember != null) {
                 return "帳號已存在";
             }
-            var getMemberByEmail = MemberRepo.GetMemberByEmail (member.m_email);
+            var getMemberByEmail = _memberRepo.GetMemberByEmail (member.m_email);
             if (getMemberByEmail != null) {
                 return "此信箱已註冊過";
             }
             member.m_password = HashPassword (member.m_password);
-            return MemberRepo.Register (member);
+            member.validateCode = CreateValidateCode ();
+            return _memberRepo.Register (member);
         }
 
-        public string VerifyAccount (string account) {
-            var member = MemberRepo.GetMemberByAcc (account);
-            if (member == null) {
-                return "查無此會員";
-            }
-            return MemberRepo.VerifyAccount (member);
-        }
-
-        public Member GetMemberByAcc (string account) {
-            return MemberRepo.GetMemberByAcc (account);
-        }
-
-        public string EditMemberInformation (UpdateMemberInfo memberAfterEdit) {
-            var originMember = MemberRepo.GetMemberByAcc (memberAfterEdit.m_account);
-            if (originMember != null) {
-                var result = MemberRepo.EditMemberInformation (originMember, memberAfterEdit);
-                return result;
+        public string VerifyAccount (string account, string validateCode) {
+            var member = _memberRepo.GetMemberByAcc (account);
+            if (member != null) {
+                if (member.validateCode == validateCode) {
+                    return _memberRepo.VerifyAccount (member);
+                }
             }
             return "查無此會員";
         }
 
-        public bool ResetPassword (UpdateMemberInfo memberInfo) {
-            var member = MemberRepo.GetMemberByAcc (memberInfo.m_account);
+        public Member GetMemberByAcc (string account) {
+            return _memberRepo.GetMemberByAcc (account);
+        }
+
+        public string EditMemberInformation (MemberInfo memberAfterEdit) {
+            var originMember = _memberRepo.GetMemberByAcc (memberAfterEdit.m_account);
+            if (originMember != null) {
+                return _memberRepo.EditMemberInformation (originMember, memberAfterEdit);
+            }
+            return "查無此會員";
+        }
+
+        public bool ResetPassword (MemberInfo memberInfo) {
+            var member = _memberRepo.GetMemberByAcc (memberInfo.m_account);
             if (member != null) {
                 var hash_new_password = HashPassword (memberInfo.new_password);
-                return MemberRepo.UpdatePassword (member, hash_new_password);;
+                return _memberRepo.UpdatePassword (member, hash_new_password);;
             }
             return false;
         }
 
-        public bool UpdatePassword (UpdateMemberInfo memberInfo) {
-            var member = MemberRepo.GetMemberByAcc (memberInfo.m_account);
+        public bool UpdatePassword (MemberInfo memberInfo) {
+            var member = _memberRepo.GetMemberByAcc (memberInfo.m_account);
             if (member != null) {
                 var hash_m_password = HashPassword (memberInfo.m_password);
                 if (hash_m_password == member.m_password) {
                     var hash_new_password = HashPassword (memberInfo.new_password);
-                    return MemberRepo.UpdatePassword (member, hash_new_password);
+                    return _memberRepo.UpdatePassword (member, hash_new_password);
                 }
                 return false;
             }
@@ -111,36 +114,43 @@ namespace Back_End.Services {
         }
 
         public bool updateMemberImgUrl (int Id) {
-            var result = MemberRepo.updateMemberImgUrl (Id);
-            return result;
+            return _memberRepo.updateMemberImgUrl (Id);
         }
 
         public bool ApplyResAdmin (Application apply) {
-            var application = MemberRepo.GetApplyByAcc (apply.m_account);
+            var application = _memberRepo.GetApplyByAcc (apply.m_account);
             if (application == null)
-                return MemberRepo.ApplyResAdmin (apply);
+                return _memberRepo.ApplyResAdmin (apply);
             else
                 return false;
         }
         public List<Member> GetAllMember () {
-            var result = MemberRepo.GetAllMember ();
-            return result;
+            return _memberRepo.GetAllMember ();
         }
 
         public bool VerifyApplication (bool pass, string account) {
-            return MemberRepo.VerifyApplication (pass, account);
+            var updateMember = _memberRepo.GetMemberByAcc(account);
+            return _memberRepo.VerifyApplication (pass, account,updateMember);
         }
 
         public bool BlockMember (string m_account) {
-            var blockMember = MemberRepo.GetMemberByAcc (m_account);
+            var blockMember = _memberRepo.GetMemberByAcc (m_account);
             if (blockMember != null) {
-                var result = MemberRepo.BlockMember (blockMember);
-                return result;
+                return _memberRepo.BlockMember (blockMember);
             }
             return false;
         }
         public List<Application> GetAllApplication () {
-            var result = MemberRepo.GetAllApplication ();
+            return _memberRepo.GetAllApplication ();
+        }
+
+        public string CreateValidateCode () {
+            string result = string.Empty;
+            string[] code = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+            Random random = new Random ();
+            for (int i = 0; i < 10; i++) {
+                result += code[random.Next (code.Count ())];
+            }
             return result;
         }
     }

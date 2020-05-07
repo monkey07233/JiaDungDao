@@ -23,7 +23,7 @@
           <b-td class="align-middle">{{member.m_address}}</b-td>
           <b-td class="align-middle">{{member.m_role}}</b-td>
           <b-td>
-            <b-button variant="danger">
+            <b-button variant="danger" @click="blockMember(member.m_account)">
               <font-awesome-icon icon="ban" style="margin-right:0.5em;" />封鎖
             </b-button>
           </b-td>
@@ -40,7 +40,11 @@ export default {
       memberList: "getMemberList"
     })
   },
-  methods: {},
+  methods: {
+    blockMember(account){
+      this.$store.dispatch("blockMember",account);
+    }
+  },
   created() {
     this.$store.dispatch("getAllMember");
   }

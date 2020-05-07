@@ -39,7 +39,9 @@ export const state = {
     },
     typeAndMenu: []
   },
-  applicationList: []
+  applicationList: [],
+  memberList:[   
+  ]
 };
 
 export const mutations = {
@@ -114,5 +116,12 @@ export const mutations = {
   },
   [types.GET_APPLIST](state, applications) {
     state.applicationList = applications;
-  }
+  },
+  [types.GET_MEMBERLIST](state, members) {
+    state.memberList = members;
+    state.memberList.forEach(member=>{
+      var birthday = member.m_birthday.split("T");
+      member.m_birthday = birthday[0];
+    })
+  },
 };

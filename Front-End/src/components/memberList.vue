@@ -14,31 +14,17 @@
         </b-tr>
       </b-thead>
       <b-tbody>
-        <b-tr>
-          <b-td>1</b-td>
-          <b-td>1111</b-td>
-          <b-td>1111</b-td>
-          <b-td>1111</b-td>
-          <b-td>1111</b-td>
-          <b-td>1111</b-td>
-          <b-td>1111</b-td>
+        <b-tr v-for="(member , index) in memberList" :key="index">
+          <b-td class="align-middle">{{member.memberId}}</b-td>
+          <b-td class="align-middle">{{member.m_account}}</b-td>
+          <b-td class="align-middle">{{member.m_name}}</b-td>
+          <b-td class="align-middle">{{member.m_email}}</b-td>
+          <b-td class="align-middle">{{member.m_birthday}}</b-td>
+          <b-td class="align-middle">{{member.m_address}}</b-td>
+          <b-td class="align-middle">{{member.m_role}}</b-td>
           <b-td>
             <b-button variant="danger">
-              <font-awesome-icon icon="ban" style="margin-right:0.5em;"/>封鎖
-            </b-button>
-          </b-td>
-        </b-tr>
-        <b-tr>
-          <b-td>2</b-td>
-          <b-td>1111</b-td>
-          <b-td>1111</b-td>
-          <b-td>1111</b-td>
-          <b-td>1111</b-td>
-          <b-td>1111</b-td>
-          <b-td>1111</b-td>
-          <b-td>
-            <b-button variant="danger">
-              <font-awesome-icon icon="ban" style="margin-right:0.5em;"/>封鎖
+              <font-awesome-icon icon="ban" style="margin-right:0.5em;" />封鎖
             </b-button>
           </b-td>
         </b-tr>
@@ -46,3 +32,17 @@
     </b-table-simple>
   </div>
 </template>
+<script>
+import { mapGetters } from "vuex";
+export default {
+  computed: {
+    ...mapGetters({
+      memberList: "getMemberList"
+    })
+  },
+  methods: {},
+  created() {
+    this.$store.dispatch("getAllMember");
+  }
+};
+</script>

@@ -22,6 +22,9 @@ namespace Back_End.Repositories {
         public Member GetMemberByAcc (string m_account) {
             return db.Member.Where (m => m.m_account == m_account).FirstOrDefault ();
         }
+        public Member GetMemberByEmail (string email) {
+            return db.Member.Where (m => m.m_email == email).FirstOrDefault ();
+        }
 
         public string Register (Member member) {
             string result = string.Empty;
@@ -98,41 +101,33 @@ namespace Back_End.Repositories {
             return db.Application.Where (a => a.m_account == account).FirstOrDefault ();
         }
 
-        public bool VerifyApplication(bool pass,string account)
-        {
-            try{
-                var updateMember=db.Member.Where(m=>m.m_account==account).FirstOrDefault();
-                var application=(from a in db.Application
-                                where a.m_account==account
-                                orderby a.ApplicationID descending
-                                select a).FirstOrDefault();
-                if(pass){   //審核通過
-                    updateMember.m_role=1;
-                    application.status=true;
-                }
-                else
-                    application.status=false;
-                db.SaveChanges();
+        public bool VerifyApplication (bool pass, string account) {
+            try {
+                var updateMember = db.Member.Where (m => m.m_account == account).FirstOrDefault ();
+                var application = (from a in db.Application where a.m_account == account orderby a.ApplicationID descending select a).FirstOrDefault ();
+                if (pass) { //審核通過
+                    updateMember.m_role = 1;
+                    application.status = true;
+                } else
+                    application.status = false;
+                db.SaveChanges ();
                 return true;
-            }
-            catch(Exception e)
-            {
-                Debug.WriteLine("更新角色權限失敗");
-                Debug.WriteLine(e.ToString());
+            } catch (Exception e) {
+                Debug.WriteLine ("更新角色權限失敗");
+                Debug.WriteLine (e.ToString ());
                 return false;
             }
         }
 
-        public bool BlockMember(Member blockMember)
-        {
+        public bool BlockMember (Member blockMember) {
             blockMember.isBlock = true;
-            db.SaveChanges();
+            db.SaveChanges ();
             return true;
         }
 
         public List<Application> GetAllApplication () {
             try {
-                return db.Application.ToList();
+                return db.Application.ToList ();
             } catch (System.Exception) {
                 return null;
             }

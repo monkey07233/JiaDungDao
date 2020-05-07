@@ -59,6 +59,10 @@ namespace Back_End.Services {
             if (getMember != null) {
                 return "帳號已存在";
             }
+            var getMemberByEmail = MemberRepo.GetMemberByEmail (member.m_email);
+            if (getMemberByEmail != null) {
+                return "此信箱已註冊過";
+            }
             member.m_password = HashPassword (member.m_password);
             return MemberRepo.Register (member);
         }

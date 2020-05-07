@@ -38,7 +38,8 @@ export const state = {
       r_tel: ""
     },
     typeAndMenu: []
-  }
+  },
+  applicationList: []
 };
 
 export const mutations = {
@@ -111,4 +112,7 @@ export const mutations = {
   [types.SET_CART](state, item) {
     state.shoppingCartInfo = item;
   },
+  [types.GET_APPLIST](state, applications) {
+    state.applicationList = applications;
+  }
 };

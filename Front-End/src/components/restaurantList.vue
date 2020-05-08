@@ -34,13 +34,13 @@ import { mapGetters } from "vuex";
 export default {
   computed: {
     ...mapGetters({
-      restaurantList: "getResList"
+      restaurantList: "restaurant/getResList"
     })
   },
   methods: {
     deleteRestaurant(ResID) {
       console.log(ResID);
-      this.$store.dispatch("deleteRestaurant", ResID).then(res => {
+      this.$store.dispatch("restaurant/deleteRestaurant", ResID).then(res => {
         this.$bvToast.toast("成功刪除餐廳", {
           title: `successed`,
           toaster: "b-toaster-top-center",
@@ -48,12 +48,12 @@ export default {
           autoHideDelay: 1000,
           appendToast: false
         });
-        this.$store.dispatch("getRestaurantList");
+        this.$store.dispatch("restaurant/getRestaurantList");
       });
     }
   },
   created() {
-    this.$store.dispatch("getRestaurantList");
+    this.$store.dispatch("restaurant/getRestaurantList");
   }
 };
 </script>

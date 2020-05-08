@@ -38,17 +38,17 @@ export default {
   },
   computed: {
     ...mapGetters({
-      restaurantInfo: "getResInfo",
-      tokenInfo: "getTokenInfo"
+      restaurantInfo: "restaurant/getResInfo",
+      tokenInfo: "member/getTokenInfo"
     })
   },
   created() {
-    this.$store.dispatch("getRestaurantInfo", this.$route.params.id);
+    this.$store.dispatch("restaurant/getRestaurantInfo", this.$route.params.id);
   },
   methods: {
     deleteRestaurant(ResID) {
       console.log(ResID);
-      this.$store.dispatch("deleteRestaurant", ResID).then(res => {
+      this.$store.dispatch("restaurant/deleteRestaurant", ResID).then(res => {
         this.$bvToast.toast("成功刪除餐廳", {
           title: `successed`,
           toaster: "b-toaster-top-center",

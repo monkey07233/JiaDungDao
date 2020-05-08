@@ -51,7 +51,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      OrderInfo: "getOrderInfo",
+      OrderInfo: "order/getOrderInfo",
     })
   },
   methods: {
@@ -64,7 +64,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("getOrderInfoByResId", this.$route.params.id);
+    this.$store.dispatch("order/getOrderInfoByResId", this.$route.params.id);
   }
 };
 </script>

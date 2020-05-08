@@ -18,7 +18,7 @@ export default {
     if (paramAccount == undefined || paramAccount == null || paramValidateCode == undefined || paramValidateCode == null) {
       this.$router.push("Index");
     } else {
-      this.$store.dispatch("VerifyAccount", {
+      this.$store.dispatch("member/VerifyAccount", {
         m_account: paramAccount,
         validateCode: paramValidateCode
       });

@@ -53,10 +53,10 @@ export default {
     return {};
   },
   computed: mapGetters({
-    restaurantList: "getResByAcc"
+    restaurantList: "restaurant/getResByAcc"
   }),
   created() {
-    this.$store.dispatch("getRestaurantList");
+    this.$store.dispatch("restaurant/getRestaurantList");
   }
 };
 </script>

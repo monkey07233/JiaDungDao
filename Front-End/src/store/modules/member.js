@@ -91,20 +91,6 @@ export default {
       });
     },
 
-    register({ commit }, newMember) {
-      return new Promise((resolve, reject) => {
-        axios
-          .post("https://localhost:5001/api/Member/Register", newMember)
-          .then(function(res) {
-            resolve(res.data);
-          })
-          .catch(function(err) {
-            console.log(err);
-            reject(err);
-          });
-      });
-    },
-
     login({ commit }, loginInfo) {
       return new Promise((resolve, reject) => {
         axios

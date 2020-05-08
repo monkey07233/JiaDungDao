@@ -97,9 +97,9 @@ namespace Back_End.Repositories {
             return db.Application.Where (a => a.m_account == account && a.status != false).FirstOrDefault ();
         }
 
-        public bool VerifyApplication (bool pass, string account, Member updateMember) {
+        public bool VerifyApplication (bool pass,  Member updateMember) {
             try {
-                var application = GetApplyByAcc (account);
+                var application = GetApplyByAcc (updateMember.m_account);
                 if (pass) { //審核通過
                     updateMember.m_role = 1;
                     application.status = true;

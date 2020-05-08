@@ -1,5 +1,5 @@
 <template>
-  <div class="row mt-5 ml-2 mr-2">
+  <div class="row mt-5">
     <b-table-simple striped hover outlined>
       <b-thead>
         <b-tr>
@@ -21,7 +21,7 @@
           <b-td class="align-middle">{{member.m_email}}</b-td>
           <b-td class="align-middle">{{member.m_birthday}}</b-td>
           <b-td class="align-middle">{{member.m_address}}</b-td>
-          <b-td class="align-middle">{{member.m_role}}</b-td>
+          <b-td class="align-middle">{{member.m_role==0?"一般使用者":"餐廳管理者"}}</b-td>
           <b-td>
             <b-button v-if="!member.isBlock" variant="danger" @click="blockMember(member.m_account)">
               <font-awesome-icon icon="ban" style="margin-right:0.5em;" />封鎖
@@ -38,11 +38,6 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-   data() {
-    return {
-
-    }
-  },
   computed: {
     ...mapGetters({
       memberList: "member/getMemberList"

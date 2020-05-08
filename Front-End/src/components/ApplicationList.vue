@@ -40,6 +40,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { apiVerifyApplication } from "@/apis/member.js";
 export default {
   computed: {
     ...mapGetters({
@@ -51,21 +52,16 @@ export default {
   },
   methods: {
     verifyApplication(pass, account) {
-      this.$store
-        .dispatch("member/verifyApplication", {
-          pass: pass,
-          account: account
-        })
-        .then(res => {
-          this.$bvToast.toast(res, {
-            title: `successed`,
-            toaster: "b-toaster-top-center",
-            solid: true,
-            autoHideDelay: 1000,
-            appendToast: false
-          });
-          this.$store.dispatch("member/getAllApplication");
+      apiVerifyApplication({ pass: pass, account: account }).then(res => {
+        this.$bvToast.toast(res, {
+          title: `successed`,
+          toaster: "b-toaster-top-center",
+          solid: true,
+          autoHideDelay: 1000,
+          appendToast: false
         });
+        this.$store.dispatch("member/getAllApplication");
+      });
     }
   }
 };

@@ -15,8 +15,8 @@ namespace Back_End.Interface {
         bool ApplyResAdmin (Application apply);
         List<Member> GetAllMember ();
         Application GetApplyByAcc (string account);
-        bool VerifyApplication (bool pass, string account,Member updateMember);
+        bool VerifyApplication (bool pass, Member updateMember);
         bool BlockMember (Member blockMember);
-         List<Application> GetAllApplication();
+        List<Application> GetAllApplication ();
     }
 }

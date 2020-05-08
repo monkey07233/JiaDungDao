@@ -130,7 +130,7 @@ namespace Back_End.Services {
 
         public bool VerifyApplication (bool pass, string account) {
             var updateMember = _memberRepo.GetMemberByAcc(account);
-            return _memberRepo.VerifyApplication (pass, account,updateMember);
+            return _memberRepo.VerifyApplication (pass,updateMember);
         }
 
         public bool BlockMember (string m_account) {

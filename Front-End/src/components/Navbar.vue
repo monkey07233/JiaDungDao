@@ -257,6 +257,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { apiRegister } from "@/apis/member.js";
 export default {
   data() {
     return {
@@ -313,36 +314,60 @@ export default {
       this.$refs["login"].show();
     },
     addMember() {
-      this.$store
-        .dispatch("member/register", this.newMember)
-        .then(res => {
-          this.$bvToast.toast(res, {
-            title: `Registration`,
-            toaster: "b-toaster-top-center",
-            solid: true,
-            autoHideDelay: 1000,
-            appendToast: false
-          });
-          this.newMember.m_name = "";
-          this.newMember.m_account = "";
-          this.newMember.m_password = "";
-          this.newMember.m_birthday = "";
-          this.newMember.m_email = "";
-          this.newMember.m_address = "";
-          this.confirmPassword = "";
-          this.showLoginModal();
-        })
-        .catch(err => {
-          if (err.response.status == 400) {
-            this.$bvToast.toast(err.response.data, {
-              title: `Login Fail`,
-              toaster: "b-toaster-top-center",
-              solid: true,
-              autoHideDelay: 1000,
-              appendToast: false
-            });
-          }
+      apiRegister({
+        m_name: this.newMember.m_name,
+        m_account: this.newMember.m_account,
+        m_password: this.newMember.m_password,
+        m_birthday: this.newMember.m_birthday,
+        m_email: this.newMember.m_email,
+        m_address: this.newMember.m_address
+      }).then(res => {
+        this.$bvToast.toast(res, {
+          title: `Registration`,
+          toaster: "b-toaster-top-center",
+          solid: true,
+          autoHideDelay: 1000,
+          appendToast: false
         });
+        this.newMember.m_name = "";
+        this.newMember.m_account = "";
+        this.newMember.m_password = "";
+        this.newMember.m_birthday = "";
+        this.newMember.m_email = "";
+        this.newMember.m_address = "";
+        this.confirmPassword = "";
+        this.showLoginModal();
+      });
+      // this.$store
+      //   .dispatch("member/register", this.newMember)
+      //   .then(res => {
+      //     this.$bvToast.toast(res, {
+      //       title: `Registration`,
+      //       toaster: "b-toaster-top-center",
+      //       solid: true,
+      //       autoHideDelay: 1000,
+      //       appendToast: false
+      //     });
+      //     this.newMember.m_name = "";
+      //     this.newMember.m_account = "";
+      //     this.newMember.m_password = "";
+      //     this.newMember.m_birthday = "";
+      //     this.newMember.m_email = "";
+      //     this.newMember.m_address = "";
+      //     this.confirmPassword = "";
+      //     this.showLoginModal();
+      //   })
+      //   .catch(err => {
+      //     if (err.response.status == 400) {
+      //       this.$bvToast.toast(err.response.data, {
+      //         title: `Login Fail`,
+      //         toaster: "b-toaster-top-center",
+      //         solid: true,
+      //         autoHideDelay: 1000,
+      //         appendToast: false
+      //       });
+      //     }
+      //   });
     },
     login() {
       if (this.tokenInfo.token === "") {

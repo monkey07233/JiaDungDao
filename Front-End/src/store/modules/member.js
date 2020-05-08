@@ -77,10 +77,10 @@ export default {
             memberInfo,
             config
           )
-          .then(function(res) {
+          .then(function (res) {
             commit(types.GET_MEMBERINFO, res.data);
           })
-          .catch(function(err) {
+          .catch(function (err) {
             console.log(err);
             if (err.response.status == 401) {
               localStorage.removeItem("tokenInfo");
@@ -95,11 +95,11 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .post("https://localhost:5001/api/Member/Login", loginInfo)
-          .then(function(res) {
+          .then(function (res) {
             resolve(res.data);
             commit(types.SAVE_TOKEN, res.data);
           })
-          .catch(function(err) {
+          .catch(function (err) {
             reject(err);
           });
       });
@@ -127,10 +127,10 @@ export default {
             profileAfterEdit,
             config
           )
-          .then(function(res) {
+          .then(function (res) {
             resolve(res.data);
           })
-          .catch(function(err) {
+          .catch(function (err) {
             console.log(err);
             reject();
           });
@@ -150,10 +150,10 @@ export default {
             formData,
             config
           )
-          .then(function(res) {
+          .then(function (res) {
             resolve(res.data);
           })
-          .catch(function(err) {
+          .catch(function (err) {
             console.log(err);
             reject();
           });
@@ -164,10 +164,10 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .post("https://localhost:5001/api/Member/VerifyAccount", memberInfo)
-          .then(function(res) {
+          .then(function (res) {
             resolve(res.data);
           })
-          .catch(function(err) {
+          .catch(function (err) {
             console.log(err);
             reject();
           });
@@ -188,10 +188,10 @@ export default {
             passwordInfo,
             config
           )
-          .then(function(res) {
+          .then(function (res) {
             resolve(res.data);
           })
-          .catch(function(err) {
+          .catch(function (err) {
             console.log(err.response);
             reject(err);
           });
@@ -205,10 +205,10 @@ export default {
             "https://localhost:5001/api/Member/SendResetPasswordMail",
             memberInfo
           )
-          .then(function(res) {
+          .then(function (res) {
             resolve(res.data);
           })
-          .catch(function(err) {
+          .catch(function (err) {
             console.log(err.response);
             reject(err);
           });
@@ -219,10 +219,10 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .post("https://localhost:5001/api/Member/ResetPassword", password)
-          .then(function(res) {
+          .then(function (res) {
             resolve(res.data);
           })
-          .catch(function(err) {
+          .catch(function (err) {
             console.log(err);
             reject(err);
           });
@@ -243,10 +243,10 @@ export default {
             apply,
             config
           )
-          .then(function(res) {
+          .then(function (res) {
             resolve(res.data);
           })
-          .catch(function(err) {
+          .catch(function (err) {
             console.log(err);
             reject(err);
           });
@@ -261,10 +261,10 @@ export default {
       };
       axios
         .get("https://localhost:5001/api/Member/GetAllMember", config)
-        .then(function(res) {
+        .then(function (res) {
           commit(types.GET_MEMBERLIST, res.data);
         })
-        .catch(function(err) {
+        .catch(function (err) {
           console.log(err);
         });
     },
@@ -281,10 +281,10 @@ export default {
           "https://localhost:5001/api/Member/BlockMember?m_account=" + account,
           config
         )
-        .then(function(res) {
+        .then(function (res) {
           console.log(res.data);
         })
-        .catch(function(err) {
+        .catch(function (err) {
           console.log(err);
         });
     },
@@ -297,12 +297,12 @@ export default {
       };
       axios
         .get("https://localhost:5001/api/Member/GetAllApplication", config)
-        .then(function(res) {
+        .then(function (res) {
           commit(types.GET_APPLIST, res.data);
         })
-        .catch(function(err) {
+        .catch(function (err) {
           console.log(err);
         });
     }
   }
-};
+}

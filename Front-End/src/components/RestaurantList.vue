@@ -38,9 +38,8 @@ export default {
     })
   },
   methods: {
-    deleteRestaurant(ResID) {
-      console.log(ResID);
-      this.$store.dispatch("restaurant/deleteRestaurant", ResID).then(res => {
+    deleteRestaurant(resID) {
+      this.$store.dispatch("restaurant/deleteRestaurant", resID).then(res => {
         this.$bvToast.toast("成功刪除餐廳", {
           title: `successed`,
           toaster: "b-toaster-top-center",

@@ -42,14 +42,11 @@
 
 <script>
 import "@/assets/css/index.css";
-import mealsCard from "../components/meals";
+import mealsCard from "../components/Meals";
 import { mapGetters } from "vuex";
 export default {
   components: {
     mealsCard
-  },
-  data() {
-    return {};
   },
   computed: mapGetters({
     restaurantInfo: "restaurant/getResInfo"

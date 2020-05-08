@@ -13,7 +13,7 @@
                     <label>餐廳照片：</label>
                   </b-col>
                   <b-col sm="6" class="text-center">
-                    <b-form-file id="restaurantImage" v-model="resImage"></b-form-file>
+                    <b-form-file id="restaurantImage" v-model="resImage" placeholder="請上傳餐廳照片"></b-form-file>
                   </b-col>
                 </b-row>
                 <b-row class="mb-2 mt-2 justify-content-center">
@@ -64,7 +64,7 @@
         </div>
       </div>
     </div>
-    <hr>
+    <hr />
     <div class="rounded bg-white mb-4">
       <div class="row">
         <div class="col-12 mt-3 mb-5">
@@ -134,13 +134,13 @@
                 <tbody>
                   <tr v-for="(item,index) in getMenuItemList()" :key="index">
                     <td>{{index+1}}</td>
-                    <template v-if="edit_Index != index">
+                    <template v-if="editIndex != index">
                       <td>{{item.m_item}}</td>
                       <td>{{item.m_price}}</td>
                       <td>{{item.m_type}}</td>
                       <td>
                         <font-awesome-icon
-                          @click="edit_Index = index"
+                          @click="editIndex = index"
                           style="cursor:pointer;"
                           icon="pencil-alt"
                         />
@@ -153,7 +153,7 @@
                         />
                       </td>
                     </template>
-                    <template v-if="edit_Index == index">
+                    <template v-if="editIndex == index">
                       <td>
                         <b-input name="item" type="text" required :value="item.m_item"></b-input>
                       </td>
@@ -164,7 +164,7 @@
                         <b-input name="type" type="text" required :value="item.m_type"></b-input>
                       </td>
                       <td>
-                        <b-form-file placeholder="編輯菜單圖片" v-model="menuImage_update"></b-form-file>
+                        <b-form-file placeholder="編輯菜單圖片" v-model="menuImagUpdate"></b-form-file>
                       </td>
                       <td class="text-center table-icon">
                         <font-awesome-icon
@@ -173,7 +173,7 @@
                           icon="save"
                         />&nbsp;&nbsp;
                         <font-awesome-icon
-                          @click="edit_Index = null"
+                          @click="editIndex = null"
                           style="cursor:pointer;"
                           icon="times"
                         />
@@ -197,18 +197,6 @@
   </div>
 </template>
 
-<style scoped>
-.table-icon {
-  width: 100px;
-  padding-top: 20px;
-}
-
-.edit-form input,
-.edit-form .upload-file {
-  /* width:100%; */
-  font-size: 13px;
-}
-</style>
 
 <script>
 import { mapGetters } from "vuex";
@@ -221,9 +209,9 @@ export default {
         m_type: "",
         m_price: null
       },
-      edit_Index: null,
+      editIndex: null,
       menuImage: null,
-      menuImage_update: null,
+      menuImageUpdate: null,
       resImage: null,
       formData: new FormData()
     };
@@ -239,16 +227,16 @@ export default {
   },
   methods: {
     getMenuItemList() {
-      let ItemList = [];
+      let itemList = [];
       this.restaurantInfo.typeAndMenu.forEach(element => {
         element.menu.forEach(item => {
-          ItemList.push(item);
+          itemList.push(item);
         });
       });
-      return ItemList;
+      return itemList;
     },
     updateMenu(item) {
-      this.edit_Index = null;
+      this.editIndex = null;
       this.$store
         .dispatch("menu/updateMenu", {
           MenuID: item.menuID,
@@ -258,14 +246,19 @@ export default {
           m_type: document.querySelector("input[name=type]").value
         })
         .then(res => {
-          this.$store.dispatch("restaurant/getRestaurantInfo", this.$route.params.id);
+          this.$store.dispatch(
+            "restaurant/getRestaurantInfo",
+            this.$route.params.id
+          );
         });
-      this.formData.append("files", this.menuImage_update);
+      this.formData.append("files", this.menuImageUpdate);
       this.formData.append("uploadType", 1);
       this.formData.append("MenuID", item.menuID);
-      this.$store.dispatch("restaurant/uploadImage", this.formData).then(res => {
-        this.formData = new FormData();
-      });
+      this.$store
+        .dispatch("restaurant/uploadImage", this.formData)
+        .then(res => {
+          this.formData = new FormData();
+        });
       this.$bvToast.toast("更新菜單資訊成功", {
         title: `successed`,
         toaster: "b-toaster-top-center",
@@ -282,22 +275,29 @@ export default {
         r_tel: this.$refs.form.r_tel.value,
         m_account: this.tokenInfo.account
       };
-      this.$store.dispatch("restaurant/UpdateRestaurant", restaurant).then(res => {
-        this.formData.append("files", this.resImage);
-        this.formData.append("uploadType", 0);
-        this.formData.append("id", restaurant.RestaurantID);
-        this.$store.dispatch("restaurant/uploadImage", this.formData).then(res => {
-          this.formData = new FormData();
-          this.$bvToast.toast("更新餐廳資訊成功", {
-            title: `successed`,
-            toaster: "b-toaster-top-center",
-            solid: true,
-            autoHideDelay: 1000,
-            appendToast: false
-          });
+      this.$store
+        .dispatch("restaurant/updateRestaurant", restaurant)
+        .then(res => {
+          this.formData.append("files", this.resImage);
+          this.formData.append("uploadType", 0);
+          this.formData.append("id", restaurant.RestaurantID);
+          this.$store
+            .dispatch("restaurant/uploadImage", this.formData)
+            .then(res => {
+              this.formData = new FormData();
+              this.$bvToast.toast("更新餐廳資訊成功", {
+                title: `successed`,
+                toaster: "b-toaster-top-center",
+                solid: true,
+                autoHideDelay: 1000,
+                appendToast: false
+              });
+            });
+          this.$store.dispatch(
+            "restaurant/getRestaurantInfo",
+            this.$route.params.id
+          );
         });
-        this.$store.dispatch("restaurant/getRestaurantInfo", this.$route.params.id);
-      });
     },
     addMenuItem() {
       this.newMenuItem.RestaurantID = parseInt(this.newMenuItem.RestaurantID);
@@ -309,21 +309,26 @@ export default {
             this.formData.append("uploadType", 1);
             this.formData.append("id", res2.data);
             this.formData.append("m_item", this.newMenuItem.m_item);
-            this.$store.dispatch("restaurant/uploadImage", this.formData).then(res3 => {
-              this.formData = new FormData();
-              this.$bvToast.toast("新增餐點成功", {
-                title: `successed`,
-                toaster: "b-toaster-top-center",
-                solid: true,
-                autoHideDelay: 1000,
-                appendToast: false
+            this.$store
+              .dispatch("restaurant/uploadImage", this.formData)
+              .then(res3 => {
+                this.formData = new FormData();
+                this.$bvToast.toast("新增餐點成功", {
+                  title: `successed`,
+                  toaster: "b-toaster-top-center",
+                  solid: true,
+                  autoHideDelay: 1000,
+                  appendToast: false
+                });
+                this.newMenuItem.m_item = "";
+                this.newMenuItem.m_type = "";
+                this.newMenuItem.m_price = null;
+                this.menuImage = null;
+                this.$store.dispatch(
+                  "restaurant/getRestaurantInfo",
+                  this.$route.params.id
+                );
               });
-              this.newMenuItem.m_item = "";
-              this.newMenuItem.m_type = "";
-              this.newMenuItem.m_price = null;
-              this.menuImage = null;
-              this.$store.dispatch("restaurant/getRestaurantInfo", this.$route.params.id);
-            });
           });
         });
       } else {
@@ -345,9 +350,25 @@ export default {
           autoHideDelay: 1000,
           appendToast: false
         });
-        this.$store.dispatch("restaurant/getRestaurantInfo", this.$route.params.id);
+        this.$store.dispatch(
+          "restaurant/getRestaurantInfo",
+          this.$route.params.id
+        );
       });
-    },
+    }
   }
 };
 </script>
+
+<style scoped>
+.table-icon {
+  width: 100px;
+  padding-top: 20px;
+}
+
+.edit-form input,
+.edit-form .upload-file {
+  /* width:100%; */
+  font-size: 13px;
+}
+</style>

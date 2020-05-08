@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import restaurantEdit from "./restaurantEdit";
-import restaurantOrder from "./restaurantOrder";
+import restaurantEdit from "./RestaurantEdit";
+import restaurantOrder from "./RestaurantOrder";
 import { mapGetters } from "vuex";
 export default {
   data() {
@@ -46,9 +46,8 @@ export default {
     this.$store.dispatch("restaurant/getRestaurantInfo", this.$route.params.id);
   },
   methods: {
-    deleteRestaurant(ResID) {
-      console.log(ResID);
-      this.$store.dispatch("restaurant/deleteRestaurant", ResID).then(res => {
+    deleteRestaurant(resID) {
+      this.$store.dispatch("restaurant/deleteRestaurant", resID).then(res => {
         this.$bvToast.toast("成功刪除餐廳", {
           title: `successed`,
           toaster: "b-toaster-top-center",

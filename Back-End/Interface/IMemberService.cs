@@ -17,7 +17,7 @@ namespace Back_End.Interface
          string VerifyAccount(string account,string validateCode);
          bool UpdatePassword(MemberInfo memberInfo);
          bool ResetPassword(MemberInfo memberInfo);
-         bool updateMemberImgUrl(int Id);
+         bool UpdateMemberImgUrl(int Id);
          bool ApplyResAdmin(Application apply);
          List<Member> GetAllMember();
          bool VerifyApplication(bool pass,string account);

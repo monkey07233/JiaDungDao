@@ -49,9 +49,6 @@
 import "@/assets/css/index.css";
 import { mapGetters } from "vuex";
 export default {
-  data() {
-    return {};
-  },
   computed: mapGetters({
     restaurantList: "restaurant/getResByAcc"
   }),

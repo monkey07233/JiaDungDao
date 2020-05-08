@@ -120,7 +120,7 @@ namespace Back_End.Controllers {
         [Authorize]
         public async Task<IActionResult> UploadUserImg ([FromForm] UploadInfo uploadInfo) {
             var uploadResult = await _restaurantService.UploadImg (uploadInfo);
-            var updateMemberImgUrl = _memberService.updateMemberImgUrl (uploadInfo.id);
+            var updateMemberImgUrl = _memberService.UpdateMemberImgUrl (uploadInfo.id);
             if (uploadResult == "上傳成功") {
                 if (updateMemberImgUrl) {
                     return Ok (uploadResult);

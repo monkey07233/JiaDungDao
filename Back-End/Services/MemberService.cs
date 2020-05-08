@@ -113,8 +113,8 @@ namespace Back_End.Services {
             return false;
         }
 
-        public bool updateMemberImgUrl (int Id) {
-            return _memberRepo.updateMemberImgUrl (Id);
+        public bool UpdateMemberImgUrl (int Id) {
+            return _memberRepo.UpdateMemberImgUrl (Id);
         }
 
         public bool ApplyResAdmin (Application apply) {

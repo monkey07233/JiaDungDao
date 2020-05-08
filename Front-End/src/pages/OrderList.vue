@@ -5,7 +5,7 @@
       <h4 class="text-center pt-4">
         <font-awesome-icon icon="search" />&nbsp;訂單查詢
       </h4>
-      <span v-for="(order, index) in OrderInfo" :key="index">
+      <span v-for="(order, index) in orderInfo" :key="index">
         <b-card-body v-b-toggle="'accordion-' + index">
           <b-list-group-item style="border-bottom: 0px;">
             <font-awesome-icon icon="store-alt" />
@@ -25,7 +25,9 @@
               <span v-for="(orderdetail,index) in order.orderDetail" :key="index">
                 <b-list-group-item style="border-bottom: 0px;">品名：{{orderdetail.o_item}}</b-list-group-item>
                 <b-list-group-item style="border-bottom: 0px;">數量：{{orderdetail.o_count}}</b-list-group-item>
-                <b-list-group-item style="border-top: 0px;">小計：{{orderdetail.o_price * orderdetail.o_count}}</b-list-group-item>
+                <b-list-group-item
+                  style="border-top: 0px;"
+                >小計：{{orderdetail.o_price * orderdetail.o_count}}</b-list-group-item>
               </span>
             </b-card-body>
           </b-collapse>
@@ -43,14 +45,10 @@
 import "@/assets/css/index.css";
 import { mapGetters } from "vuex";
 export default {
-  components: {},
-  data() {
-    return {};
-  },
   computed: {
     ...mapGetters({
       tokenInfo: "member/getTokenInfo",
-      OrderInfo: "order/getOrderInfo"
+      orderInfo: "order/getOrderInfo"
     })
   },
   methods: {

@@ -11,7 +11,7 @@ namespace Back_End.Interface {
         string EditMemberInformation (Member originMember, MemberInfo editMember);
         string VerifyAccount (Member member);
         bool UpdatePassword (Member member, string newPassword);
-        bool updateMemberImgUrl (int Id);
+        bool UpdateMemberImgUrl (int Id);
         bool ApplyResAdmin (Application apply);
         List<Member> GetAllMember ();
         Application GetApplyByAcc (string account);

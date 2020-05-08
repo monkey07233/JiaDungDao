@@ -7,7 +7,7 @@
     </div>
     <hr />
     <div class="row">
-      <b-form class="col-12" @submit.prevent="ResetPassword">
+      <b-form class="col-12" @submit.prevent="resetPassword">
         <b-form-group label="新密碼:" label-for="input-1">
           <b-form-input
             id="input-1"
@@ -24,7 +24,7 @@
             v-model="confirmPassword"
             placeholder="請輸入新密碼"
             required
-            :state="confirm_password"
+            :state="confirmPassword"
             aria-describedby="confirm-feedback"
             trim
           ></b-form-input>
@@ -52,15 +52,15 @@ export default {
     };
   },
   computed: {
-    confirm_password() {
+    confirmPassword() {
       return this.confirmPassword === this.password.new_password ? true : false;
     }
   },
   methods: {
-    ResetPassword() {
+    resetPassword() {
       this.password.m_account = this.$route.query.account;
       this.$store
-        .dispatch("member/ResetPassword", this.password)
+        .dispatch("member/resetPassword", this.password)
         .then(res => {
           this.$bvToast.toast("重設密碼成功，請重新登入", {
             title: `重設密碼成功`,

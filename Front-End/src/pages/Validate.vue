@@ -9,16 +9,13 @@
 import "@/assets/css/index.css";
 import { mapGetters } from "vuex";
 export default {
-  data() {
-    return {};
-  },
   created() {
     var paramAccount = this.$route.query.account;
     var paramValidateCode = this.$route.query.validateCode;
     if (paramAccount == undefined || paramAccount == null || paramValidateCode == undefined || paramValidateCode == null) {
       this.$router.push("Index");
     } else {
-      this.$store.dispatch("member/VerifyAccount", {
+      this.$store.dispatch("member/verifyAccount", {
         m_account: paramAccount,
         validateCode: paramValidateCode
       });

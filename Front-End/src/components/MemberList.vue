@@ -45,16 +45,16 @@ export default {
   },
   computed: {
     ...mapGetters({
-      memberList: "getMemberList"
+      memberList: "member/getMemberList"
     })
   },
   methods: {
     blockMember(account){
-      this.$store.dispatch("blockMember",account);
+      this.$store.dispatch("member/blockMember",account);
     }
   },
   created() {
-    this.$store.dispatch("getAllMember");
+    this.$store.dispatch("member/getAllMember");
   }
 };
 </script>

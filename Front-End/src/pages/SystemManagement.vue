@@ -33,9 +33,9 @@
 </template>
 
 <script>
-import memberList from "../components/memberList"
-import restaurantList from "../components/restaurantList"
-import applicationList from "../components/applicationList"
+import memberList from "../components/MemberList"
+import restaurantList from "../components/RestaurantList"
+import applicationList from "../components/ApplicationList"
 export default {
   data() {
     return {

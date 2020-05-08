@@ -6,7 +6,7 @@
       </h4>
     </div>
     <div class="row mt-3 ml-3 mr-3">
-      <b-table-simple hover outlined v-for="(items,indexs) in GroupBy" :key="indexs">
+      <b-table-simple hover outlined v-for="(items,indexs) in groupBy" :key="indexs">
         <b-thead>
           <b-tr>
             <b-td colspan="5" style="text-align:center;">{{indexs}}</b-td>
@@ -99,7 +99,7 @@ export default {
       shoppingCart: "shoppingcart/getShoppingCartInfo",
       tokenInfo: "member/getTokenInfo"
     }),
-    GroupBy() {
+    groupBy() {
       const result = {};
       this.shoppingCart.shoppingCartItems.forEach(item => {
         if (!result[item["r_name"]]) result[item["r_name"]] = [];
@@ -108,14 +108,11 @@ export default {
       return result;
     }
   },
-  data() {
-    return {};
-  },
   methods: {
     addItemToShoppingCart(item) {
       this.$store.dispatch("shoppingcart/addItemToShoppingCart", item);
     },
-    minusItemToShoppingCart: function(item) {
+    minusItemToShoppingCart(item) {
       this.$store.dispatch("shoppingcart/minusItemToShoppingCart", item);
     },
     deleteCartItem(item) {

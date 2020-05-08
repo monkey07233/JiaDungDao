@@ -8,7 +8,7 @@
           <b-nav-item to="/RestaurantManagement">餐廳管理</b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav v-if="tokenInfo.role === 2">
-          <b-nav-item to="/systemManagement">系統管理</b-nav-item>
+          <b-nav-item to="/SystemManagement">系統管理</b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
           <!-- 登入前 -->
@@ -215,7 +215,7 @@
 
     <!-- 輸入帳號信箱 -->
     <b-modal id="resetPassword" ref="resetPassword" centered title="重設密碼" hide-footer>
-      <b-form @submit.prevent="SendResetPasswordMail">
+      <b-form @submit.prevent="sendResetPasswordMail">
         <b-row class="mb-2 mt-2 justify-content-center">
           <b-col sm="2">
             <label>帳號：</label>
@@ -291,14 +291,14 @@ export default {
     })
   },
   methods: {
-    getImgUrl(Url) {
-      if (Url != undefined) {
+    getImgUrl(url) {
+      if (url != undefined) {
         var images = require.context(
           "../../../Back-End/File/UserImg/",
           false,
           /\.jpg$/
         );
-        return images("./" + Url + ".jpg");
+        return images("./" + url + ".jpg");
       }
       return "../assets/images/user.png";
     },
@@ -397,9 +397,9 @@ export default {
       this.$refs["register"].hide();
       this.$refs["resetPassword"].show();
     },
-    SendResetPasswordMail() {
+    sendResetPasswordMail() {
       this.$store
-        .dispatch("member/SendResetPasswordMail", this.reset_password)
+        .dispatch("member/sendResetPasswordMail", this.reset_password)
         .then(res => {
           this.reset_password.m_account = "";
           this.reset_password.m_email = "";

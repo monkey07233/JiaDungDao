@@ -2,16 +2,15 @@ import Vue from "vue";
 import Router from "vue-router";
 import Index from "@/pages/Index";
 import OrderList from "@/pages/OrderList";
-import Profile from "@/pages/profile";
+import Profile from "@/pages/Profile";
 import Cart from "@/pages/Cart";
 import Validate from "@/pages/Validate";
-import Restaurant from "@/pages/restaurant";
+import Restaurant from "@/pages/Restaurant";
 import RestaurantManagement from "@/pages/RestaurantManagement";
 import AddRestaurant from "@/pages/AddRestaurant";
-import store from "../store";
 import RestaurantDetail from "@/pages/RestaurantDetail";
 import ResetPassword from "@/pages/ResetPassword";
-import systemManagement from "@/pages/systemManagement"
+import SystemManagement from "@/pages/SystemManagement"
 Vue.use(Router);
 
 export default new Router({
@@ -39,7 +38,8 @@ export default new Router({
     {
       path: "/OrderList",
       name: "OrderList",
-      component: OrderList
+      component: OrderList,
+      meta: { requiresAuth: true }
     },
     {
       path: "/Profile",
@@ -79,12 +79,13 @@ export default new Router({
     {
       path: "/AddRestaurant",
       name: "AddRestaurant",
-      component: AddRestaurant
+      component: AddRestaurant,
+      meta: { requiresAuth: true }
     },
     {
-      path: "/systemManagement",
-      name: "systemManagement",
-      component: systemManagement,
+      path: "/SystemManagement",
+      name: "SystemManagement",
+      component: SystemManagement,
       meta: { requiresAuth: true }
     }
   ]

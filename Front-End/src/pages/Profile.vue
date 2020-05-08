@@ -11,17 +11,17 @@
             </b-card-body>
           </template>
           <!-- 會員資料 -->
-          <template v-if="isShow" v-bind="MemberInfo">
+          <template v-if="isShow" v-bind="memberInfo">
             <div id="image">
               <img
-                v-if="MemberInfo.m_imgUrl === null"
+                v-if="memberInfo.m_imgUrl === null"
                 class="img-fluid"
                 src="../assets/images/user.png"
               />
               <img
                 class="img-fluid"
-                v-if="MemberInfo.m_imgUrl !== null"
-                :src="getImgUrl(MemberInfo.memberId)"
+                v-if="memberInfo.m_imgUrl !== null"
+                :src="getImgUrl(memberInfo.memberId)"
               />
               <div id="mask" class="card-img-top">
                 <label>
@@ -33,35 +33,35 @@
             <b-tabs pills justified card>
               <b-tab button-id="profile" title="個人資料" active no-body>
                 <b-card-body>
-                  <b-card-title class="font-weight-bold text-center">{{MemberInfo.m_name}}</b-card-title>
+                  <b-card-title class="font-weight-bold text-center">{{memberInfo.m_name}}</b-card-title>
                 </b-card-body>
                 <b-list-group flush>
                   <b-list-group-item class="d-flex">
                     <div align-v="center">
                       <font-awesome-icon icon="users-cog" />
-                      <label>權限：{{MemberInfo.m_role==0?"一般使用者":MemberInfo.m_role==1?"餐廳管理者":"admin"}}</label>
+                      <label>權限：{{memberInfo.m_role==0?"一般使用者":memberInfo.m_role==1?"餐廳管理者":"admin"}}</label>
                     </div>
                     <b-button
                       v-b-modal.userApplication
                       size="sm"
                       variant="warning"
                       class="ml-auto font-weight-bold"
-                      v-if="MemberInfo.m_role==0"
+                      v-if="memberInfo.m_role==0"
                     >申請餐廳管理者</b-button>
                   </b-list-group-item>
                   <b-list-group-item>
                     <font-awesome-icon icon="birthday-cake" />
-                    &nbsp;生日：{{MemberInfo.m_birthday}}
+                    &nbsp;生日：{{memberInfo.m_birthday}}
                   </b-list-group-item>
 
                   <b-list-group-item>
                     <font-awesome-icon icon="envelope" />
-                    &nbsp;E-mail：{{MemberInfo.m_email}}
+                    &nbsp;E-mail：{{memberInfo.m_email}}
                   </b-list-group-item>
 
                   <b-list-group-item>
                     <font-awesome-icon icon="home" />
-                    住址：{{MemberInfo.m_address}}
+                    住址：{{memberInfo.m_address}}
                   </b-list-group-item>
                 </b-list-group>
                 <b-card-body>
@@ -91,7 +91,7 @@
                         required
                         placeholder="請輸入新密碼"
                         trim
-                        :state="check_oldAndnew_password"
+                        :state="checkOldAndnewPassword"
                         aria-describedby="check-feedback"
                       ></b-form-input>
                       <b-form-invalid-feedback id="check-feedback">不能與舊密碼相同</b-form-invalid-feedback>
@@ -100,7 +100,7 @@
                       <b-form-input
                         id="confirm"
                         v-model="confirmPassword"
-                        :state="confirm_password"
+                        :state="confirmPassword"
                         aria-describedby="confirm-feedback"
                         placeholder="確認新密碼"
                         type="password"
@@ -144,12 +144,12 @@
           <!-- 修改會員資料 -->
           <template v-else>
             <div>
-              <b-form ref="form" @submit.prevent="UpdateProfile">
+              <b-form ref="form" @submit.prevent="updateProfile">
                 <b-card-body>
                   <b-form-group id="input-group-1" label="姓名:" label-for="input-1">
                     <b-form-input
                       name="name"
-                      :value="MemberInfo.m_name"
+                      :value="memberInfo.m_name"
                       required
                       placeholder="Enter name"
                     ></b-form-input>
@@ -158,7 +158,7 @@
                   <b-form-group id="input-group-2" label="生日:" label-for="input-2">
                     <b-form-datepicker
                       name="birthday"
-                      :value="MemberInfo.m_birthday"
+                      :value="memberInfo.m_birthday"
                       required
                       placeholder="Enter birthday"
                     ></b-form-datepicker>
@@ -167,7 +167,7 @@
                   <b-form-group id="input-group-3" label="E-mail:" label-for="input-3">
                     <b-form-input
                       name="email"
-                      :value="MemberInfo.m_email"
+                      :value="memberInfo.m_email"
                       type="email"
                       required
                       placeholder="Enter email"
@@ -177,7 +177,7 @@
                   <b-form-group id="input-group-4" label="住址:" label-for="input-4">
                     <b-form-input
                       name="address"
-                      :value="MemberInfo.m_address"
+                      :value="memberInfo.m_address"
                       required
                       placeholder="Enter address"
                     ></b-form-input>
@@ -192,24 +192,24 @@
         </b-card>
       </div>
       <!-- 訂單資料 -->
-      <div v-if="OrderInfo[0]!=null" class="col-sm-6">
+      <div v-if="orderInfo[0]!=null" class="col-sm-6">
         <b-card>
-          <template v-bind="OrderInfo">
+          <template v-bind="orderInfo">
             <h5 class="text-center">
               <font-awesome-icon icon="search" />&nbsp;訂單查詢
             </h5>
             <b-card-body flush>
               <b-list-group-item>
                 <font-awesome-icon icon="store-alt" />
-                &nbsp;店家：{{OrderInfo[0].title.r_name}}
+                &nbsp;店家：{{orderInfo[0].title.r_name}}
               </b-list-group-item>
               <b-list-group-item>
                 <font-awesome-icon icon="calendar-alt" />
-                &nbsp;訂單時間：{{OrderInfo[0].title.o_createtime}}
+                &nbsp;訂單時間：{{orderInfo[0].title.o_createtime}}
               </b-list-group-item>
               <b-list-group-item>
                 <font-awesome-icon icon="credit-card" />
-                &nbsp;總計：{{OrderInfo[0].title.o_total}}
+                &nbsp;總計：{{orderInfo[0].title.o_total}}
               </b-list-group-item>
             </b-card-body>
             <b-card-body>
@@ -242,15 +242,15 @@ export default {
   computed: {
     ...mapGetters({
       tokenInfo: "member/getTokenInfo",
-      MemberInfo: "member/getMemberInfo",
-      OrderInfo: "order/getOrderInfo"
+      memberInfo: "member/getMemberInfo",
+      orderInfo: "order/getOrderInfo"
     }),
-    confirm_password() {
+    confirmPassword() {
       return this.confirmPassword === this.passwordInfo.new_password
         ? true
         : false;
     },
-    check_oldAndnew_password() {
+    checkOldAndnewPassword() {
       return this.passwordInfo.new_password != this.passwordInfo.m_password
         ? true
         : false;
@@ -260,7 +260,7 @@ export default {
     toggle: function() {
       this.isShow = !this.isShow;
     },
-    UpdateProfile(e) {
+    updateProfile(e) {
       e.preventDefault();
       var updateProfile = {
         m_account: this.tokenInfo.account,
@@ -269,7 +269,7 @@ export default {
         m_email: this.$refs.form.email.value,
         m_address: this.$refs.form.address.value
       };
-      this.$store.dispatch("member/UpdateProfile", updateProfile).then(res => {
+      this.$store.dispatch("member/updateProfile", updateProfile).then(res => {
         this.isShow = !this.isShow;
         this.$bvToast.toast(res, {
           title: `Update Personal Information`,
@@ -286,7 +286,7 @@ export default {
     updatePassword() {
       this.passwordInfo.m_account = this.tokenInfo.account;
       this.$store
-        .dispatch("member/UpdatePassword", this.passwordInfo)
+        .dispatch("member/updatePassword", this.passwordInfo)
         .then(res => {
           this.$bvToast.toast(res, {
             title: `更新密碼成功`,
@@ -319,7 +319,7 @@ export default {
     uploadImage(e) {
       this.formData.append("files", e.target.files[0]);
       this.formData.append("uploadType", 2);
-      this.formData.append("id", this.MemberInfo.memberId);
+      this.formData.append("id", this.memberInfo.memberId);
       this.$store
         .dispatch("member/uploadUserImage", this.formData)
         .then(res => {
@@ -349,7 +349,7 @@ export default {
       } else {
         this.$store
           .dispatch("member/applyResAdmin", {
-            m_account: this.MemberInfo.m_account,
+            m_account: this.memberInfo.m_account,
             reason: this.reason
           })
           .then(res => {
@@ -374,14 +374,14 @@ export default {
           });
       }
     },
-    getImgUrl(Url) {
-      if (Url != undefined) {
+    getImgUrl(url) {
+      if (url != undefined) {
         var images = require.context(
           "../../../Back-End/File/UserImg/",
           false,
           /\.jpg$/
         );
-        return images("./" + Url + ".jpg");
+        return images("./" + url + ".jpg");
       }
       return "../assets/images/user.png";
     }

@@ -1,6 +1,6 @@
 <template>
   <div style="width:80%" class="mx-auto mt-3">
-    <b-table-simple small hover outlined v-for="(order,indexs) in OrderInfo" :key="indexs">
+    <b-table-simple small hover outlined v-for="(order,indexs) in orderInfo" :key="indexs">
       <b-thead class="thead-light">
         <b-tr class="text-center">
           <b-td colspan="5">{{order.title.orderId}}</b-td>
@@ -46,12 +46,9 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  data() {
-    return {};
-  },
   computed: {
     ...mapGetters({
-      OrderInfo: "order/getOrderInfo",
+      orderInfo: "order/getOrderInfo",
     })
   },
   methods: {

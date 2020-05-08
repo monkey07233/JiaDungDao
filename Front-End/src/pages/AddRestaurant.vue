@@ -64,8 +64,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      tokenInfo: "member/getTokenInfo",
-      MemberInfo: "member/getMemberInfo"
+      tokenInfo: "member/getTokenInfo"
     })
   },
   methods: {

@@ -43,16 +43,16 @@ import { mapGetters } from "vuex";
 export default {
   computed: {
     ...mapGetters({
-      applicationList: "getAppList"
+      applicationList: "member/getAppList"
     })
   },
   created() {
-    this.$store.dispatch("getAllApplication");
+    this.$store.dispatch("member/getAllApplication");
   },
   methods: {
     verifyApplication(pass, account) {
       this.$store
-        .dispatch("verifyApplication", {
+        .dispatch("member/verifyApplication", {
           pass: pass,
           account: account
         })
@@ -64,7 +64,7 @@ export default {
             autoHideDelay: 1000,
             appendToast: false
           });
-          this.$store.dispatch("getAllApplication");
+          this.$store.dispatch("member/getAllApplication");
         });
     }
   }

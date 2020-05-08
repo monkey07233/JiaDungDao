@@ -9,26 +9,21 @@ using Microsoft.AspNetCore.Http;
 
 namespace Back_End.Services {
     public class RestaurantService : IRestaurantService {
-        private readonly IRestaurantRepo RestaurantRepo;
+        private readonly IRestaurantRepo _restaurantRepo;
         public static IWebHostEnvironment _environment;
 
         public RestaurantService (IRestaurantRepo restaurantRepo, IWebHostEnvironment environment) {
-            this.RestaurantRepo = restaurantRepo;
+            this._restaurantRepo = restaurantRepo;
             _environment = environment;
         }
         public List<Restaurant> GetAllRestaurant () {
-            var result = RestaurantRepo.GetAllRestaurant ();
-            if (result != null) {
-                return result;
-            } else {
-                return null;
-            }
+            return _restaurantRepo.GetAllRestaurant ();
         }
 
-        public RestaurantAndMenu GetRestaurantInfoById (int Id) {
-            var restaurantResult = RestaurantRepo.GetRestaurantById (Id);
-            var menuTypeResult = RestaurantRepo.GetAllMenuTypeById (Id);
-            var menuResult = RestaurantRepo.GetAllMenuById (Id);
+        public RestaurantAndMenu GetRestaurantInfoById (int id) {
+            var restaurantResult = _restaurantRepo.GetRestaurantById (id);
+            var menuTypeResult = _restaurantRepo.GetAllMenuTypeById (id);
+            var menuResult = _restaurantRepo.GetAllMenuById (id);
             RestaurantAndMenu result = new RestaurantAndMenu ();
             result.restaurant = restaurantResult;
             List<TypeAndMenu> typeAndMenus = new List<TypeAndMenu> ();
@@ -48,56 +43,56 @@ namespace Back_End.Services {
             return result;
         }
 
-        public string updateRestaurant (Restaurant restaurant) {
-            var result = string.Empty;
-            var oldData = RestaurantRepo.GetRestaurantById (restaurant.RestaurantID);
+        public bool UpdateRestaurant (Restaurant restaurant) {
+            var oldData = _restaurantRepo.GetRestaurantById (restaurant.RestaurantID);
             if (oldData != null) {
-                result = RestaurantRepo.updateRestaurant (oldData, restaurant);
+                return _restaurantRepo.UpdateRestaurant (oldData, restaurant);
             }
-            return result;
+            return false;
         }
 
-        public int createRestaurant (Restaurant restaurant) {
-            var result = RestaurantRepo.createRestaurant (restaurant);
-            if (result == "successed") {
-                return RestaurantRepo.GetLatestRestaurantId ();
+        public int CreateRestaurant (Restaurant restaurant) {
+            var result = _restaurantRepo.CreateRestaurant (restaurant);
+            if (result) {
+                return _restaurantRepo.GetLatestRestaurantId ();
             }
             return 0;
         }
 
-        public int AddMenuItem (Menu newMenuItem) {
-            return RestaurantRepo.AddMenuItem (newMenuItem);
+        public bool AddMenuItem (Menu newMenuItem) {
+            var menu = _restaurantRepo.GetMenuByName (newMenuItem.RestaurantID, newMenuItem.m_item);
+            if (menu == null) {
+                return _restaurantRepo.AddMenuItem (newMenuItem);
+            }
+            return false;
         }
 
-        public bool DeleteMenu (int MenuID) {
-            var isSuccess = RestaurantRepo.DeleteMenu (MenuID);
-            return isSuccess;
+        public bool DeleteMenu (int menuID) {
+            return _restaurantRepo.DeleteMenu (menuID);
         }
 
-        public bool DeleteRestaurant (int RestaurantID) {
-            var isSuccess = RestaurantRepo.DeleteRestaurant (RestaurantID);
-            return isSuccess;
+        public async Task<bool> DeleteRestaurant (int restaurantID) {
+            return await _restaurantRepo.DeleteRestaurant (restaurantID);
         }
 
-        public string updateMenu (Menu menu) {
-            var result = RestaurantRepo.updateMenu (menu);
-            return result;
+        public bool UpdateMenu (Menu menu) {
+            return _restaurantRepo.UpdateMenu (menu);
         }
 
         public int GetLatestMenuId () {
-            return RestaurantRepo.GetLatestMenuId ();
+            return _restaurantRepo.GetLatestMenuId ();
         }
 
-        public bool DeleteRestaurantAllImg (int RestaurantID) {
+        public bool DeleteRestaurantAllImg (int restaurantID) {
             string restaurantPath = _environment.ContentRootPath + "\\File\\Restaurant\\";
             string menuPath = _environment.ContentRootPath + "\\File\\Menu\\";
             try {
-                string[] restaurantImg = Directory.GetFiles (restaurantPath, RestaurantID + ".jpg");
+                string[] restaurantImg = Directory.GetFiles (restaurantPath, restaurantID + ".jpg");
                 if (restaurantImg != null) {
                     foreach (var rImg in restaurantImg) {
                         System.IO.File.Delete (rImg);
                     }
-                    var allRestaurantMenu = RestaurantRepo.GetAllMenuById (RestaurantID);
+                    var allRestaurantMenu = _restaurantRepo.GetAllMenuById (restaurantID);
                     if (allRestaurantMenu != null && allRestaurantMenu.Count > 0) {
                         foreach (var menu in allRestaurantMenu) {
                             string[] menuImg = Directory.GetFiles (menuPath, menu.MenuID + ".jpg");
@@ -147,19 +142,19 @@ namespace Back_End.Services {
                 return e.Message.ToString ();
             }
         }
-      
-        public string DeleteMenuImg (int MenuID) {
+
+        public bool DeleteMenuImg (int menuID) {
             string path = _environment.ContentRootPath + "\\File\\Menu\\";
             try {
-                string[] menuImg = Directory.GetFiles (path, MenuID + ".jpg");
+                string[] menuImg = Directory.GetFiles (path, menuID + ".jpg");
                 if (menuImg != null) {
                     foreach (string img in menuImg) {
                         System.IO.File.Delete (img);
                     }
                 }
-                return "刪除照片成功";
+                return true;
             } catch (System.Exception e) {
-                return e.Message.ToString ();
+                return false;
             }
         }
     }

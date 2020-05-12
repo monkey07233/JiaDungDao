@@ -18,5 +18,6 @@ namespace Back_End.Interface {
         bool VerifyApplication (bool pass, Member updateMember);
         bool BlockMember (Member blockMember);
         List<Application> GetAllApplication ();
+        bool UnblockMember(Member blockMember);
     }
 }

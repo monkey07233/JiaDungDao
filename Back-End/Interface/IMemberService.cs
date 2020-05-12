@@ -24,5 +24,6 @@ namespace Back_End.Interface
          bool BlockMember(string m_account);
          List<Application> GetAllApplication();
          string CreateValidateCode ();
+         bool UnblockMember(string m_account);
     }
 }

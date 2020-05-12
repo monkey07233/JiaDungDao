@@ -153,5 +153,14 @@ namespace Back_End.Services {
             }
             return result;
         }
+
+        public bool UnblockMember(string m_account)
+        {
+            var blockMember = _memberRepo.GetMemberByAcc (m_account);
+            if (blockMember != null) {
+                return _memberRepo.UnblockMember (blockMember);
+            }
+            return false;
+        }
     }
 }

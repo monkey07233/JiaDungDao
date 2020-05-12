@@ -23,10 +23,14 @@
           <b-td class="align-middle">{{member.m_address}}</b-td>
           <b-td class="align-middle">{{member.m_role==0?"一般使用者":"餐廳管理者"}}</b-td>
           <b-td>
-            <b-button v-if="!member.isBlock" variant="danger" @click="blockMember(member.m_account)">
+            <b-button
+              v-if="!member.isBlock"
+              variant="danger"
+              @click="blockMember(member.m_account)"
+            >
               <font-awesome-icon icon="ban" style="margin-right:0.5em;" />封鎖
             </b-button>
-             <b-button v-else>
+            <b-button v-else @click="unblockMember(member.m_account)">
               <font-awesome-icon icon="ban" style="margin-right:0.5em;" />取消封鎖
             </b-button>
           </b-td>
@@ -44,8 +48,15 @@ export default {
     })
   },
   methods: {
-    blockMember(account){
-      this.$store.dispatch("member/blockMember",account);
+    blockMember(account) {
+      this.$store.dispatch("member/blockMember", account).then(res => {
+        this.$router.go(0);
+      });
+    },
+    unblockMember(account) {
+      this.$store.dispatch("member/unblockMember", account).then(res => {
+        this.$router.go(0);
+      });
     }
   },
   created() {

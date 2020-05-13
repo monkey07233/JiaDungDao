@@ -67,7 +67,11 @@ export default {
         axios
           .post("https://localhost:5001/api/Order/GetOrderInfo", order, config)
           .then(function(res) {
+            console.log(res.data);
             commit(types.GET_ORDER, res.data);
+            res.data.forEach(orderTitle => {
+              orderTitle.title.o_createtime = orderTitle.title.o_createtime.replace("T","  ")
+            });
             resolve(res.data);
           })
           .catch(function(err) {

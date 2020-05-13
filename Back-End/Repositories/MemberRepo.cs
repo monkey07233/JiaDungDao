@@ -132,5 +132,16 @@ namespace Back_End.Repositories {
                 return null;
             }
         }
+
+        public bool UnblockMember(Member blockMember)
+        {
+            try {
+                blockMember.isBlock = false;
+                db.SaveChanges ();
+                return true;
+            } catch (System.Exception) {
+                return false;
+            }
+        }
     }
 }

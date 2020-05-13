@@ -23,11 +23,11 @@ namespace Back_End.Controllers {
 
         [HttpPost]
         public IActionResult Register (Member member) {
-            member.validateCode = _memberService.CreateValidateCode();
+            member.validateCode = _memberService.CreateValidateCode ();
             var result = _memberService.Register (member);
             if (result == "successed") {
-                
-                _mailService.SendMail (member.m_email,  member.m_account, "呷午餐會員認證",_mailService.GetMailBody(member.m_account,"validate", member.validateCode));
+
+                _mailService.SendMail (member.m_email, member.m_account, "呷午餐會員認證", _mailService.GetMailBody (member.m_account, "validate", member.validateCode));
                 return Ok (result);
             } else {
                 return BadRequest (result);
@@ -36,7 +36,7 @@ namespace Back_End.Controllers {
 
         [HttpPost]
         public IActionResult VerifyAccount (MemberInfo memberInfo) {
-            var result = _memberService.VerifyAccount (memberInfo.m_account,memberInfo.validateCode);
+            var result = _memberService.VerifyAccount (memberInfo.m_account, memberInfo.validateCode);
             if (result == "Verified") {
                 return Ok (result);
             } else {
@@ -106,7 +106,7 @@ namespace Back_End.Controllers {
         public IActionResult SendResetPasswordMail (MemberInfo resetInfo) {
             var member = _memberService.GetMemberByAcc (resetInfo.m_account);
             if (member != null) {
-                bool result = _mailService.SendMail (resetInfo.m_email, member.m_account, "【呷午餐】重設密碼",_mailService.GetMailBody (member.m_account,"reset"));
+                bool result = _mailService.SendMail (resetInfo.m_email, member.m_account, "【呷午餐】重設密碼", _mailService.GetMailBody (member.m_account, "reset"));
                 if (result == true) {
                     return Ok ("寄送重設密碼連結信成功");
                 }
@@ -168,6 +168,16 @@ namespace Back_End.Controllers {
                 return Ok ("封鎖成功");
             }
             return BadRequest ("封鎖失敗");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult UnblockMember (string m_account) {
+            var result = _memberService.UnblockMember (m_account);
+            if (result) {
+                return Ok ("解除封鎖成功");
+            }
+            return BadRequest ("解除封鎖失敗");
         }
 
         [HttpGet]

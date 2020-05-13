@@ -278,21 +278,32 @@ export default {
       this.$store
         .dispatch("restaurant/updateRestaurant", restaurant)
         .then(res => {
-          this.formData.append("files", this.resImage);
-          this.formData.append("uploadType", 0);
-          this.formData.append("id", restaurant.RestaurantID);
-          this.$store
-            .dispatch("restaurant/uploadImage", this.formData)
-            .then(res => {
-              this.formData = new FormData();
-              this.$bvToast.toast("更新餐廳資訊成功", {
-                title: `successed`,
-                toaster: "b-toaster-top-center",
-                solid: true,
-                autoHideDelay: 1000,
-                appendToast: false
+          if (this.resImage != null && this.resImage != undefined) {
+            this.formData.append("files", this.resImage);
+            this.formData.append("uploadType", 0);
+            this.formData.append("id", restaurant.RestaurantID);
+            this.$store
+              .dispatch("restaurant/uploadImage", this.formData)
+              .then(res => {
+                this.formData = new FormData();
+                this.$bvToast.toast("更新餐廳資訊成功", {
+                  title: `successed`,
+                  toaster: "b-toaster-top-center",
+                  solid: true,
+                  autoHideDelay: 1000,
+                  appendToast: false
+                });
               });
+          } else {
+            this.formData = new FormData();
+            this.$bvToast.toast("更新餐廳資訊成功", {
+              title: `successed`,
+              toaster: "b-toaster-top-center",
+              solid: true,
+              autoHideDelay: 1000,
+              appendToast: false
             });
+          }
           this.$store.dispatch(
             "restaurant/getRestaurantInfo",
             this.$route.params.id
